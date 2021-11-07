@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="javax.servlet.jsp.jstl-1.2.5-b02-javadoc">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.5-b02-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

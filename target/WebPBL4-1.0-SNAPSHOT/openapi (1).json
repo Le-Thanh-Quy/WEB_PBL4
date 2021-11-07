@@ -1,0 +1,697 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Vietnam Provinces online API",
+        "version": "0.2.0"
+    },
+    "paths": {
+        "/api/": {
+            "get": {
+                "summary": "Show All Divisions",
+                "operationId": "show_all_divisions_api__get",
+                "parameters": [
+                    {
+                        "description": "2: show districts; 3: show wards",
+                        "required": false,
+                        "schema": {
+                            "title": "Show down to subdivisions",
+                            "maximum": 3.0,
+                            "minimum": 1.0,
+                            "type": "integer",
+                            "description": "2: show districts; 3: show wards",
+                            "default": 1
+                        },
+                        "name": "depth",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Show All Divisions Api  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProvinceResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/p/": {
+            "get": {
+                "summary": "List Provinces",
+                "operationId": "list_provinces_api_p__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response List Provinces Api P  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProvinceResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/p/search/": {
+            "get": {
+                "summary": "Search Provinces",
+                "operationId": "search_provinces_api_p_search__get",
+                "parameters": [
+                    {
+                        "description": "Follow [lunr](https://lunr.readthedocs.io/en/latest/usage.html#using-query-strings) syntax.",
+                        "required": true,
+                        "schema": {
+                            "title": "Query string for search",
+                            "type": "string",
+                            "description": "Follow [lunr](https://lunr.readthedocs.io/en/latest/usage.html#using-query-strings) syntax."
+                        },
+                        "example": "Hiền Hòa",
+                        "name": "q",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Search Provinces Api P Search  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SearchResult"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/p/{code}": {
+            "get": {
+                "summary": "Get Province",
+                "operationId": "get_province_api_p__code__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Code",
+                            "type": "integer"
+                        },
+                        "name": "code",
+                        "in": "path"
+                    },
+                    {
+                        "description": "2: show districts; 3: show wards",
+                        "required": false,
+                        "schema": {
+                            "title": "Show down to subdivisions",
+                            "maximum": 3.0,
+                            "minimum": 1.0,
+                            "type": "integer",
+                            "description": "2: show districts; 3: show wards",
+                            "default": 1
+                        },
+                        "name": "depth",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProvinceResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/d/": {
+            "get": {
+                "summary": "List Districts",
+                "operationId": "list_districts_api_d__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response List Districts Api D  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/District"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/d/search/": {
+            "get": {
+                "summary": "Search Districts",
+                "operationId": "search_districts_api_d_search__get",
+                "parameters": [
+                    {
+                        "description": "Follow [lunr](https://lunr.readthedocs.io/en/latest/usage.html#using-query-strings) syntax.",
+                        "required": true,
+                        "schema": {
+                            "title": "Query string for search",
+                            "type": "string",
+                            "description": "Follow [lunr](https://lunr.readthedocs.io/en/latest/usage.html#using-query-strings) syntax."
+                        },
+                        "example": "Hiền Hòa",
+                        "name": "q",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Province code to filter",
+                            "type": "integer"
+                        },
+                        "name": "p",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Search Districts Api D Search  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SearchResult"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/d/{code}": {
+            "get": {
+                "summary": "Get District",
+                "operationId": "get_district_api_d__code__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Code",
+                            "type": "integer"
+                        },
+                        "name": "code",
+                        "in": "path"
+                    },
+                    {
+                        "description": "2: show wards",
+                        "required": false,
+                        "schema": {
+                            "title": "Show down to subdivisions",
+                            "maximum": 2.0,
+                            "minimum": 1.0,
+                            "type": "integer",
+                            "description": "2: show wards",
+                            "default": 1
+                        },
+                        "name": "depth",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/District"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/w/": {
+            "get": {
+                "summary": "List Wards",
+                "operationId": "list_wards_api_w__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response List Wards Api W  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Ward"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/w/search/": {
+            "get": {
+                "summary": "Search Wards",
+                "operationId": "search_wards_api_w_search__get",
+                "parameters": [
+                    {
+                        "description": "Follow [lunr](https://lunr.readthedocs.io/en/latest/usage.html#using-query-strings) syntax.",
+                        "required": true,
+                        "schema": {
+                            "title": "Query string for search",
+                            "type": "string",
+                            "description": "Follow [lunr](https://lunr.readthedocs.io/en/latest/usage.html#using-query-strings) syntax."
+                        },
+                        "example": "Hiền Hòa",
+                        "name": "q",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "District code to filter",
+                            "type": "integer"
+                        },
+                        "name": "d",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Province code to filter, ignored if district is given",
+                            "type": "integer"
+                        },
+                        "name": "p",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Search Wards Api W Search  Get",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SearchResult"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/w/{code}": {
+            "get": {
+                "summary": "Get Ward",
+                "operationId": "get_ward_api_w__code__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Code",
+                            "type": "integer"
+                        },
+                        "name": "code",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Ward"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "District": {
+                "title": "District",
+                "required": [
+                    "name",
+                    "code",
+                    "division_type",
+                    "codename",
+                    "province_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "title": "Code",
+                        "type": "integer"
+                    },
+                    "division_type": {
+                        "$ref": "#/components/schemas/VietNamDivisionType"
+                    },
+                    "codename": {
+                        "title": "Codename",
+                        "type": "string"
+                    },
+                    "province_code": {
+                        "title": "Province Code",
+                        "type": "integer"
+                    },
+                    "wards": {
+                        "title": "Wards",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Ward"
+                        },
+                        "default": []
+                    }
+                },
+                "example": {
+                    "name": "Quận Ba Đình",
+                    "code": 1,
+                    "division_type": "quận",
+                    "codename": "quan_ba_dinh",
+                    "province_code": 1,
+                    "wards": [
+                        {
+                            "name": "Phường Phúc Xá",
+                            "code": 1,
+                            "division_type": "phường",
+                            "codename": "phuong_phuc_xa",
+                            "district_code": 1
+                        }
+                    ]
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        }
+                    }
+                }
+            },
+            "ProvinceResponse": {
+                "title": "ProvinceResponse",
+                "required": [
+                    "name",
+                    "code",
+                    "division_type",
+                    "codename",
+                    "phone_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "title": "Code",
+                        "type": "integer"
+                    },
+                    "division_type": {
+                        "$ref": "#/components/schemas/VietNamDivisionType"
+                    },
+                    "codename": {
+                        "title": "Codename",
+                        "type": "string"
+                    },
+                    "phone_code": {
+                        "title": "Phone Code",
+                        "type": "integer"
+                    },
+                    "districts": {
+                        "title": "Districts",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/District"
+                        },
+                        "default": []
+                    }
+                },
+                "example": {
+                    "name": "Thành phố Hà Nội",
+                    "code": 1,
+                    "division_type": "thành phố trung ương",
+                    "codename": "thanh_pho_ha_noi",
+                    "phone_code": 24,
+                    "districts": [
+                        {
+                            "name": "Quận Ba Đình",
+                            "code": 1,
+                            "division_type": "quận",
+                            "codename": "quan_ba_dinh",
+                            "province_code": 1,
+                            "wards": [
+                                {
+                                    "name": "Phường Phúc Xá",
+                                    "code": 1,
+                                    "division_type": "phường",
+                                    "codename": "phuong_phuc_xa",
+                                    "district_code": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "SearchResult": {
+                "title": "SearchResult",
+                "required": [
+                    "name",
+                    "code"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "title": "Code",
+                        "type": "integer"
+                    },
+                    "matches": {
+                        "title": "Matched words and their positions in name.",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "description": "This info can help client side highlight the result in display.",
+                        "default": {}
+                    }
+                },
+                "example": {
+                    "name": "Thị xã Phú Mỹ",
+                    "code": 754,
+                    "matches": {
+                        "mỹ": [
+                            11,
+                            13
+                        ]
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "msg": {
+                        "title": "Message",
+                        "type": "string"
+                    },
+                    "type": {
+                        "title": "Error Type",
+                        "type": "string"
+                    }
+                }
+            },
+            "VietNamDivisionType": {
+                "title": "VietNamDivisionType",
+                "enum": [
+                    "tỉnh",
+                    "thành phố trung ương",
+                    "huyện",
+                    "quận",
+                    "thành phố",
+                    "thị xã",
+                    "xã",
+                    "thị trấn",
+                    "phường"
+                ],
+                "type": "string",
+                "description": "An enumeration."
+            },
+            "Ward": {
+                "title": "Ward",
+                "required": [
+                    "name",
+                    "code",
+                    "division_type",
+                    "codename",
+                    "district_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "code": {
+                        "title": "Code",
+                        "type": "integer"
+                    },
+                    "division_type": {
+                        "$ref": "#/components/schemas/VietNamDivisionType"
+                    },
+                    "codename": {
+                        "title": "Codename",
+                        "type": "string"
+                    },
+                    "district_code": {
+                        "title": "District Code",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "name": "Phường Phúc Xá",
+                    "code": 1,
+                    "division_type": "phường",
+                    "codename": "phuong_phuc_xa",
+                    "district_code": 1
+                }
+            }
+        }
+    }
+}

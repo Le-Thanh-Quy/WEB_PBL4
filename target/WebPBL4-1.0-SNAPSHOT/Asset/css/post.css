@@ -1,0 +1,119 @@
+.framePost {
+    margin-top: 100px;
+}
+
+.title h1 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 100px;
+}
+
+.post {
+    display: flex;
+    background-color: rgb(237, 240, 241);
+    margin: 50px auto;
+    width: 85%;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.post-img {
+    width: 500px;
+    height: 380px;
+    display: block;
+    border-radius: 20px 0px 0px 20px;
+    margin-right: 70px;
+}
+
+.post:hover {
+    background-color: rgb(220, 223, 224);
+    width: 88%;
+    height: 120%;
+}
+
+.post-main {
+    width: 100%;
+    position: relative;
+    padding-top: 15px;
+}
+
+.post-main h1 {
+    margin-top: 10px!important;
+    margin: 0px;
+    color: rgb(170, 109, 16);
+    font-weight: 800;
+}
+
+.post-main h5 {
+    margin-top: 10px!important;
+    margin: 0px;
+    color: rgb(134, 133, 133);
+    font-weight: 600;
+}
+
+.post .rate {
+    position: absolute;
+    display: flex;
+    right: 15px;
+    top: 15px;
+    list-style: none;
+    margin-right: 30px;
+}
+
+.post .rate li {
+    margin-right: 2px;
+}
+
+.info {
+    position: relative;
+    width: 70%;
+    margin: 10px auto;
+}
+
+.end-info {
+    position: absolute;
+    right: 0;
+}
+
+.start-info {
+    position: absolute;
+}
+.time-info {
+    position: absolute;
+    left: 40%;
+}
+.time-info p,h3{
+    position: static;
+}
+.time-info p{
+    margin: 0px;
+}
+
+.address {
+    list-style: none;
+    padding: 0;
+}
+
+.status {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10%;
+    margin-left: 15%;
+}
+
+.post-button {
+    position: absolute;
+    display: flex;
+    right: 15px;
+    bottom: 0px;
+    list-style: none;
+}
+
+.post-button a {
+    margin: 30px;
+    text-decoration: none;
+}
+
+.fa-star::before{
+    color: rgb(124, 124, 123);
+}

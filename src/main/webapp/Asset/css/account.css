@@ -1,0 +1,189 @@
+.avatar {
+    position: relative;
+    vertical-align: bottom;
+    background-color: #fff;
+    max-width: 35px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 50%;
+}
+
+.avatar_menu:hover {
+    padding-bottom: 80px;
+}
+
+.menu_logout {
+    position: absolute;
+    display: none;
+    margin-top: 5px;
+    right: 6%;
+    width: 200px;
+    background-color: rgb(216, 215, 215)!important;
+    height: 100px;
+    z-index: 1;
+    box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animate_menu;
+    -webkit-animation-duration: 1;
+    animation-name: animate_menu;
+    animation-duration: 1.2s
+}
+
+@-webkit-keyframes animate_menu {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animate_menu {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.menu_model {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background-color: rgb(216, 215, 215);
+    margin-left: 55%;
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.menu_info {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.menu_info ul, .menu_info ul li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu_info ul li {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 15px;
+    transition: all 0.5s;
+}
+
+.menu_info ul li:hover {
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    color: rgb(92, 92, 92);
+}
+
+.frameInfo {
+    width: 100%;
+    height: 60%;
+    position: relative;
+    background: rgb(238, 236, 236);
+}
+
+.frameInfo-1 {
+    background-image: url(../img/logo/heading-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 70%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.Info-Avatar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+
+.Info-Avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid rgb(218, 218, 218);
+}
+
+.frameInfo-2 {
+    text-align: center;
+    color: rgb(54, 11, 49);
+}
+
+.task-Info {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 50%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-Info p {
+    width: 50%;
+    margin: 0;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+.task-Info p:hover {
+    background: rgb(228, 226, 226);
+    cursor: pointer;
+}
+
+.active-info {
+    border-bottom: 3px solid hsl(214deg 89% 59%);
+    color: hsl(214deg 89% 59%);
+}
+
+.frameDetalInfo {
+    position: relative;
+    background-color: rgb(255, 254, 254);
+    width: 50%;
+    height: 30%;
+    margin: 30px auto;
+    border-radius: 5px;
+    border: 1px solid rgb(212, 212, 212);
+}
+
+.rate-info {
+    display: flex;
+    list-style: none;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.rate-info p {
+    margin: 0;
+    margin-right: 10px;
+}
+
+.rate-info li {
+    margin-right: 4px;
+}
+
+.detal-info {
+    width: 70%;
+    margin: 12% auto;
+}
+
+.iconDetalInfo {
+    width: 16px!important;
+}
+

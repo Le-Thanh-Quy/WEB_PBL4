@@ -1,0 +1,255 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 1000px;
+    background: rgb(245, 243, 243);
+    font-family: Verdana, sans-serif;
+}
+
+#icon {
+    background-image: url(../img/icon/addT.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    min-width: 20px;
+    text-align: center;
+    margin-right: 12px;
+}
+
+header {
+    top: 0;
+    width: 100%;
+    position: fixed;
+    border-bottom: 1px solid rgb(167, 167, 167);
+    height: 0%;
+    transition: all 0.5s;
+    z-index: 100;
+}
+
+.nav {
+    width: 85%;
+    margin: 0 auto;
+    padding-top: 25px;
+}
+
+.nav img {
+    width: 120px;
+}
+
+.nav ul {
+    display: flex;
+    list-style: none;
+    float: right;
+    margin: auto auto;
+}
+
+.nav ul li a {
+    font-weight: 100;
+    color: rgb(233, 252, 250);
+    margin-left: 55px;
+    text-decoration: none;
+    font-size: 0px;
+    transition: all 0.3s;
+    height: 32px;
+    line-height: 32px;
+}
+
+.nav ul li a:hover {
+    color: rgb(202, 129, 19)!important;
+    font-size: 115%!important;
+    cursor: pointer;
+}
+
+.btnAdd {
+    display: flex;
+    background-color: rgb(224, 224, 224);
+    padding: 0px 30px;
+    border: 2.5px solid rgb(104, 104, 104);
+    border-radius: 10px;
+    text-size-adjust: 10px;
+}
+
+.btnAdd:hover {
+    background-color: #ececec!important;
+    cursor: pointer;
+}
+
+#active {
+    color: #8d99af!important;
+}
+
+/* search */
+
+.frameSearch {
+    background-image: url(../img/banner-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 72%;
+    text-align: center;
+}
+
+.search-lable {
+    padding-top: 15%;
+    font-size: 150%;
+    color: #fff;
+}
+
+.search-lable h1 {
+    font-weight: 800;
+    margin-bottom: 40px;
+    margin-top: 0px;
+}
+
+.search-lable h5 {
+    margin: 10px;
+}
+
+
+/* search box */
+
+.search-input {
+    width: 77%;
+    border-radius: 10px;
+    margin: 0 auto;
+    height: 70px;
+    background-color: #fff;
+}
+
+.search-input select {
+    color: rgb(88, 88, 88);
+    font-size: 16px;
+    border: none;
+    height: 100%;
+    width: 20%;
+    float: left;
+    border-radius: 10px;
+    outline: none;
+    padding-left: 3%;
+}
+
+.search-input select:hover {
+    color: rgb(0, 0, 0)!important;
+    background-color: rgb(236, 235, 235);
+    cursor: pointer;
+}
+
+.search-input select * {
+    background-color: rgb(234, 234, 240);
+    color: rgb(0, 0, 0);
+}
+
+.fa-search {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 10px;
+    color: rgb(167, 167, 168);
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.search-input button {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    border: none;
+    border-end-end-radius: 10px;
+    border-start-end-radius: 10px;
+    height: 100%;
+    width: 20%;
+    background-color: #8d99af;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.search-input button:hover {
+    background-color: #576a8b!important;
+}
+
+
+
+/* load css */
+
+.formLoader {
+    overflow: hidden;
+    height: 50px;
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+}
+
+#loadPost {
+    display: none;
+}
+
+.formLoader ul {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
+    margin: 0;
+}
+
+@keyframes preload {
+    0% {
+        background: #ed7c00;
+        opacity: 1
+    }
+    50% {
+        background: #fff;
+        opacity: 0.5
+    }
+    100% {
+        background: #ed7c00;
+        opacity: 1
+    }
+}
+
+.formLoader .formLoading {
+    display: block;
+    height: 14px;
+    margin: 0 auto;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+    position: absolute;
+    width: 100%;
+    padding: 0;
+}
+
+.formLoader .formLoading li {
+    background: #fff;
+    opacity: 0.5;
+    display: block;
+    float: left;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #ed7c00;
+    line-height: 12px;
+    padding: 0;
+    position: relative;
+    margin: 0 0 0 4px;
+    animation: preload 1s infinite;
+    top: -50%;
+    border-radius: 50%;
+}
+
+.formLoader .formLoading li:first-child {
+    margin-left: 0
+}
+
+.formLoader .formLoading li:nth-child(2) {
+    animation-delay: .15s
+}
+
+.formLoader .formLoading li:nth-child(3) {
+    animation-delay: .3s
+}
+
+.formLoader.formLoader-complete {
+    opacity: 0;
+    visibility: hidden;
+    transition-duration: 1s
+}
