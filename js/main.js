@@ -277,6 +277,7 @@ window.onclick = function (event) {
     var modal = document.getElementById("myModal");
     var modal1 = document.getElementById("myModal-login");
     var modal2 = document.getElementById("myModal-signup");
+    var modalpost = document.getElementById("myModal-newPost");
     var selectTinh;
     if (SorE == 0) {
         selectTinh = document.getElementById("selectTinhS");
@@ -291,6 +292,9 @@ window.onclick = function (event) {
         modal1.style.display = "none";
     } else if (event.target == modal2) {
         modal2.style.display = "none";
+    }
+    else if (event.target == modalpost) {
+        modalpost.style.display = "none";
     }
 }
 

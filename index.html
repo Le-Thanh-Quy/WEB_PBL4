@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/dialog.css">
     <script src="js/main.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/newpost.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
@@ -20,13 +21,13 @@
         <div class="nav" id="nav">
             <img id="logo" src="./img/white-logo.png" alt="">
             <ul>
-                
+
                 <li><a class="tab" id="active" href="index.html">Trang Chủ</a></li>
                 <li><a class="tab" href="">Liên Hệ</a></li>
-                <li><a class="tab" href="">Đăng Nhập|Đăng Ký</a></li> 
+                <li><a class="tab" href="">Đăng Nhập|Đăng Ký</a></li>
                 <li>
-                    <a class="btnAdd" onmouseover="btnAddH()" onmouseleave="btnAddL()"
-                        style="color: black;"><i id="icon"></i> Tạo Tin</a>
+                    <a class="btnAdd" onmouseover="btnAddH()" onmouseleave="btnAddL()" style="color: black;"
+                        onclick="newPost()"><i id="icon"></i> Tạo Tin</a>
                 </li>
             </ul>
         </div>
@@ -81,7 +82,6 @@
                 <option value="20:00 - 02:00">20:00 - 22:00</option>
                 <option value="21:00 - 02:00">21:00 - 23:00</option>
                 <option value="22:00 - 02:00">22:00 - 00:00</option>
-                <option value="23:00 - 02:00">23:00 - 01:00</option>
             </select>
             <select>
                 <option selected>Ngày khởi hành</option>
@@ -369,39 +369,124 @@
 
     <div id="myModal-login" class="modal-login">
         <div class="modal-content-login">
-            <div class="modal-header">
-                <span class="close" onclick="Close()">&times;</span>
-                <h2>SIGN IN</h2>
-            </div>
+            <span class="close" onclick="Close()">&times;</span>
             <div class="modal-body-login">
                 <img src="./img/test/black-logo.png" alt="">
                 <form action="">
-                    <input id="user_txt" onblur="UserBlur()" type="text" name="user_txt" value="" placeholder="User Name">
-                    <input id="pass_txt" onblur="PassBlur()" type="password" name="pass_txt" value="" placeholder="Password">
+                    <input id="user_txt" onblur="UserBlur()" type="text" name="user_txt" value=""
+                        placeholder="User Name">
+                    <input id="pass_txt" onblur="PassBlur()" type="password" name="pass_txt" value=""
+                        placeholder="Password">
                     <i class="fas fa-eye" id="hide_show" onclick="HideShow()"></i>
                     <button>SIGN IN</button>
                 </form>
-                <p>Don’t have an account?<a class="btnRegister" onclick="Signup()" > Sign Up</a></p>
+                <p>Don’t have an account?<a class="btnRegister" onclick="Signup()"> Sign Up</a></p>
 
             </div>
         </div>
     </div>
     <div id="myModal-signup" class="modal-signup">
         <div class="modal-content-signup">
-            <div class="modal-header">
-                <span class="close" onclick="Close()">&times;</span>
-                <h2>SIGN UP</h2>
-            </div>
+            <span class="close" onclick="Close()">&times;</span>
             <div class="modal-body-signup">
                 <img src="./img/test/black-logo.png" alt="">
                 <form action="">
-                    <input id="user_txt" onblur="UserBlur()" type="text" name="user_txt" value="" placeholder="User Name">
-                    <input id="pass_txt_signup" onblur="PassBlur()" type="password" name="pass_txt" value="" placeholder="Password">
+                    <input id="user_txt" onblur="UserBlur()" type="text" name="user_txt" value=""
+                        placeholder="User Name">
+                    <input id="pass_txt_signup" onblur="PassBlur()" type="password" name="pass_txt" value=""
+                        placeholder="Password">
                     <i class="fas fa-eye" id="hide_show_signup" onclick="HideShowSignUp()"></i>
-                    <input id="rpass_txt" onblur="RPassBlur()" type="password" name="rpass_txt" value="" placeholder="Repeat Password">
+                    <input id="rpass_txt" onblur="RPassBlur()" type="password" name="rpass_txt" value=""
+                        placeholder="Confirm Password">
                     <i class="fas fa-eye" id="hide_showr" onclick="HideShowR()"></i>
-                    <button >SIGN UP</button>
-                    <p>If you have an account?Just<a class="btnRegister" onclick="Signup()" > Sign In</a></p>
+                    <button>SIGN UP</button>
+                    <p>If you have an account?Just<a class="btnRegister" onclick="Signup()"> Sign In</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal-newPost" class="modal-newPost">
+        <div class="modal-content-newPost">
+            <span class="close" onclick="ClosePost()">&times;</span>
+            <div class="modal-body-newPost">
+                <form action="">
+                    <h3 class="title-newPost">Tạo bài viết</h3>
+                    <hr>
+                    <div class="avatar-newPost">
+                        <img src="img/test/lethanhquy.jpg" alt="">
+                        <h4>Lê Thanh Quý</h4>
+                    </div>
+                    <div class="description-newPost">
+                        <textarea name="" id="" cols="32" rows="5"></textarea>
+                        <div class="img-newPost">
+                            <p><i class="fas fa-images" style="font-size: 25px;"></i> Thêm ảnh</p>
+                            <img src="" alt="" id="out_img-newPost">
+                            <input type="file" accept="image/*" onchange="loadFile(event)">
+                        </div>
+
+                    </div>
+
+                    <div class="start-newPost">
+                        <label>Điểm khởi hành</label>
+                        <select name="" id="">
+                            <option value="">Tỉnh/Thành Phố</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">Quận/Huyện</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">Xã/Phường</option>
+                        </select>
+                    </div>
+                    <div class="start-newPost">
+                        <label>Điểm đến</label>
+                        <select name="" id="">
+                            <option value="">Tỉnh/Thành Phố</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">Quận/Huyện</option>
+                        </select>
+                        <select name="" id="">
+                            <option value="">Xã/Phường</option>
+                        </select>
+                    </div>
+                    <div class="time-newPost">
+                        <div class="date-newPost">
+                            <label>Ngày khởi hành</label>
+                            <input type="date" id="" name="" value="2018-07-22" min="2021-01-01" max="2100-01-01">
+                        </div>
+                        <select>
+                            <option selected>Thời gian khởi hành</option>
+                            <option value="00:00 - 02:00">00:00 - 02:00</option>
+                            <option value="01:00 - 02:00">01:00 - 03:00</option>
+                            <option value="02:00 - 02:00">02:00 - 04:00</option>
+                            <option value="03:00 - 02:00">03:00 - 05:00</option>
+                            <option value="04:00 - 02:00">04:00 - 06:00</option>
+                            <option value="05:00 - 02:00">05:00 - 07:00</option>
+                            <option value="06:00 - 02:00">06:00 - 08:00</option>
+                            <option value="07:00 - 02:00">07:00 - 09:00</option>
+                            <option value="08:00 - 02:00">08:00 - 10:00</option>
+                            <option value="09:00 - 02:00">09:00 - 11:00</option>
+                            <option value="10:00 - 02:00">10:00 - 12:00</option>
+                            <option value="11:00 - 02:00">11:00 - 13:00</option>
+                            <option value="12:00 - 02:00">12:00 - 14:00</option>
+                            <option value="13:00 - 02:00">13:00 - 15:00</option>
+                            <option value="14:00 - 02:00">14:00 - 16:00</option>
+                            <option value="15:00 - 02:00">15:00 - 17:00</option>
+                            <option value="16:00 - 02:00">16:00 - 18:00</option>
+                            <option value="17:00 - 02:00">17:00 - 19:00</option>
+                            <option value="18:00 - 02:00">18:00 - 20:00</option>
+                            <option value="19:00 - 02:00">19:00 - 21:00</option>
+                            <option value="20:00 - 02:00">20:00 - 22:00</option>
+                            <option value="21:00 - 02:00">21:00 - 23:00</option>
+                            <option value="22:00 - 02:00">22:00 - 00:00</option>
+                        </select>
+                        <div class="time-newPost-submit">
+                            <input type="submit" value="Đăng bài">
+                        </div>
+
+                    </div>
                 </form>
             </div>
         </div>

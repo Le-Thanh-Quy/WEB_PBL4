@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="modal">
+        <form action="">
+            <div class="avatarFrame">
+                <img src="img/logo_user.png" alt="" id="">
+                <div class="chooseIMGFrame">
+    
+                    <i class="fas fa-camera"></i>
+                    <input id="chooseIMG" class="chooseIMG" type="file" accept="image/*" onchange="loadFile(event)">
+                </div>
+            </div>
+            <ul>
+                <li> <label>Họ tên</label>
+                    <input name="name" type="text" maxlength="35">
+                </li>
+                <li><label>Ngày sinh</label>
+                    <input type="date" value="2000-01-01">
+                </li>
+                <li><label>Số điện thoại</label>
+                    <input type="number" maxlength="12"> 
+                </li>
+                <li><label>Địa chỉ</label> 
+                    <select>
+                        <option selected>Tỉnh/Thành Phố</option>
+                    </select>
+                </li>
+                <li>
+                    <label></label> 
+                    <select>
+                        <option selected>Quận/Huyện</option>
+                    </select>
+                </li>
+                <li><label></label>  
+                    <select>
+                    <option selected>Xã/Phường</option>
+                </select></li>
+                <li><label>Mô tả</label> </li>
+                <li><textarea name="" id="" cols="30" rows="4"></textarea></li>
+                <li><button type="submit">Xác nhận đăng ký</button></li>
+    
+            </ul>
+
+            
+        </form>
+    </div>
+
+
+
+</body>
+
+</html>

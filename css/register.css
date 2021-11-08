@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    background-image: url(../img/banner-bg.jpg);
+    height: 100%;
+    background-repeat: no-repeat
+}
+
+.modal {
+    position: relative;
+    width: 40%;
+    margin: 2% auto;
+    background-color: rgba(255, 255, 255, 0.842);
+    padding-top: 1%;
+    border-radius: 7px;
+}
+
+.modal ul {
+    display: block;
+    list-style: none;
+    margin: 0 auto;
+}
+
+.modal ul li {
+    width: 63%;
+    display: flex;
+    margin: 2% auto;
+}
+
+.modal ul li label {
+    width: 43%!important;
+    font-size: 20px;
+}
+
+.modal ul li select {
+    width: 72%!important;
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.modal ul li input {
+    width: 70%!important;
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.modal ul li input[type=date] {
+    width: 70%!important;
+    padding: 1%;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.modal ul li textarea {
+    width: 100%!important;
+    padding: 1%;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.modal ul li button {
+    width: 50%!important;
+    padding: 1%;
+    margin: 0 auto;
+    margin-top: 3%;
+    margin-bottom: 7%;
+    border-radius: 7px;
+    font-size: 16px;
+    background-color: #8d99af;
+    color: rgb(255, 255, 255);
+}
+
+.modal ul li button:hover {
+    background-color: #576a8b!important;
+    cursor: pointer;
+}
+
+.avatarFrame {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    background-color: rgb(253, 253, 253);
+    border-radius: 50%;
+    border: 3px solid rgb(253, 253, 253);
+    padding: 0;
+}
+
+.avatarFrame img {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+}
+
+.chooseIMGFrame {
+    position: absolute;
+    width: 22%;
+    height: 22%;
+    right: 6%;
+    bottom: 6%;
+    border-radius: 50%;
+    background-color: rgb(216, 216, 216);
+    border: 1px solid white;
+}
+
+.chooseIMGFrame i {
+    position: absolute;
+    left: 21%;
+    top: 21%;
+}
+
+.fa-camera {
+    font-size: 25px;
+}
+
+.chooseIMG {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    font-size: 0px;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: 50%;
+}
+
+::-webkit-file-upload-button {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+}
