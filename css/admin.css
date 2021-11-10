@@ -28,12 +28,12 @@ body {
 .menu .logo {
     border-bottom: 1px solid #6a6d70;
     width: 100%;
-    padding: 4% 0 4% 0;
+    padding: 3% 0 3% 0;
     padding-left: 6%;
 }
 
 .menu .logo img {
-    width: 55%;
+    width: 45%;
 }
 
 .info {
@@ -65,7 +65,7 @@ body {
 
 .info-img i {
     cursor: pointer;
-    padding-left: 30%;
+    padding-left: 44%;
     height: 50px;
     line-height: 50px;
     color: white;
@@ -138,12 +138,16 @@ body {
 .main .task p {
     font-size: 16px;
     margin-left: 1%;
+    margin-top: 1.8%;
     color: #9da0a3;
 }
 
 .fa-bars {
     font-size: 130%;
-    margin: 15px;
+    margin: 1.8%;
+    margin-right: 0.5%;
+    margin-left: 1%;
+
     color: #6a6d70;
     cursor: pointer;
 }
@@ -205,6 +209,6 @@ body {
 .fa-comments{
     position: absolute;
     right: 0;
-    margin: 1%;
+    margin: 1.6%;
     margin-right: 2%;
 }
