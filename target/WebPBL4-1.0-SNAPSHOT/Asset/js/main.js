@@ -40,7 +40,7 @@ window.onscroll = function scroll() {
     } else {
         header.style.backgroundColor = "transparent";
         header.style.height = "13%";
-        logo.src = './Asset/img/white-logo.png';
+        logo.src = ' ./Asset/img/white-logo.png';
         for (let index = 0; index < text.length; index++) {
             text[index].style.color = "white";
             text[index].style.fontSize = "18px";
@@ -57,7 +57,9 @@ window.onscroll = function scroll() {
     if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1) {
         var loadPost = document.getElementById("loadPost");
         if (check) {
-            loadPost.style.display = "block";
+            if(loadPost != null){
+                loadPost.style.display = "block";
+            }
             check = false;
             setTimeout(LoadPost, 4000);
         }
@@ -187,6 +189,17 @@ window.onload = function Load() {
     for (let index = 0; index < text.length; index++) {
         text[index].style.fontSize = "18px";
     }
+}
+
+function MenuOn() {
+    var menu = document.getElementById("menu_logout");
+    menu.style.display = "block";
+
+}
+
+function MenuOff() {
+    var menu = document.getElementById("menu_logout");
+    menu.style.display = "none";
 }
 
 

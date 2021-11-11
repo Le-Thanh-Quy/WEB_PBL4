@@ -1,4 +1,8 @@
 body {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -50,7 +54,7 @@ header {
     margin-left: 55px;
     text-decoration: none;
     font-size: 0px;
-    transition: all 0.3s;
+    transition: all 0.4s;
     height: 32px;
     line-height: 32px;
 }
@@ -252,4 +256,86 @@ header {
     opacity: 0;
     visibility: hidden;
     transition-duration: 1s
+}
+
+.menu_logout_H {
+    position: absolute;
+    display: none;
+    margin-top: 5px;
+    right: 20%;
+    width: 150px;
+    background-color: rgb(216, 215, 215)!important;
+    height: 50px;
+    z-index: 1;
+    box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animate_menu;
+    -webkit-animation-duration: 1s;
+    animation-name: animate_menu;
+    animation-duration: 1.2s
+}
+
+@-webkit-keyframes animate_menu {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animate_menu {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.menu_model_H {
+    position: absolute;
+    width: 20px;
+    height: 70px;
+    background-color: rgb(216, 215, 215);
+    top: -35%;
+    margin-left: 55%;
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.menu_info_H {
+    position: relative;
+    height: 100%;
+    width: 150px;
+    margin: 0;
+}
+.menu_info_H a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+    width: 150px;
+}
+
+.menu_info_H ul, .menu_info_H ul li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu_info_H ul li {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 20%;
+    transition: all 0.5s;
+}
+
+.menu_info_H ul li:hover {
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    color: rgb(92, 92, 92);
+}
+
+.avatar_menu:hover {
+    padding-bottom: 80px;
 }

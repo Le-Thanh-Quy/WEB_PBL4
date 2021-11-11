@@ -699,3 +699,21 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+.notification{
+    display: none;
+    z-index: 1000000000;
+    position: fixed;
+    height: 8%;
+    width: 30%;
+    top: 85%;
+    left: 35%;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+}
+.notification p{
+    color: #ebebec;
+    text-align: center;
+    height: 100%;
+    line-height: 180%;
+}

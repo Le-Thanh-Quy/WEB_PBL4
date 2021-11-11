@@ -9,32 +9,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Chủ</title>
-    <link rel="stylesheet" href="Asset/css/main.css">
-    <link rel="stylesheet" href="Asset/css/post.css">
-    <link rel="stylesheet" href="Asset/css/footer.css">
-    <link rel="stylesheet" href="Asset/css/dialog.css">
-    <script src="Asset/js/main.js"></script>
-    <script src="Asset/js/login.js"></script>
-    <script src="Asset/js/xulyForm.js"></script>
-    <script src="Asset/js/newpost.js"></script>
-    <script src="Asset/js/xulylogin.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/post.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/footer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dialog.css">
+    <script src="${pageContext.request.contextPath}/Asset/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/Asset/js/login.js"></script>
+    <script src="${pageContext.request.contextPath}/Asset/js/xulyForm.js"></script>
+    <script src="${pageContext.request.contextPath}/Asset/js/newpost.js"></script>
+    <script src="${pageContext.request.contextPath}/Asset/js/xulylogin.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
 <body>
 <header id="menu">
     <div class="nav" id="nav">
-        <img id="logo" src="./Asset/img/white-logo.png" alt="">
+        <img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt="">
         <ul>
-
             <li><a class="tab" id="active" href="index.jsp">Trang Chủ</a></li>
             <li><a class="tab" href="">Liên Hệ</a></li>
-            <li><a class="tab" onclick="OpenLogin()">Đăng Nhập|Đăng Ký</a></li>
+            <li><a
+                <c:if test="${logged == true}">
+                    class="tab avatar_menu"
+                    href = "${pageContext.request.contextPath}/account"
+                    onmouseover="MenuOn()" onmouseleave="MenuOff()"
+                    </c:if>
+                    <c:if test="${logged == false}">
+                        class="tab"
+                        onclick="OpenLogin()"
+                    </c:if>
+
+                   >${user}</a></li>
             <li>
                 <a class="btnAdd" onmouseover="btnAddH()" onmouseleave="btnAddL()" onclick="newPost()"
                    style="color: black;"><i id="icon"></i> Tạo Tin</a>
             </li>
         </ul>
+        <div class="menu_logout_H" id="menu_logout" onmouseover="MenuOn()" onmouseleave="MenuOff()">
+            <div class="menu_model_H">
+            </div>
+            <div class="menu_info_H">
+                <ul>
+                    <a href="${pageContext.request.contextPath}/logout"><li>Đăng Xuất</li></a>
+                </ul>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -107,7 +126,7 @@
     </div>
     <div class="list-post" id="list-post">
         <div class="post">
-            <img class="post-img" src="./Asset/img/logo/listing-01.jpg" alt="">
+            <img class="post-img" src="${pageContext.request.contextPath}/Asset/img/logo/listing-01.jpg" alt="">
 
             <div class="post-main">
                 <h1>Lê Thanh Quý</h1>
@@ -151,7 +170,7 @@
                     <p><i class="far fa-clipboard"></i> Bao uy tín</p>
                 </div>
                 <div class="post-button">
-                    <a href=""><i class="far fa-thumbs-up"></i> Thích </a>
+                    <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
                     <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
                     <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                 </div>
@@ -159,7 +178,7 @@
         </div>
 
         <div class="post">
-            <img class="post-img" src="./Asset/img/logo/listing-02.jpg" alt="">
+            <img class="post-img" src="${pageContext.request.contextPath}/Asset/img/logo/listing-02.jpg" alt="">
 
             <div class="post-main">
                 <h1>Trần Nguyễn Anh Trình</h1>
@@ -203,7 +222,7 @@
                     <p><i class="far fa-clipboard"></i> Chuyên lừa đảo</p>
                 </div>
                 <div class="post-button">
-                    <a href=""><i class="far fa-thumbs-up"></i> Thích </a>
+                    <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
                     <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
                     <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                 </div>
@@ -211,7 +230,7 @@
         </div>
 
         <div class="post">
-            <img class="post-img" src="./Asset/img/logo/listing-03.jpg" alt="">
+            <img class="post-img" src="${pageContext.request.contextPath}/Asset/img/logo/listing-03.jpg" alt="">
 
             <div class="post-main">
                 <h1>Bùi Viết Huy Hoàng</h1>
@@ -255,7 +274,7 @@
                     <p><i class="far fa-clipboard"></i> Chúa lừa</p>
                 </div>
                 <div class="post-button">
-                    <a href=""><i class="far fa-thumbs-up"></i> Thích </a>
+                    <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
                     <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
                     <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                 </div>
@@ -279,7 +298,7 @@
 <div class="footer">
     <footer>
         <div class="column">
-            <img src="./Asset/img/black-logo.png" alt="">
+            <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
             <p>Nếu bạn cho rằng website Plot của chúng tôi hữu ích cho bạn, <br>Vui lòng hỗ trợ chúng tôi một chút
                 qua BIDVBanking.</p>
         </div>
@@ -334,11 +353,10 @@
     <div class="modal-content-login">
         <span class="close" onclick="Close()">&times;</span>
         <div class="modal-body-login">
-            <img src="./Asset/img/logo/black-logo.png" alt="">
-            <form action="" name="formLogin">
+            <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
+            <form name="formLogin" action="login" method="get">
                 <input id="user_txt" onblur="UserBlur()" type="text" name="user_txt" value=""
                        placeholder="User Name">
-
                 <input id="pass_txt" onblur="PassBlur()" type="password" name="pass_txt" value=""
                        placeholder="Password">
                 <span class="focus-border"><i></i></span>
@@ -346,7 +364,6 @@
             </form>
             <button onclick="checkLogin()">SIGN IN</button>
             <p>Don’t have an account?<a class="btnRegister" onclick="Signup()"> Sign Up</a></p>
-
         </div>
     </div>
 </div>
@@ -354,19 +371,19 @@
     <div class="modal-content-signup">
         <span class="close" onclick="Close()">&times;</span>
         <div class="modal-body-signup">
-            <img src="./Asset/img/logo/black-logo.png" alt="">
-            <form action="">
-                <input id="user_txt_singup" onblur="SingUpUserBlur()" type="text" name="user_txt" value=""
-                       placeholder="User Name">
-                <input id="pass_txt_signup" onblur="SingUpPassBlur()" type="password" name="pass_txt" value=""
-                       placeholder="Password">
+            <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
+            <form name="formSignUp" action="${pageContext.request.contextPath}/register" method="get">
+                <input id="user_txt_singup" onblur="SingUpUserBlur()" type="text" name="user_txt_singup" value=""
+                       placeholder="User Name" maxlength="35">
+                <input id="pass_txt_signup" onblur="SingUpPassBlur()" type="password" name="pass_txt_signup" value=""
+                       placeholder="Password" maxlength="20">
                 <i class="fas fa-eye" id="hide_show_signup" onclick="HideShowSignUp()"></i>
                 <input id="pass_confirm_txt" onblur="ConfirmPassBlur()" type="password" name="pass_confirm_txt" value=""
-                       placeholder="Confirm Password">
+                       placeholder="Confirm Password" maxlength="20">
                 <i class="fas fa-eye" id="hide_showr" onclick="HideShowR()"></i>
-                <button>SIGN UP</button>
-                <p>If you have an account?Just<a class="btnRegister" onclick="Signup()"> Sign In</a></p>
             </form>
+            <button onclick="checkSignUp()">SIGN UP</button>
+            <p>If you have an account?Just<a class="btnRegister" onclick="Signup()"> Sign In</a></p>
         </div>
     </div>
 </div>
@@ -378,7 +395,7 @@
                 <h3 class="title-newPost">Tạo bài viết</h3>
                 <hr>
                 <div class="avatar-newPost">
-                    <img src="Asset/img/logo/lethanhquy.jpg" alt="">
+                    <img src="${pageContext.request.contextPath}/Asset/img/logo/lethanhquy.jpg" alt="">
                     <h4>Lê Thanh Quý</h4>
                 </div>
                 <div class="description-newPost">
@@ -427,7 +444,7 @@
                         <label>Ngày khởi hành</label>
                         <input type="date" name=""
                                value=<%=DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now())%>
-                               min="2021-01-01" max="2100-01-01" onchange="dateNewPostChange(event)">
+                                       min="2021-01-01" max="2100-01-01" onchange="dateNewPostChange(event)">
                     </div>
                     <select>
                         <option selected>Thời gian khởi hành</option>
@@ -464,6 +481,24 @@
         </div>
     </div>
 </div>
+
+<div class="notification" id="notificationForm">
+    <p id="notification"></p>
+</div>
+
+<c:if test="${Mess != null}">
+    <script !src="">
+        function Mess() {
+            var notification = document.getElementById("notification");
+
+            var notificationForm = document.getElementById("notificationForm");
+            notification.innerHTML = "${Mess}";
+            notificationForm.style.display = "block";
+            setTimeout(function(){ notificationForm.style.display = "none"; }, 4000);
+        }
+        Mess();
+    </script>
+</c:if>
 </body>
 
 </html>
