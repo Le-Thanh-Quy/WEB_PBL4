@@ -1,9 +1,9 @@
 package Model.BEAN;
 
 public class Assess {
-    public int ID;
-    public int Rate;
-    public int Review;
+    private int ID;
+    private int Rate;
+    private int Review;
 
     public Assess() {
     }

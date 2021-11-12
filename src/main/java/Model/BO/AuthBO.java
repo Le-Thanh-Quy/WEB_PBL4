@@ -41,7 +41,7 @@ public class AuthBO {
     }
 
     public User GetUser(String user_name) {
-        User user = Connect.getInstance().GetUser(user_name);
+        User user = Connect.getInstance().GetUser(user_name , 0);
         user.setAge(Format(user.getAge()));
         return user;
     }

@@ -1,5 +1,6 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.LocalDateTime" %>
+<%@ page import="Model.BEAN.Assess" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -29,17 +30,17 @@
             <li><a class="tab" id="active" href="index.jsp">Trang Chủ</a></li>
             <li><a class="tab" href="">Liên Hệ</a></li>
             <li><a
-                <c:if test="${logged == true}">
-                    class="tab avatar_menu"
-                    href = "${pageContext.request.contextPath}/account"
-                    onmouseover="MenuOn()" onmouseleave="MenuOff()"
+                    <c:if test="${logged == true}">
+                        class="tab avatar_menu"
+                        href = "${pageContext.request.contextPath}/account"
+                        onmouseover="MenuOn()" onmouseleave="MenuOff()"
                     </c:if>
                     <c:if test="${logged == false}">
                         class="tab"
                         onclick="OpenLogin()"
                     </c:if>
 
-                   >${user}</a></li>
+            >${user}</a></li>
             <li>
                 <a class="btnAdd" onmouseover="btnAddH()" onmouseleave="btnAddL()" onclick="newPost()"
                    style="color: black;"><i id="icon"></i> Tạo Tin</a>
@@ -50,7 +51,9 @@
             </div>
             <div class="menu_info_H">
                 <ul>
-                    <a href="${pageContext.request.contextPath}/logout"><li>Đăng Xuất</li></a>
+                    <a href="${pageContext.request.contextPath}/logout">
+                        <li>Đăng Xuất</li>
+                    </a>
                 </ul>
             </div>
         </div>
@@ -125,161 +128,62 @@
         <h1>Lịch trình mới nhất</h1>
     </div>
     <div class="list-post" id="list-post">
-        <div class="post">
-            <img class="post-img" src="${pageContext.request.contextPath}/Asset/img/logo/listing-01.jpg" alt="">
+        <c:forEach items="${ListPost}" var="Post">
+            <div class="post">
+                <img class="post-img" src="${Post.getImage()}" alt="">
 
-            <div class="post-main">
-                <h1>Lê Thanh Quý</h1>
-                <h5>12:00</h5>
+                <div class="post-main">
+                    <h1>${Post.getUser().getName()}</h1>
+                    <h5>${Post.getDateTime()}</h5>
 
-                <ul class="rate">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li>(18) Reviews</li>
-                </ul>
+                    <ul class="rate">
 
-                <div class="info">
-                    <div class="start-info">
-                        <h3>Điểm Xuất Phát</h3>
-                        <ul class="address">
-                            <li><i class="fas fa-map-marker-alt"></i> Tam Xuân 2</li>
-                            <li><i class="fas fa-map-marker-alt"></i> Núi Thành</li>
-                            <li><i class="fas fa-map-marker-alt"></i> Quảng Nam</li>
-                        </ul>
+                        <c:forEach begin="1" end="${Post.getUser().getAssess().getRate()}" varStatus="loop">
+                            <li><i class='fas fa-star'></i></li>
+                        </c:forEach>
+                        <c:forEach begin="${Post.getUser().getAssess().getRate()}" end="4" varStatus="loop">
+                            <li><i class='far fa-star'></i></li>
+                        </c:forEach>
+                        <li>(${Post.getUser().getAssess().getReview()}) Lượt đánh giá</li>
+                    </ul>
+
+                    <div class="info">
+                        <div class="start-info">
+                            <h3>Điểm Xuất Phát</h3>
+                            <ul class="address">
+                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartProvince()}</li>
+                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartDistrict()}</li>
+                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartCommune()}</li>
+                            </ul>
+                        </div>
+                        <div class="time-info">
+                            <h3>Thời gian: </h3>
+                            <p><i class="far fa-clock"></i> ${Post.getTimeStart()}</p>
+                            <p><i class="far fa-calendar-alt"></i> ${Post.getDate()}</p>
+                        </div>
+                        <div class="end-info">
+                            <h3>Điểm Đến</h3>
+                            <ul class="address">
+                                <li><i class="fas fa-map-marker"></i> ${Post.getEndProvince()}</li>
+                                <li><i class="fas fa-map-marker"></i> ${Post.getEndDistrict()}</li>
+                                <li><i class="fas fa-map-marker"></i> ${Post.getEndCommune()}</li>
+                            </ul>
+                        </div>
+
+
                     </div>
-                    <div class="time-info">
-                        <h3>Thời gian: </h3>
-                        <p><i class="far fa-clock"></i> 13:00 - 15:00</p>
-                        <p><i class="far fa-calendar-alt"></i> 30/10/2021</p>
+                    <div class="status">
+                        <p><i class="far fa-clipboard"></i> ${Post.getCaption()}</p>
                     </div>
-                    <div class="end-info">
-                        <h3>Điểm Đến</h3>
-                        <ul class="address">
-                            <li><i class="fas fa-map-marker"></i> Hòa Khánh Bắc</li>
-                            <li><i class="fas fa-map-marker"></i> Liên Chiểu</li>
-                            <li><i class="fas fa-map-marker"></i> Đà Nẵng</li>
-                        </ul>
+                    <div class="post-button">
+                        <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
+                        <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
+                        <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                     </div>
-
-
-                </div>
-                <div class="status">
-                    <p><i class="far fa-clipboard"></i> Bao uy tín</p>
-                </div>
-                <div class="post-button">
-                    <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
-                    <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
-                    <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="post">
-            <img class="post-img" src="${pageContext.request.contextPath}/Asset/img/logo/listing-02.jpg" alt="">
-
-            <div class="post-main">
-                <h1>Trần Nguyễn Anh Trình</h1>
-                <h5>12:05</h5>
-
-                <ul class="rate">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li>(5) Reviews</li>
-                </ul>
-
-                <div class="info">
-                    <div class="start-info">
-                        <h3>Điểm Xuất Phát</h3>
-                        <ul class="address">
-                            <li><i class="fas fa-map-marker-alt"></i> Duy Thu</li>
-                            <li><i class="fas fa-map-marker-alt"></i> Duy Xuyên</li>
-                            <li><i class="fas fa-map-marker-alt"></i> Quảng Nam</li>
-                        </ul>
-                    </div>
-                    <div class="time-info">
-                        <h3>Thời gian: </h3>
-                        <p><i class="far fa-clock"></i> 14:00 - 16:00</p>
-                        <p><i class="far fa-calendar-alt"></i> 30/10/2021</p>
-                    </div>
-                    <div class="end-info">
-                        <h3>Điểm Đến</h3>
-                        <ul class="address">
-                            <li><i class="fas fa-map-marker"></i> Hòa Khánh Bắc</li>
-                            <li><i class="fas fa-map-marker"></i> Liên Chiểu</li>
-                            <li><i class="fas fa-map-marker"></i> Đà Nẵng</li>
-                        </ul>
-                    </div>
-
-
-                </div>
-                <div class="status">
-                    <p><i class="far fa-clipboard"></i> Chuyên lừa đảo</p>
-                </div>
-                <div class="post-button">
-                    <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
-                    <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
-                    <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                 </div>
             </div>
-        </div>
+        </c:forEach>
 
-        <div class="post">
-            <img class="post-img" src="${pageContext.request.contextPath}/Asset/img/logo/listing-03.jpg" alt="">
-
-            <div class="post-main">
-                <h1>Bùi Viết Huy Hoàng</h1>
-                <h5>12:15</h5>
-
-                <ul class="rate">
-                    <li><i class="fas fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li><i class="far fa-star"></i></li>
-                    <li>(50) Reviews</li>
-                </ul>
-
-                <div class="info">
-                    <div class="start-info">
-                        <h3>Điểm Xuất Phát</h3>
-                        <ul class="address">
-                            <li><i class="fas fa-map-marker-alt"></i> Duy Tân</li>
-                            <li><i class="fas fa-map-marker-alt"></i> Duy Xuyên</li>
-                            <li><i class="fas fa-map-marker-alt"></i> Quảng Nam</li>
-                        </ul>
-                    </div>
-                    <div class="time-info">
-                        <h3>Thời gian: </h3>
-                        <p><i class="far fa-clock"></i> 13:00 - 15:00</p>
-                        <p><i class="far fa-calendar-alt"></i> 30/10/2021</p>
-                    </div>
-                    <div class="end-info">
-                        <h3>Điểm Đến</h3>
-                        <ul class="address">
-                            <li><i class="fas fa-map-marker"></i> Hòa Khánh Bắc</li>
-                            <li><i class="fas fa-map-marker"></i> Liên Chiểu</li>
-                            <li><i class="fas fa-map-marker"></i> Đà Nẵng</li>
-                        </ul>
-                    </div>
-
-
-                </div>
-                <div class="status">
-                    <p><i class="far fa-clipboard"></i> Chúa lừa</p>
-                </div>
-                <div class="post-button">
-                    <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
-                    <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
-                    <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
-                </div>
-            </div>
-        </div>
 
     </div>
 </div>
@@ -494,8 +398,11 @@
             var notificationForm = document.getElementById("notificationForm");
             notification.innerHTML = "${Mess}";
             notificationForm.style.display = "block";
-            setTimeout(function(){ notificationForm.style.display = "none"; }, 4000);
+            setTimeout(function () {
+                notificationForm.style.display = "none";
+            }, 4000);
         }
+
         Mess();
     </script>
 </c:if>

@@ -80,7 +80,7 @@
 
                 <ul class="rate">
                     <%
-                        int rate = ((Assess)request.getAttribute("assess")).Rate;
+                        int rate = ((Assess)request.getAttribute("assess")).getRate();
                         for (int i = 0 ; i < rate ; i++){
                             out.write("<li><i class='fas fa-star'></i></li>");
 
@@ -91,7 +91,7 @@
 
                     %>
 
-                    <li>(${assess.getReview()}) Reviews</li>
+                    <li>(${assess.getReview()}) Lượt đánh giá</li>
                 </ul>
 
                 <div class="info">

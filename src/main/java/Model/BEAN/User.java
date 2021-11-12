@@ -3,16 +3,17 @@ package Model.BEAN;
 import java.util.Date;
 
 public class User {
-    public int ID;
-    public String Name;
-    public String Age;
-    public String Sex;
-    public String Phone_Number;
-    public String Address;
-    public String Avatar;
-    public String Status;
-    public int AssessID;
-    public String AccountID;
+    private int ID;
+    private String Name;
+    private String Age;
+    private String Sex;
+    private String Phone_Number;
+    private String Address;
+    private String Avatar;
+    private String Status;
+    private int AssessID;
+    private String AccountID;
+    private Assess Assess;
 
     public User(int ID, String name, String age, String sex, String phone_Number, String address, String avatar, String status, int assessID, String accountID) {
         this.ID = ID;
@@ -43,6 +44,14 @@ public class User {
                 ", AssessID=" + AssessID +
                 ", AccountID='" + AccountID + '\'' +
                 '}';
+    }
+
+    public Assess getAssess() {
+        return Assess;
+    }
+
+    public void setAssess(Assess assess) {
+        Assess = assess;
     }
 
     public String getSex() {

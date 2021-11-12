@@ -21,7 +21,7 @@ public class AccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user_name = (String) request.getSession().getAttribute("user");
         User user = AuthBO.getInstance().GetUser(user_name);
-        Assess assess = AuthBO.getInstance().GetAssess(user.AssessID);
+        Assess assess = AuthBO.getInstance().GetAssess(user.getAssessID());
         request.setAttribute("user", user);
         request.setAttribute("assess", assess);
         request.setAttribute("address", AuthBO.getInstance().GetAddress(user.getAddress()));

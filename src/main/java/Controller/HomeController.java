@@ -1,7 +1,10 @@
 package Controller;
 
 
+import Model.BEAN.Assess;
 import Model.BO.AddressBO;
+import Model.BO.AuthBO;
+import Model.BO.PostBO;
 import Model.DAO.Connect;
 
 import javax.servlet.RequestDispatcher;
@@ -41,6 +44,7 @@ public class HomeController extends HttpServlet {
             request.setAttribute("user" , "Đăng Nhập|Đăng Ký");
             request.setAttribute("logged" , false);
         }
+        request.setAttribute("ListPost" , PostBO.getInstance().getAllPost());
         request.setAttribute("Tinhs" , AddressBO.getInstance().getTinh());
         RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
         rd.forward(request, response);

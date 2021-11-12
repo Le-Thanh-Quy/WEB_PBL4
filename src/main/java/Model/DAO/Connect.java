@@ -219,7 +219,7 @@ public class Connect {
             }
             if (GetIDUser() != -1) {
 
-                String str = "INSERT INTO user  VALUES ('" + GetIDUser() + "', '" + user.Name + "', '" + user.Age + "', '" + user.Sex + "' , '" + user.Phone_Number + "', '" + user.Address + "', '" + user.Avatar + "', '" + user.Status + "', '" + IDAssess + "', '" + user.AccountID + "');";
+                String str = "INSERT INTO user  VALUES ('" + GetIDUser() + "', '" + user.getName() + "', '" + user.getAge() + "', '" + user.getSex() + "' , '" + user.getPhone_Number() + "', '" + user.getAddress() + "', '" + user.getAvatar() + "', '" + user.getStatus() + "', '" + IDAssess + "', '" + user.getAccountID() + "');";
                 statement = con.createStatement();
                 statement.executeUpdate(str);
                 statement.close();
@@ -233,23 +233,29 @@ public class Connect {
             return false;
         }
     }
-    public User GetUser(String user_name){
+    public User GetUser(String user_name , int ID){
         User user = new User();
         try {
-            String str = "SELECT * FROM user WHERE  AccountID = '" + user_name + "' ;";
+            String str;
+            if(user_name.equals("-1")){
+                str = "SELECT * FROM user WHERE  ID = '" + ID + "' ;";
+            }else{
+                str = "SELECT * FROM user WHERE  AccountID = '" + user_name + "' ;";
+            }
+
             statement = con.createStatement();
             resultSet = statement.executeQuery(str);
             if (resultSet.next()) {
-                user.ID = resultSet.getInt("ID");
-                user.Name = resultSet.getString("Name");
-                user.Age = resultSet.getString("Age");
-                user.Sex = resultSet.getString("Sex");
-                user.Phone_Number = resultSet.getString("Phone Number");
-                user.Address = resultSet.getString("Address");
-                user.Avatar = resultSet.getString("Avatar");
-                user.Status = resultSet.getString("Status");
-                user.AssessID = resultSet.getInt("AssessID");
-                user.AccountID = resultSet.getString("AccountID");
+                user.setID(resultSet.getInt("ID"));
+                user.setName(resultSet.getString("Name"));
+                user.setAge(resultSet.getString("Age"));
+                user.setSex(resultSet.getString("Sex"));
+                user.setPhone_Number(resultSet.getString("Phone Number"));
+                user.setAddress(resultSet.getString("Address"));
+                user.setAvatar(resultSet.getString("Avatar"));
+                user.setStatus(resultSet.getString("Status"));
+                user.setAssessID(resultSet.getInt("AssessID"));
+                user.setAccountID(resultSet.getString("AccountID"));
             }
             resultSet.close();
             statement.close();
@@ -267,9 +273,9 @@ public class Connect {
             statement = con.createStatement();
             resultSet = statement.executeQuery(str);
             if (resultSet.next()) {
-                assess.ID = resultSet.getInt("ID");
-                assess.Rate = resultSet.getInt("Rate");
-                assess.Review = resultSet.getInt("Reviews");
+                assess.setID(resultSet.getInt("ID"));
+                assess.setRate(resultSet.getInt("Rate"));
+                assess.setReview(resultSet.getInt("Reviews"));
             }
             resultSet.close();
             statement.close();
@@ -302,7 +308,6 @@ public class Connect {
             }
             resultSet.close();
             statement.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -310,5 +315,32 @@ public class Connect {
         return result;
     }
 
+    public List<Post> postAllList(){
+        List<Post> postList = new ArrayList<Post>();
+        try {
+            String str = "SELECT * FROM post ;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Post post = new Post();
+                post.setID(resultSet.getInt("ID"));
+                post.setStartAddress(resultSet.getString("StartID"));
+                post.setEndAddress(resultSet.getString("EndID"));
+                post.setDateTime(resultSet.getString("Time"));
+                post.setTimeStart(resultSet.getString("TimeStart"));
+                post.setDate(resultSet.getString("Date"));
+                post.setCaption(resultSet.getString("Caption"));
+                post.setUserID(resultSet.getInt("UserID"));
+                post.setImage(resultSet.getString("Image"));
+
+                postList.add(post);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return postList;
+    }
 
 }
