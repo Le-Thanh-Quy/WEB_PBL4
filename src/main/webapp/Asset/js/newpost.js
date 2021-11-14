@@ -1,4 +1,4 @@
-function newPost() {
+function OpenPost() {
     var post = document.getElementById("myModal-newPost");
     post.style.display = "block";
     var span = document.getElementsByClassName("close")[2];
@@ -105,6 +105,31 @@ function dateNewPostChange(event) {
         var datestring =   d2.getFullYear() + "-" + (d2.getMonth() + 1) + "-" + day;
         console.log(datestring);
         event.target.value = datestring;
+    }
+}
+
+
+
+function NewPost() {
+    var description_newPost = document.getElementById("description_newPost");
+    var start_newPost= document.getElementById("newPostXaS");
+    var end_newPost = document.getElementById("newPostXaE");
+    var time_newPost = document.getElementById("time_newPost");
+    var notification_newPost = document.getElementById("notification_newPost");
+    if(description_newPost.value == ""){
+        notification_newPost.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i> Vui lòng nhập vào mô tả!";
+        notification_newPost.style.display = "block";
+    }else if(start_newPost.value == "Xã/Phường"){
+        notification_newPost.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i> Vui lòng chọn điểm khởi hành!";
+        notification_newPost.style.display = "block";
+    }else if(end_newPost.value == "Xã/Phường"){
+        notification_newPost.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i> Vui lòng chọn điểm đến!";
+        notification_newPost.style.display = "block";
+    }else if(time_newPost.value == "Thời gian khởi hành"){
+        notification_newPost.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i> Vui lòng chọn thời gian khởi hành!";
+        notification_newPost.style.display = "block";
+    }else{
+        document.form_newPost.submit();
     }
 }
 

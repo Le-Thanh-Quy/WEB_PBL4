@@ -46,7 +46,6 @@ public class AuthBO {
         return user;
     }
 
-    ;
 
     public Assess GetAssess(int ID) {
 

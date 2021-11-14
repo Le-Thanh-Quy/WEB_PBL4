@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/footer.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dialog.css">
     <script src="${pageContext.request.contextPath}/Asset/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/Asset/js/login.js"></script>
     <script src="${pageContext.request.contextPath}/Asset/js/xulyForm.js"></script>
     <script src="${pageContext.request.contextPath}/Asset/js/newpost.js"></script>
     <script src="${pageContext.request.contextPath}/Asset/js/xulylogin.js"></script>
@@ -32,7 +31,7 @@
             <li><a
                     <c:if test="${logged == true}">
                         class="tab avatar_menu"
-                        href = "${pageContext.request.contextPath}/account"
+                        href = "${pageContext.request.contextPath}/account?others_user_name=null"
                         onmouseover="MenuOn()" onmouseleave="MenuOff()"
                     </c:if>
                     <c:if test="${logged == false}">
@@ -42,7 +41,14 @@
 
             >${user}</a></li>
             <li>
-                <a class="btnAdd" onmouseover="btnAddH()" onmouseleave="btnAddL()" onclick="newPost()"
+                <a class="btnAdd" onmouseover="btnAddH()" onmouseleave="btnAddL()"
+                        <c:if test="${logged == true}">
+                            onclick="OpenPost()"
+                        </c:if>
+                        <c:if test="${logged == false}">
+                            onclick="OpenLogin('newPost')"
+                        </c:if>
+                   onclick="newPost()"
                    style="color: black;"><i id="icon"></i> Tạo Tin</a>
             </li>
         </ul>
@@ -78,28 +84,28 @@
         <select>
             <option selected>Thời gian khởi hành</option>
             <option value="00:00 - 02:00">00:00 - 02:00</option>
-            <option value="01:00 - 02:00">01:00 - 03:00</option>
-            <option value="02:00 - 02:00">02:00 - 04:00</option>
-            <option value="03:00 - 02:00">03:00 - 05:00</option>
-            <option value="04:00 - 02:00">04:00 - 06:00</option>
-            <option value="05:00 - 02:00">05:00 - 07:00</option>
-            <option value="06:00 - 02:00">06:00 - 08:00</option>
-            <option value="07:00 - 02:00">07:00 - 09:00</option>
-            <option value="08:00 - 02:00">08:00 - 10:00</option>
-            <option value="09:00 - 02:00">09:00 - 11:00</option>
-            <option value="10:00 - 02:00">10:00 - 12:00</option>
-            <option value="11:00 - 02:00">11:00 - 13:00</option>
-            <option value="12:00 - 02:00">12:00 - 14:00</option>
-            <option value="13:00 - 02:00">13:00 - 15:00</option>
-            <option value="14:00 - 02:00">14:00 - 16:00</option>
-            <option value="15:00 - 02:00">15:00 - 17:00</option>
-            <option value="16:00 - 02:00">16:00 - 18:00</option>
-            <option value="17:00 - 02:00">17:00 - 19:00</option>
-            <option value="18:00 - 02:00">18:00 - 20:00</option>
-            <option value="19:00 - 02:00">19:00 - 21:00</option>
-            <option value="20:00 - 02:00">20:00 - 22:00</option>
-            <option value="21:00 - 02:00">21:00 - 23:00</option>
-            <option value="22:00 - 02:00">22:00 - 00:00</option>
+            <option value="01:00 - 03:00">01:00 - 03:00</option>
+            <option value="02:00 - 04:00">02:00 - 04:00</option>
+            <option value="03:00 - 05:00">03:00 - 05:00</option>
+            <option value="04:00 - 06:00">04:00 - 06:00</option>
+            <option value="05:00 - 07:00">05:00 - 07:00</option>
+            <option value="06:00 - 08:00">06:00 - 08:00</option>
+            <option value="07:00 - 09:00">07:00 - 09:00</option>
+            <option value="08:00 - 10:00">08:00 - 10:00</option>
+            <option value="09:00 - 11:00">09:00 - 11:00</option>
+            <option value="10:00 - 12:00">10:00 - 12:00</option>
+            <option value="11:00 - 13:00">11:00 - 13:00</option>
+            <option value="12:00 - 14:00">12:00 - 14:00</option>
+            <option value="13:00 - 15:00">13:00 - 15:00</option>
+            <option value="14:00 - 16:00">14:00 - 16:00</option>
+            <option value="15:00 - 17:00">15:00 - 17:00</option>
+            <option value="16:00 - 18:00">16:00 - 18:00</option>
+            <option value="17:00 - 19:00">17:00 - 19:00</option>
+            <option value="18:00 - 20:00">18:00 - 20:00</option>
+            <option value="19:00 - 21:00">19:00 - 21:00</option>
+            <option value="20:00 - 22:00">20:00 - 22:00</option>
+            <option value="21:00 - 23:00">21:00 - 23:00</option>
+            <option value="22:00 - 00:00">22:00 - 00:00</option>
         </select>
         <select>
             <option selected>Ngày khởi hành</option>
@@ -133,9 +139,17 @@
                 <img class="post-img" src="${Post.getImage()}" alt="">
 
                 <div class="post-main">
-                    <h1>${Post.getUser().getName()}</h1>
-                    <h5>${Post.getDateTime()}</h5>
+                    <c:if test="${logged == true}">
+                        <a href="account?others_user_name=${Post.getUser().getAccountID()}" style="text-decoration: none">
+                            <h1>${Post.getUser().getName()}</h1>
+                        </a>
+                    </c:if>
 
+                    <c:if test="${logged == false}">
+                        <h1 onclick="OpenLogin()">${Post.getUser().getName()}</h1>
+                    </c:if>
+
+                    <h5>${Post.getDateTime()}</h5>
                     <ul class="rate">
 
                         <c:forEach begin="1" end="${Post.getUser().getAssess().getRate()}" varStatus="loop">
@@ -182,8 +196,11 @@
                     </div>
                 </div>
             </div>
-        </c:forEach>
 
+        </c:forEach>
+        <script>
+            let ID = ${ListPost.get(ListPost.size() - 1).getID()};
+        </script>
 
     </div>
 </div>
@@ -264,6 +281,7 @@
                 <input id="pass_txt" onblur="PassBlur()" type="password" name="pass_txt" value=""
                        placeholder="Password">
                 <span class="focus-border"><i></i></span>
+                <input id="checkLoginForNewPost" type="hidden" name="checkNewPost" value="null">
                 <i class="fas fa-eye" id="hide_show" onclick="HideShow()"></i>
             </form>
             <button onclick="checkLogin()">SIGN IN</button>
@@ -291,22 +309,27 @@
         </div>
     </div>
 </div>
-<div id="myModal-newPost" class="modal-newPost">
+<div id="myModal-newPost" class="modal-newPost" style="display: ${checkNewPost}">
     <div class="modal-content-newPost">
         <span class="close" onclick="ClosePost()">&times;</span>
         <div class="modal-body-newPost">
-            <form action="">
+            <form name="form_newPost" action="newPost" method="get">
                 <h3 class="title-newPost">Tạo bài viết</h3>
                 <hr>
                 <div class="avatar-newPost">
-                    <img src="${pageContext.request.contextPath}/Asset/img/logo/lethanhquy.jpg" alt="">
-                    <h4>Lê Thanh Quý</h4>
+                    <img src="${user_info.getAvatar()}" alt="">
+                    <h4>${user_info.getName()}</h4>
+                    <input type="hidden" name="userID" value="${user_info.getID()}">
+                    <p id="notification_newPost"><i class="fas fa-exclamation-circle"></i> Vui lòng nhập tên vào</p>
                 </div>
                 <div class="description-newPost">
-                    <textarea name="" id="" cols="34" rows="4" placeholder="Mô tả...."></textarea>
+                    <textarea name="caption_newPost" id="description_newPost" maxlength="65" cols="34" rows="4"
+                              placeholder="Mô tả...."></textarea>
                     <div class="img-newPost">
                         <p><i class="fas fa-images" style="font-size: 25px;"></i> Thêm ảnh</p>
                         <img src="" alt="" id="out_img-newPost">
+                        <input type="hidden" name="img_newPost"
+                               value="https://drive.google.com/uc?export=view&id=1gSUXHvd-7VPnSFSb0JPJjVCuh8JwKy0m">
                         <input id="chooseIMGNewPost" type="file" accept="image/*" onchange="loadFile(event)">
                         <span class="close" id="closeIMG" onclick="CloseChooseIMG()">&times;</span>
                     </div>
@@ -324,7 +347,7 @@
                     <select name="" id="newPostHuyenS" onchange="selectHuyenNewPost('0')">
                         <option selected>Quận/Huyện</option>
                     </select>
-                    <select name="" id="newPostXaS">
+                    <select name="start_newPost" id="newPostXaS">
                         <option selected>Xã/Phường</option>
                     </select>
                 </div>
@@ -339,49 +362,52 @@
                     <select name="" id="newPostHuyenE" onchange="selectHuyenNewPost('1')">
                         <option selected>Quận/Huyện</option>
                     </select>
-                    <select name="" id="newPostXaE">
+                    <select name="end_newPost" id="newPostXaE">
                         <option selected>Xã/Phường</option>
                     </select>
                 </div>
                 <div class="time-newPost">
                     <div class="date-newPost">
                         <label>Ngày khởi hành</label>
-                        <input type="date" name=""
+                        <input type="date" name="date_newPost"
                                value=<%=DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now())%>
                                        min="2021-01-01" max="2100-01-01" onchange="dateNewPostChange(event)">
                     </div>
-                    <select>
+                    <select name="time_newPost" id="time_newPost">
                         <option selected>Thời gian khởi hành</option>
                         <option value="00:00 - 02:00">00:00 - 02:00</option>
-                        <option value="01:00 - 02:00">01:00 - 03:00</option>
-                        <option value="02:00 - 02:00">02:00 - 04:00</option>
-                        <option value="03:00 - 02:00">03:00 - 05:00</option>
-                        <option value="04:00 - 02:00">04:00 - 06:00</option>
-                        <option value="05:00 - 02:00">05:00 - 07:00</option>
-                        <option value="06:00 - 02:00">06:00 - 08:00</option>
-                        <option value="07:00 - 02:00">07:00 - 09:00</option>
-                        <option value="08:00 - 02:00">08:00 - 10:00</option>
-                        <option value="09:00 - 02:00">09:00 - 11:00</option>
-                        <option value="10:00 - 02:00">10:00 - 12:00</option>
-                        <option value="11:00 - 02:00">11:00 - 13:00</option>
-                        <option value="12:00 - 02:00">12:00 - 14:00</option>
-                        <option value="13:00 - 02:00">13:00 - 15:00</option>
-                        <option value="14:00 - 02:00">14:00 - 16:00</option>
-                        <option value="15:00 - 02:00">15:00 - 17:00</option>
-                        <option value="16:00 - 02:00">16:00 - 18:00</option>
-                        <option value="17:00 - 02:00">17:00 - 19:00</option>
-                        <option value="18:00 - 02:00">18:00 - 20:00</option>
-                        <option value="19:00 - 02:00">19:00 - 21:00</option>
-                        <option value="20:00 - 02:00">20:00 - 22:00</option>
-                        <option value="21:00 - 02:00">21:00 - 23:00</option>
-                        <option value="22:00 - 02:00">22:00 - 00:00</option>
+                        <option value="01:00 - 03:00">01:00 - 03:00</option>
+                        <option value="02:00 - 04:00">02:00 - 04:00</option>
+                        <option value="03:00 - 05:00">03:00 - 05:00</option>
+                        <option value="04:00 - 06:00">04:00 - 06:00</option>
+                        <option value="05:00 - 07:00">05:00 - 07:00</option>
+                        <option value="06:00 - 08:00">06:00 - 08:00</option>
+                        <option value="07:00 - 09:00">07:00 - 09:00</option>
+                        <option value="08:00 - 10:00">08:00 - 10:00</option>
+                        <option value="09:00 - 11:00">09:00 - 11:00</option>
+                        <option value="10:00 - 12:00">10:00 - 12:00</option>
+                        <option value="11:00 - 13:00">11:00 - 13:00</option>
+                        <option value="12:00 - 14:00">12:00 - 14:00</option>
+                        <option value="13:00 - 15:00">13:00 - 15:00</option>
+                        <option value="14:00 - 16:00">14:00 - 16:00</option>
+                        <option value="15:00 - 17:00">15:00 - 17:00</option>
+                        <option value="16:00 - 18:00">16:00 - 18:00</option>
+                        <option value="17:00 - 19:00">17:00 - 19:00</option>
+                        <option value="18:00 - 20:00">18:00 - 20:00</option>
+                        <option value="19:00 - 21:00">19:00 - 21:00</option>
+                        <option value="20:00 - 22:00">20:00 - 22:00</option>
+                        <option value="21:00 - 23:00">21:00 - 23:00</option>
+                        <option value="22:00 - 00:00">22:00 - 00:00</option>
                     </select>
-                    <div class="time-newPost-submit">
-                        <input type="submit" value="Đăng bài">
-                    </div>
+
 
                 </div>
             </form>
+            <div class="time-newPost-submit">
+                <button onclick="NewPost()">Đăng bài</button>
+            </div>
+
+
         </div>
     </div>
 </div>

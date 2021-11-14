@@ -1,11 +1,9 @@
 package Controller;
 
-
-import Model.BEAN.Assess;
+import Model.BEAN.User;
 import Model.BO.AddressBO;
 import Model.BO.AuthBO;
 import Model.BO.PostBO;
-import Model.DAO.Connect;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,24 +27,44 @@ public class HomeController extends HttpServlet {
         HttpSession session =  request.getSession();
         String Mess = (String) session.getAttribute("Mess");
         session.removeAttribute("Mess");
+        if(!"null".equals(Mess)){
+            request.setAttribute("Mess" , Mess);
+        }
+        String checkNewPost = "";
+        checkNewPost = (String) session.getAttribute("checkNewPost");
+
+
+        if("oke".equals(checkNewPost)){
+            request.setAttribute("checkNewPost" , "block");
+        }
+        else {
+            request.setAttribute("checkNewPost" , "none");
+        }
+
+        session.removeAttribute("checkNewPost");
+
         boolean login = false;
-        String user = "";
+        String user_name = "";
         if(session.getAttribute("logged") != null){
             login = (boolean) session.getAttribute("logged");
-            user = session.getAttribute("user").toString();
+            user_name = session.getAttribute("user").toString();
         }
 
         if(login){
-            request.setAttribute("user" , user);
+            User user = new AuthBO().GetUser(user_name);
+            request.setAttribute("user" , user_name);
             request.setAttribute("logged" , true);
+            request.setAttribute("user_info" , user);
+
         }else{
             request.setAttribute("Mess" , Mess);
             request.setAttribute("user" , "Đăng Nhập|Đăng Ký");
             request.setAttribute("logged" , false);
         }
-        request.setAttribute("ListPost" , PostBO.getInstance().getAllPost());
+        request.setAttribute("ListPost" , PostBO.getInstance().getPostList(-1));
         request.setAttribute("Tinhs" , AddressBO.getInstance().getTinh());
         RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
         rd.forward(request, response);
     }
+
 }

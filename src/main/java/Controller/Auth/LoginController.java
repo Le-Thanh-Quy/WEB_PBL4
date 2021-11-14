@@ -18,20 +18,21 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user_txt = request.getParameter("user_txt");
         String pass_txt = request.getParameter("pass_txt");
+        String checkNewPost = request.getParameter("checkNewPost");
 
+        int check = AuthBO.getInstance().checkLogin(user_txt, pass_txt);
 
-        int check = AuthBO.getInstance().checkLogin(user_txt , pass_txt);
-
-        if(check == 1){
+        if (check == 1) {
             HttpSession session = request.getSession();
-            session.setAttribute("admin" , user_txt);
-        }else if(check == 0){
+            session.setAttribute("admin", user_txt);
+        } else if (check == 0) {
             HttpSession session = request.getSession();
-            session.setAttribute("user" , user_txt);
-            session.setAttribute("logged" , true);
+            session.setAttribute("user", user_txt);
+            session.setAttribute("logged", true);
+            session.setAttribute("checkNewPost", checkNewPost);
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
-        }else{
+        } else {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }

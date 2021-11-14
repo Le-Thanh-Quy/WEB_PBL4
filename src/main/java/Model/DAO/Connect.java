@@ -174,6 +174,24 @@ public class Connect {
         }
     }
 
+    public int GetMaxIDPost() {
+        try {
+            String str = "SELECT MAX(ID) from post;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
     public int GetIDUser() {
         try {
             String str = "SELECT MAX(ID) from user;";
@@ -233,13 +251,14 @@ public class Connect {
             return false;
         }
     }
-    public User GetUser(String user_name , int ID){
+
+    public User GetUser(String user_name, int ID) {
         User user = new User();
         try {
             String str;
-            if(user_name.equals("-1")){
+            if (user_name.equals("-1")) {
                 str = "SELECT * FROM user WHERE  ID = '" + ID + "' ;";
-            }else{
+            } else {
                 str = "SELECT * FROM user WHERE  AccountID = '" + user_name + "' ;";
             }
 
@@ -266,7 +285,7 @@ public class Connect {
         return user;
     }
 
-    public Assess GetAssess(int ID){
+    public Assess GetAssess(int ID) {
         Assess assess = new Assess();
         try {
             String str = "SELECT * FROM assess WHERE  ID = '" + ID + "' ;";
@@ -285,7 +304,8 @@ public class Connect {
         }
         return assess;
     }
-    public String GetAddress(String idXa){
+
+    public String GetAddress(String idXa) {
         String result = "";
         try {
 
@@ -315,10 +335,12 @@ public class Connect {
         return result;
     }
 
-    public List<Post> postAllList(){
+
+    public List<Post> postList(int ID, String Date) {
         List<Post> postList = new ArrayList<Post>();
+
         try {
-            String str = "SELECT * FROM post ;";
+            String str = "SELECT * FROM post WHERE ID < " + ID + " and Date >= '" + Date + "' ORDER BY ID DESC   LIMIT 5;";
             statement = con.createStatement();
             resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
@@ -343,4 +365,57 @@ public class Connect {
         return postList;
     }
 
+    public List<Post> postListWithUser(int ID , int IDUser) {
+        List<Post> postList = new ArrayList<Post>();
+
+        try {
+            String str = "SELECT * FROM post WHERE ID < " + ID + " and UserID = " + IDUser + " ORDER BY ID DESC   LIMIT 5;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Post post = new Post();
+                post.setID(resultSet.getInt("ID"));
+                post.setStartAddress(resultSet.getString("StartID"));
+                post.setEndAddress(resultSet.getString("EndID"));
+                post.setDateTime(resultSet.getString("Time"));
+                post.setTimeStart(resultSet.getString("TimeStart"));
+                post.setDate(resultSet.getString("Date"));
+                post.setCaption(resultSet.getString("Caption"));
+                post.setUserID(resultSet.getInt("UserID"));
+                post.setImage(resultSet.getString("Image"));
+
+                postList.add(post);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return postList;
+    }
+
+    public boolean AddNewPost(Post post) {
+        try {
+            int ID = GetMaxIDPost();
+            if (ID == -1) {
+                return false;
+            }
+            String str = "INSERT INTO post VALUES('" + ID + "' , '" + post.getUserID() +
+                    "' , '" + post.getStartAddress() +
+                    "' , '" + post.getEndAddress() +
+                    "' , '" + post.getDateTime() +
+                    "' , '" + post.getTimeStart() +
+                    "' , '" + post.getDate() +
+                    "' , '" + post.getCaption() +
+                    "' , '" + post.getImage() + "') ;";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

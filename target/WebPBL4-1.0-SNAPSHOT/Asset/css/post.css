@@ -42,6 +42,7 @@
     margin: 0px;
     color: rgb(170, 109, 16);
     font-weight: 800;
+    cursor: pointer;
 }
 
 .post-main h5 {
@@ -66,7 +67,7 @@
 
 .info {
     position: relative;
-    width: 70%;
+    width: 85%;
     margin: 10px auto;
 }
 
@@ -97,8 +98,8 @@
 .status {
     position: absolute;
     bottom: 0;
-    margin-bottom: 10%;
-    margin-left: 15%;
+    margin-bottom: 12%;
+    margin-left: 10%;
 }
 
 .post-button {

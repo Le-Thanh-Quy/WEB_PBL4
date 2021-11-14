@@ -4,7 +4,6 @@ package Controller.Auth;
 import Model.BEAN.User;
 import Model.BO.AddressBO;
 import Model.BO.AuthBO;
-import Model.DAO.Connect;
 
 
 import javax.servlet.RequestDispatcher;
@@ -103,6 +102,6 @@ public class RegisterController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        doGet(req, resp);
     }
 }

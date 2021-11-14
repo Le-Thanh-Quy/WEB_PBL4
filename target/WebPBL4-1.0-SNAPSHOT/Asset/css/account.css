@@ -1,3 +1,4 @@
+
 .avatar {
     position: relative;
     vertical-align: bottom;
@@ -24,7 +25,7 @@
     z-index: 1;
     box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animate_menu;
-    -webkit-animation-duration: 1;
+    -webkit-animation-duration: 1s;
     animation-name: animate_menu;
     animation-duration: 1.2s
 }
@@ -162,6 +163,7 @@
 }
 
 .frameDetalInfo {
+    display: none;
     position: relative;
     background-color: rgb(255, 254, 254);
     width: 50%;
@@ -233,7 +235,7 @@
 
 .modal-content {
     position: relative;
-    top: 10%;
+    top: 0%;
     background-color: #e0dfdf;
     margin: auto;
     padding: 0;
@@ -252,7 +254,7 @@
         opacity: 0
     }
     to {
-        top: 10%;
+        top: 0%;
         opacity: 1
     }
 }
@@ -263,7 +265,7 @@
         opacity: 0
     }
     to {
-        top: 10%;
+        top: 0%;
         opacity: 1
     }
 }
@@ -287,6 +289,9 @@
 }
 .modal-body img{
     width: 100%;
+}
+.list-post{
+    padding-bottom: 1%;
 }
 
 
