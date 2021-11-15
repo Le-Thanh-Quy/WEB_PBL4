@@ -15,15 +15,14 @@
 <body>
 
 <div class="modal">
-    <form action="${pageContext.request.contextPath}/register" method="get">
+    <form action="${pageContext.request.contextPath}/register" method="post" enctype="multipart/form-data">
         <input type="hidden" name="user_txt_singup" value="${user_name}">
         <input type="hidden" name="pass_txt_signup" i value="${pass}">
         <div class="avatarFrame">
             <img id="out_img" src="https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24" alt="">
-            <input type="hidden" name="avatar" id="avatar" value="https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24">
             <div class="chooseIMGFrame">
                 <i class="fas fa-camera"></i>
-                <input id="chooseIMG" class="chooseIMG" type="file" accept="image/*" onchange="loadFile(event)">
+                <input name="avatar" id="chooseIMG" class="chooseIMG" type="file" accept="image/*" onchange="loadFile(event)">
             </div>
         </div>
         <ul>

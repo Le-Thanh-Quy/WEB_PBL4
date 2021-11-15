@@ -18,7 +18,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
-<body>
+<body onclick="checkLogOut = true;">
+
+<%
+    if(session.getAttribute("logged") == null){
+        session.setAttribute("Mess", "Bạn đã đăng xuất khỏi tài khoản!");
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
+        return;
+    }
+%>
 
 <header id="menu">
     <div class="nav" id="nav">
@@ -37,7 +46,7 @@
         <div class="menu_info">
             <ul>
                 <li>Cập nhật thông tin</li>
-                <a href="${pageContext.request.contextPath}/logout"><li>Đăng Xuất</li></a>
+                <a href="${pageContext.request.contextPath}/logout" onclick="LogOut()"><li>Đăng Xuất</li></a>
             </ul>
         </div>
     </div>
@@ -71,6 +80,7 @@
         <h1></h1>
     </div>
     <div class="list-post" id="list-post">
+        <c:if test="${ListPost != []}">
         <c:forEach items="${ListPost}" var="Post">
             <div class="post">
                 <img class="post-img" src="${Post.getImage()}" alt="">
@@ -129,8 +139,9 @@
         </c:forEach>
         <script>
             let UserID = ${user.getID()};
-            let ID = ${ListPost.get(ListPost.size() - 1).getID()};
+            ID = ${ListPost.get(ListPost.size() - 1).getID()};
         </script>
+        </c:if>
     </div>
 </div>
 <div class="frameDetalInfo" id="frameDetalInfo">

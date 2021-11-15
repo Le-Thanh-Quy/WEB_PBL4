@@ -1,7 +1,7 @@
-var TinhS, HuyenS, XaS, TinhE, HuyenE, XaE, SorE;
+var StartorEnd;
 
 function SelectStart() {
-    SorE = 0;
+    StartorEnd = 0;
     var selectXaClone = document.getElementById("selectXaClone");
     selectXaClone.style.display = "block";
     var modal = document.getElementById("myModal");
@@ -21,7 +21,6 @@ function SelectStart() {
             var selectXa = document.getElementById("selectXa");
             selectXa.style.display = "none";
             modal.style.display = "block";
-            TinhS = selectTinh.options[selectTinh.selectedIndex].text;
             var span = document.getElementsByClassName("close")[0];
             span.onclick = function () {
                 modal.style.display = "none";
@@ -34,7 +33,7 @@ function SelectStart() {
 }
 
 function SelectEnd() {
-    SorE = 1;
+    StartorEnd = 1;
     var selectXaClone = document.getElementById("selectXaClone");
     selectXaClone.style.display = "block";
     var modal = document.getElementById("myModal");
@@ -54,7 +53,6 @@ function SelectEnd() {
             var selectXa = document.getElementById("selectXa");
             selectXa.style.display = "none";
             modal.style.display = "block";
-            TinhE = selectTinh.options[selectTinh.selectedIndex].text;
             var span = document.getElementsByClassName("close")[0];
             span.onclick = function () {
                 modal.style.display = "none";
@@ -81,12 +79,6 @@ function SelectHuyen() {
             selectXa.style.display = "block";
             var selectXaClone = document.getElementById("selectXaClone");
             selectXaClone.style.display = "none";
-            if (SorE == 0) {
-                HuyenS = selectHuyen.options[selectHuyen.selectedIndex].text;
-            } else {
-                HuyenE = selectHuyen.options[selectHuyen.selectedIndex].text;
-            }
-
         }
         xhttp.open("GET", "getXaPhuong?id=" + selectHuyen.options[selectHuyen.selectedIndex].value);
         xhttp.send();
@@ -99,20 +91,19 @@ function SelectHuyen() {
 }
 
 function SelectXa() {
+    var selectXa = document.getElementById("selectXa");
     if (selectXa.value != "Chọn Xã/Phường") {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
-        if (SorE == 0) {
-            XaS = selectXa.options[selectXa.selectedIndex].text;
-            alert("Tỉnh: " + TinhS + ", Huyện: " + HuyenS + ", Xã: " + XaS);
+        if (StartorEnd == 0) {
+            var input = document.getElementById("search_Start");
+            input.value = selectXa.value;
         } else {
-            XaE = selectXa.options[selectXa.selectedIndex].text;
-            alert("Tỉnh: " + TinhE + ", Huyện: " + HuyenE + ", Xã: " + XaE);
+            var input = document.getElementById("search_End");
+            input.value = selectXa.value;
         }
 
-
     }
-
 }
 
 
@@ -125,7 +116,7 @@ window.onclick = function (event) {
     var modal2 = document.getElementById("myModal-signup");
     var modalpost = document.getElementById("myModal-newPost");
     var selectTinh;
-    if (SorE == 0) {
+    if (StartorEnd == 0) {
         selectTinh = document.getElementById("selectTinhS");
     } else {
         selectTinh = document.getElementById("selectTinhE");

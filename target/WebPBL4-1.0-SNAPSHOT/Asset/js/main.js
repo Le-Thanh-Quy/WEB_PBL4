@@ -1,3 +1,9 @@
+let ID = -1;
+
+window.onhashchange= function () {
+    alert("Hash đã được thay đổi!");
+}
+
 function btnAddH() {
     var icon = document.getElementById("icon");
     icon.style.backgroundImage = "url('./Asset/img/icon/addT.png')";
@@ -55,20 +61,39 @@ window.onscroll = function scroll() {
             icon.style.backgroundImage = "url('./Asset/img/icon/addT.png')";
         active.style.color = "#8d99af!important";
     }
-    if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1) {
+    if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1 && ID != -1 && check) {
         var loadPost = document.getElementById("loadPost");
-        if (check) {
-            if (loadPost != null) {
-                loadPost.style.display = "block";
-            }
-            check = false;
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function () {
-                const myObj = JSON.parse(this.responseText);
-                LoadPost(myObj);
 
+        if (loadPost != null) {
+            loadPost.style.display = "block";
+        }
+        check = false;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            const myObj = JSON.parse(this.responseText);
+            if (myObj.length == 0) {
+                var loadPost = document.getElementById("loadPost");
+                loadPost.style.display = "none";
+            } else {
+                LoadPost(myObj);
             }
+
+
+        }
+        var CheckPostType = document.getElementById("CheckPostType");
+        if (CheckPostType.textContent == "Lịch trình mới nhất") {
             xhttp.open("GET", "getPosts?id=" + ID + "&userID=null");
+            xhttp.send();
+        } else {
+
+            var search_StartReceive = document.getElementById("search_StartReceive").value;
+            var search_EndReceive = document.getElementById("search_EndReceive").value;
+            var TimeReceive = document.getElementById("TimeReceive").value;
+            var DateReceive = document.getElementById("DateReceive").value;
+
+            xhttp.open("POST", "getPosts?id=" + ID + "&search_Start=" + search_StartReceive +
+                "&search_End=" + search_EndReceive + "&Time=" + TimeReceive +
+                "&Date=" + DateReceive);
             xhttp.send();
         }
 
@@ -145,6 +170,7 @@ function LoadPost(myObj) {
 }
 
 window.onload = function Load() {
+    check = true;
     var header = document.getElementById("menu");
     header.style.height = "13%";
     var text = document.getElementsByClassName("tab");

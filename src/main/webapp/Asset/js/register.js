@@ -1,12 +1,15 @@
 var loadFile = function (event) {
     var output = document.getElementById('out_img');
     var avatar = document.getElementById("avatar");
+    const value = event.target.value;
+    console.log(value);
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function () {
         URL.revokeObjectURL(output.src);
         avatar.value = output.src;
     }
 };
+
 
 function selectTinhRegister() {
     var selectTinh = null;

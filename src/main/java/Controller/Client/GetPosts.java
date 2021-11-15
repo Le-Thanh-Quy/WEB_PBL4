@@ -23,10 +23,10 @@ public class GetPosts extends HttpServlet {
         String json = null;
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        if("null".equals(userID)){
-            json = new Gson().toJson( PostBO.getInstance().getPostList(Integer.parseInt(id)));
-        }else{
-            json = new Gson().toJson( PostBO.getInstance().getPostListWithUser(Integer.parseInt(id) , Integer.parseInt(userID)));
+        if ("null".equals(userID)) {
+            json = new Gson().toJson(PostBO.getInstance().getPostList(Integer.parseInt(id)));
+        } else {
+            json = new Gson().toJson(PostBO.getInstance().getPostListWithUser(Integer.parseInt(id), Integer.parseInt(userID)));
         }
 
         response.getWriter().write(json);
@@ -34,6 +34,15 @@ public class GetPosts extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        String id = request.getParameter("id");
+        String search_Start = request.getParameter("search_Start");
+        String search_End = request.getParameter("search_End");
+        String Time = request.getParameter("Time");
+        String Date = request.getParameter("Date");
+        String json = null;
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        json = new Gson().toJson(PostBO.getInstance().SearchPost(Integer.parseInt(id), search_Start, search_End, Time, Date));
+        response.getWriter().write(json);
     }
 }

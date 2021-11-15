@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
-<body>
+<body >
 <header id="menu">
     <div class="nav" id="nav">
         <img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt="">
@@ -71,6 +71,7 @@
         <h5>Over 3+ Active Listings</h5>
         <h1>Tìm Kiếm Lịch Trình</h1>
     </div>
+    <form action="trangchu" method="post">
     <div class="search-input">
 
         <select id="selectTinhS" onchange="SelectStart();">
@@ -80,8 +81,9 @@
                 <option value="${Tinh.matp}">${Tinh.name}</option>
             </c:forEach>
         </select>
-
-        <select>
+            <input type="hidden" name="search_Start" id="search_Start">
+            <input type="hidden" name="search_End" id="search_End">
+        <select name="Time">
             <option selected>Thời gian khởi hành</option>
             <option value="00:00 - 02:00">00:00 - 02:00</option>
             <option value="01:00 - 03:00">01:00 - 03:00</option>
@@ -107,7 +109,7 @@
             <option value="21:00 - 23:00">21:00 - 23:00</option>
             <option value="22:00 - 00:00">22:00 - 00:00</option>
         </select>
-        <select>
+        <select name="Date">
             <option selected>Ngày khởi hành</option>
             <option value="0">Hôm nay</option>
             <option value="1">Ngày mai</option>
@@ -124,16 +126,24 @@
             </c:forEach>
         </select>
 
-        <button><i class="fas fa-search"></i></i>Search Now</button>
+        <button><i class="fas fa-search"></i></i>Tìm kiếm ngay</button>
     </div>
+    </form>
 </div>
 
 
 <div class="framePost">
     <div class="title">
-        <h1>Lịch trình mới nhất</h1>
+        <h1 id="CheckPostType" >${PostType}</h1>
+        <form>
+            <input type="hidden" id="search_StartReceive" value="${search_Start}">
+            <input type="hidden" id="search_EndReceive" value="${search_End}">
+            <input type="hidden" id="TimeReceive" value="${Time}">
+            <input type="hidden" id="DateReceive" value="${Date}">
+        </form>
     </div>
     <div class="list-post" id="list-post">
+        <c:if test="${ListPost != []}">
         <c:forEach items="${ListPost}" var="Post">
             <div class="post">
                 <img class="post-img" src="${Post.getImage()}" alt="">
@@ -199,9 +209,9 @@
 
         </c:forEach>
         <script>
-            let ID = ${ListPost.get(ListPost.size() - 1).getID()};
+            ID = ${ListPost.get(ListPost.size() - 1).getID()};
         </script>
-
+        </c:if>
     </div>
 </div>
 
@@ -313,7 +323,7 @@
     <div class="modal-content-newPost">
         <span class="close" onclick="ClosePost()">&times;</span>
         <div class="modal-body-newPost">
-            <form name="form_newPost" action="newPost" method="get">
+            <form name="form_newPost" action="newPost" method="post" enctype="multipart/form-data">
                 <h3 class="title-newPost">Tạo bài viết</h3>
                 <hr>
                 <div class="avatar-newPost">
@@ -328,9 +338,7 @@
                     <div class="img-newPost">
                         <p><i class="fas fa-images" style="font-size: 25px;"></i> Thêm ảnh</p>
                         <img src="" alt="" id="out_img-newPost">
-                        <input type="hidden" name="img_newPost"
-                               value="https://drive.google.com/uc?export=view&id=1gSUXHvd-7VPnSFSb0JPJjVCuh8JwKy0m">
-                        <input id="chooseIMGNewPost" type="file" accept="image/*" onchange="loadFile(event)">
+                        <input name="description_img" id="chooseIMGNewPost" type="file" accept="image/*" onchange="loadFile(event)">
                         <span class="close" id="closeIMG" onclick="CloseChooseIMG()">&times;</span>
                     </div>
 
@@ -404,7 +412,7 @@
                 </div>
             </form>
             <div class="time-newPost-submit">
-                <button onclick="NewPost()">Đăng bài</button>
+                <button id="submit_newPost" onclick="NewPost()">Đăng bài</button>
             </div>
 
 

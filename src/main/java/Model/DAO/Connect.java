@@ -256,7 +256,7 @@ public class Connect {
         User user = new User();
         try {
             String str;
-            if (user_name.equals("-1")) {
+            if ("-1".equals(user_name)) {
                 str = "SELECT * FROM user WHERE  ID = '" + ID + "' ;";
             } else {
                 str = "SELECT * FROM user WHERE  AccountID = '" + user_name + "' ;";
@@ -365,7 +365,7 @@ public class Connect {
         return postList;
     }
 
-    public List<Post> postListWithUser(int ID , int IDUser) {
+    public List<Post> postListWithUser(int ID, int IDUser) {
         List<Post> postList = new ArrayList<Post>();
 
         try {
@@ -417,5 +417,46 @@ public class Connect {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Post> SearchPost(int ID,  String StartID, String EndID, String Time, String Date) {
+        List<Post> postList = new ArrayList<Post>();
+
+        try {
+            String str = "SELECT * FROM post WHERE StartID = '" + StartID + "' and EndID = '" + EndID +
+                    "' and TimeStart = '" + Time + "' and Date = '" + Date + "' and ID < " + ID +
+                    " ORDER BY ID DESC   LIMIT 5;";
+            if(StartID.equals("null")){
+                str = str.replace("StartID = '" + StartID + "' and" , "");
+            }
+            if(EndID.equals("null")){
+                str = str.replace("EndID = '" + EndID + "' and" , "");
+            }if(Time.equals("null")){
+                str = str.replace("TimeStart = '" + Time + "' and" , "");
+            }if(Date.equals("null")){
+                str = str.replace("Date = '" + Date + "' and" , "");
+            }
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Post post = new Post();
+                post.setID(resultSet.getInt("ID"));
+                post.setStartAddress(resultSet.getString("StartID"));
+                post.setEndAddress(resultSet.getString("EndID"));
+                post.setDateTime(resultSet.getString("Time"));
+                post.setTimeStart(resultSet.getString("TimeStart"));
+                post.setDate(resultSet.getString("Date"));
+                post.setCaption(resultSet.getString("Caption"));
+                post.setUserID(resultSet.getInt("UserID"));
+                post.setImage(resultSet.getString("Image"));
+
+                postList.add(post);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return postList;
     }
 }

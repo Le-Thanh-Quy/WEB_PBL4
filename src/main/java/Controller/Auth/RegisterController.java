@@ -4,27 +4,29 @@ package Controller.Auth;
 import Model.BEAN.User;
 import Model.BO.AddressBO;
 import Model.BO.AuthBO;
+import Model.BO.UploadImage;
 
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @WebServlet(name = "register", value = "/register")
+@MultipartConfig
 public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String user_name = request.getParameter("user_txt_singup");
         String pass = request.getParameter("pass_txt_signup");
-        String avatar = request.getParameter("avatar");
         String name = request.getParameter("name");
         String age = request.getParameter("age");
         String sex = request.getParameter("sex");
@@ -34,7 +36,27 @@ public class RegisterController extends HttpServlet {
         String submitRegister = request.getParameter("submitRegister");
 
 
-        if (submitRegister == "") {
+
+        if ("".equals(submitRegister)) {
+            Part filePart = request.getPart("avatar");
+            InputStream is = filePart.getInputStream();
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            byte[] data = new byte[16384];
+
+            while ((nRead = is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+            String avatar = "https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24";
+            try {
+
+                String nameIMG = user_name;
+                avatar = UploadImage.getInstance().UpLoadImage(buffer , "1JUy7im4fXDgBkY5cr9NzheZ3WxO_l87m" , nameIMG);
+            } catch (Exception e) {
+                avatar = "https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24";
+            }
+
             List<Integer> ints = new ArrayList<>();
             if (name.trim().equals("")) {
                 ints.add(1);

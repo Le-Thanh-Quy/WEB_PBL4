@@ -19,7 +19,6 @@ public class LogoutController extends HttpServlet {
         session.removeAttribute("logged");
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);
-
     }
 
     @Override

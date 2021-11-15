@@ -111,6 +111,7 @@ function dateNewPostChange(event) {
 
 
 function NewPost() {
+    var submit = document.getElementById("submit_newPost");
     var description_newPost = document.getElementById("description_newPost");
     var start_newPost= document.getElementById("newPostXaS");
     var end_newPost = document.getElementById("newPostXaE");
@@ -129,6 +130,7 @@ function NewPost() {
         notification_newPost.innerHTML = "<i class=\"fas fa-exclamation-circle\"></i> Vui lòng chọn thời gian khởi hành!";
         notification_newPost.style.display = "block";
     }else{
+        submit.setAttribute('disabled', 'disabled');
         document.form_newPost.submit();
     }
 }
