@@ -461,16 +461,31 @@ public class Connect {
     }
 
     //các chức năng trang admin...................M vieets owr ddaay nghe............................................
+    //Lấy all post
     public ArrayList<Post> getAllPost(){
         ArrayList<Post> list = new ArrayList<Post>();
         try{
             String sql = "SELECT * FROM post";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Post post = new Post();
+                post.setID(resultSet.getInt("ID"));
+                post.setStartAddress(resultSet.getString("StartID"));
+                post.setEndAddress(resultSet.getString("EndID"));
+                post.setDateTime(resultSet.getString("Time"));
+                post.setTimeStart(resultSet.getString("TimeStart"));
+                post.setDate(resultSet.getString("Date"));
+                post.setCaption(resultSet.getString("Caption"));
+                post.setUserID(resultSet.getInt("UserID"));
+                post.setImage(resultSet.getString("Image"));
 
+                list.add(post);
+            }
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
         return list;
     }
 }
