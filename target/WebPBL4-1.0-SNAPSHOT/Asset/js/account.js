@@ -1,3 +1,21 @@
+let ID = -1;
+
+
+window.onload = function LoadFormAccount() {
+    check = true;
+    var frameDetalInfo = document.getElementById("frameDetalInfo");
+    var framePostInfo = document.getElementById("framePostInfo");
+    framePostInfo.style.display = "block";
+    frameDetalInfo.style.display = "none";
+    var header = document.getElementById("menu");
+    header.style.height = "13%";
+    var text = document.getElementsByClassName("tab");
+    for (let index = 0; index < text.length; index++) {
+        text[index].style.fontSize = "18px";
+    }
+
+}
+
 window.onscroll = function scroll() {
     var header = document.getElementById("menu");
     var active = document.getElementById("active");
@@ -40,22 +58,27 @@ window.onscroll = function scroll() {
         active.style.color = "#8d99af!important";
     }
     var frameDetalInfo = document.getElementById("frameDetalInfo");
-    if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1 && frameDetalInfo.style.display == "none") {
+    if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1 && frameDetalInfo.style.display == "none" && check && ID != -1) {
         var loadPost = document.getElementById("loadPost");
-        if (check) {
-            if (loadPost != null) {
-                loadPost.style.display = "block";
-            }
-            check = false;
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function () {
-                const myObj = JSON.parse(this.responseText);
-                LoadPost(myObj);
 
-            }
-            xhttp.open("GET", "getPosts?id=" + ID + "&userID=" + UserID);
-            xhttp.send();
+        if (loadPost != null) {
+            loadPost.style.display = "block";
         }
+        check = false;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            const myObj = JSON.parse(this.responseText);
+            if (myObj.length == 0) {
+                var loadPost = document.getElementById("loadPost");
+                loadPost.style.display = "none";
+            } else {
+                LoadPost(myObj);
+            }
+
+        }
+        xhttp.open("GET", "getPosts?id=" + ID + "&userID=" + UserID);
+        xhttp.send();
+
 
     }
 }
@@ -130,19 +153,7 @@ function LoadPost(myObj) {
 }
 
 
-window.onload = function LoadFormAccount() {
-    var frameDetalInfo = document.getElementById("frameDetalInfo");
-    var framePostInfo = document.getElementById("framePostInfo");
-    framePostInfo.style.display = "block";
-    frameDetalInfo.style.display = "none";
-    var header = document.getElementById("menu");
-    header.style.height = "13%";
-    var text = document.getElementsByClassName("tab");
-    for (let index = 0; index < text.length; index++) {
-        text[index].style.fontSize = "18px";
-    }
 
-}
 
 function MenuOn() {
     var menu = document.getElementById("menu_logout");

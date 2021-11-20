@@ -59,3 +59,8 @@ function selectHuyenRegister() {
     }
 }
 
+function Submit() {
+    var SubmitRegister = document.getElementById("SubmitRegister");
+    SubmitRegister.setAttribute('disabled', 'disabled');
+}
+

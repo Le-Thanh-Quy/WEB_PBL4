@@ -15,7 +15,7 @@
 <body>
 
 <div class="modal">
-    <form action="${pageContext.request.contextPath}/register" method="post" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/register" method="post" enctype="multipart/form-data" >
         <input type="hidden" name="user_txt_singup" value="${user_name}">
         <input type="hidden" name="pass_txt_signup" i value="${pass}">
         <div class="avatarFrame">
@@ -82,14 +82,13 @@
             }%></textarea>
                 <i class="fas fa-exclamation-circle dacbiet" id="icon_status"></i></li>
 
-            <li>
-                <button name="submitRegister" type="submit">Xác nhận đăng ký</button>
-            </li>
-
         </ul>
-
-
+        <button id="SubmitRegister" name="submitRegister" type="submit" >Xác nhận đăng ký</button>
     </form>
+
+
+
+
 
 
 </div>

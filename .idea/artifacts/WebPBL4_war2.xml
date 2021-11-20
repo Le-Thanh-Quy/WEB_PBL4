@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="WebPBL4:war2">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebPBL4_war2</output-path>
+    <root id="archive" name="WebPBL4_war.war">
+      <element id="artifact" artifact-name="WebPBL4:war exploded" />
+    </root>
+  </artifact>
+</component>

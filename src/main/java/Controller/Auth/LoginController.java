@@ -18,7 +18,8 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user_txt = request.getParameter("user_txt");
         String pass_txt = request.getParameter("pass_txt");
-        String checkNewPost = request.getParameter("checkNewPost");
+        String checkTypeLogin = request.getParameter("checkTypeLogin");
+        String checkMessLogin = request.getParameter("checkMessLogin");
 
         int check = AuthBO.getInstance().checkLogin(user_txt, pass_txt);
 
@@ -29,7 +30,8 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user_txt);
             session.setAttribute("logged", true);
-            session.setAttribute("checkNewPost", checkNewPost);
+            session.setAttribute("checkTypeLogin", checkTypeLogin);
+            session.setAttribute("checkMessLogin" , checkMessLogin);
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         } else {

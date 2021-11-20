@@ -1,6 +1,7 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="Model.BEAN.Assess" %>
+<%@ page import="Model.BEAN.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -21,13 +22,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
-<body >
+<body>
 <header id="menu">
     <div class="nav" id="nav">
         <img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt="">
         <ul>
             <li><a class="tab" id="active" href="index.jsp">Trang Chủ</a></li>
-            <li><a class="tab" href="">Liên Hệ</a></li>
+            <li><a
+                    <c:if test="${logged == true}">
+                        class="tab"
+                        href="chat?myID=${user_info.getID()}"
+                    </c:if>
+                    <c:if test="${logged == false}">
+                        class="tab"
+                        onclick="OpenLogin('chat')"
+                    </c:if>
+            >Liên Hệ</a></li>
             <li><a
                     <c:if test="${logged == true}">
                         class="tab avatar_menu"
@@ -72,69 +82,69 @@
         <h1>Tìm Kiếm Lịch Trình</h1>
     </div>
     <form action="trangchu" method="post">
-    <div class="search-input">
+        <div class="search-input">
 
-        <select id="selectTinhS" onchange="SelectStart();">
+            <select id="selectTinhS" onchange="SelectStart();">
 
-            <option selected>Điểm khởi hành</option>
-            <c:forEach items="${Tinhs}" var="Tinh">
-                <option value="${Tinh.matp}">${Tinh.name}</option>
-            </c:forEach>
-        </select>
+                <option selected>Điểm khởi hành</option>
+                <c:forEach items="${Tinhs}" var="Tinh">
+                    <option value="${Tinh.matp}">${Tinh.name}</option>
+                </c:forEach>
+            </select>
             <input type="hidden" name="search_Start" id="search_Start">
             <input type="hidden" name="search_End" id="search_End">
-        <select name="Time">
-            <option selected>Thời gian khởi hành</option>
-            <option value="00:00 - 02:00">00:00 - 02:00</option>
-            <option value="01:00 - 03:00">01:00 - 03:00</option>
-            <option value="02:00 - 04:00">02:00 - 04:00</option>
-            <option value="03:00 - 05:00">03:00 - 05:00</option>
-            <option value="04:00 - 06:00">04:00 - 06:00</option>
-            <option value="05:00 - 07:00">05:00 - 07:00</option>
-            <option value="06:00 - 08:00">06:00 - 08:00</option>
-            <option value="07:00 - 09:00">07:00 - 09:00</option>
-            <option value="08:00 - 10:00">08:00 - 10:00</option>
-            <option value="09:00 - 11:00">09:00 - 11:00</option>
-            <option value="10:00 - 12:00">10:00 - 12:00</option>
-            <option value="11:00 - 13:00">11:00 - 13:00</option>
-            <option value="12:00 - 14:00">12:00 - 14:00</option>
-            <option value="13:00 - 15:00">13:00 - 15:00</option>
-            <option value="14:00 - 16:00">14:00 - 16:00</option>
-            <option value="15:00 - 17:00">15:00 - 17:00</option>
-            <option value="16:00 - 18:00">16:00 - 18:00</option>
-            <option value="17:00 - 19:00">17:00 - 19:00</option>
-            <option value="18:00 - 20:00">18:00 - 20:00</option>
-            <option value="19:00 - 21:00">19:00 - 21:00</option>
-            <option value="20:00 - 22:00">20:00 - 22:00</option>
-            <option value="21:00 - 23:00">21:00 - 23:00</option>
-            <option value="22:00 - 00:00">22:00 - 00:00</option>
-        </select>
-        <select name="Date">
-            <option selected>Ngày khởi hành</option>
-            <option value="0">Hôm nay</option>
-            <option value="1">Ngày mai</option>
-            <option value="2">2 ngày tới</option>
-            <option value="3">3 ngày tới</option>
-            <option value="4">4 ngày tới</option>
-            <option value="5">5 ngày tới</option>
-        </select>
+            <select name="Time">
+                <option selected>Thời gian khởi hành</option>
+                <option value="00:00 - 02:00">00:00 - 02:00</option>
+                <option value="01:00 - 03:00">01:00 - 03:00</option>
+                <option value="02:00 - 04:00">02:00 - 04:00</option>
+                <option value="03:00 - 05:00">03:00 - 05:00</option>
+                <option value="04:00 - 06:00">04:00 - 06:00</option>
+                <option value="05:00 - 07:00">05:00 - 07:00</option>
+                <option value="06:00 - 08:00">06:00 - 08:00</option>
+                <option value="07:00 - 09:00">07:00 - 09:00</option>
+                <option value="08:00 - 10:00">08:00 - 10:00</option>
+                <option value="09:00 - 11:00">09:00 - 11:00</option>
+                <option value="10:00 - 12:00">10:00 - 12:00</option>
+                <option value="11:00 - 13:00">11:00 - 13:00</option>
+                <option value="12:00 - 14:00">12:00 - 14:00</option>
+                <option value="13:00 - 15:00">13:00 - 15:00</option>
+                <option value="14:00 - 16:00">14:00 - 16:00</option>
+                <option value="15:00 - 17:00">15:00 - 17:00</option>
+                <option value="16:00 - 18:00">16:00 - 18:00</option>
+                <option value="17:00 - 19:00">17:00 - 19:00</option>
+                <option value="18:00 - 20:00">18:00 - 20:00</option>
+                <option value="19:00 - 21:00">19:00 - 21:00</option>
+                <option value="20:00 - 22:00">20:00 - 22:00</option>
+                <option value="21:00 - 23:00">21:00 - 23:00</option>
+                <option value="22:00 - 00:00">22:00 - 00:00</option>
+            </select>
+            <select name="Date">
+                <option selected>Ngày khởi hành</option>
+                <option value="0">Hôm nay</option>
+                <option value="1">Ngày mai</option>
+                <option value="2">2 ngày tới</option>
+                <option value="3">3 ngày tới</option>
+                <option value="4">4 ngày tới</option>
+                <option value="5">5 ngày tới</option>
+            </select>
 
-        <select id="selectTinhE" onchange="SelectEnd()">
-            <option selected>Điểm đến</option>
-            <c:forEach items="${Tinhs}" var="Tinh">
-                <option value="${Tinh.matp}">${Tinh.name}</option>
-            </c:forEach>
-        </select>
+            <select id="selectTinhE" onchange="SelectEnd()">
+                <option selected>Điểm đến</option>
+                <c:forEach items="${Tinhs}" var="Tinh">
+                    <option value="${Tinh.matp}">${Tinh.name}</option>
+                </c:forEach>
+            </select>
 
-        <button><i class="fas fa-search"></i></i>Tìm kiếm ngay</button>
-    </div>
+            <button><i class="fas fa-search"></i></i>Tìm kiếm ngay</button>
+        </div>
     </form>
 </div>
 
 
 <div class="framePost">
     <div class="title">
-        <h1 id="CheckPostType" >${PostType}</h1>
+        <h1 id="CheckPostType">${PostType}</h1>
         <form>
             <input type="hidden" id="search_StartReceive" value="${search_Start}">
             <input type="hidden" id="search_EndReceive" value="${search_End}">
@@ -144,73 +154,83 @@
     </div>
     <div class="list-post" id="list-post">
         <c:if test="${ListPost != []}">
-        <c:forEach items="${ListPost}" var="Post">
-            <div class="post">
-                <img class="post-img" src="${Post.getImage()}" alt="">
+            <c:forEach items="${ListPost}" var="Post">
+                <div class="post">
+                    <img class="post-img" src="${Post.getImage()}" alt="">
 
-                <div class="post-main">
-                    <c:if test="${logged == true}">
-                        <a href="account?others_user_name=${Post.getUser().getAccountID()}" style="text-decoration: none">
-                            <h1>${Post.getUser().getName()}</h1>
-                        </a>
-                    </c:if>
+                    <div class="post-main">
+                        <c:if test="${logged == true}">
+                            <a href="account?others_user_name=${Post.getUser().getAccountID()}"
+                               style="text-decoration: none">
+                                <h1>${Post.getUser().getName()}</h1>
+                            </a>
+                        </c:if>
 
-                    <c:if test="${logged == false}">
-                        <h1 onclick="OpenLogin()">${Post.getUser().getName()}</h1>
-                    </c:if>
+                        <c:if test="${logged == false}">
+                            <h1 onclick="OpenLogin()">${Post.getUser().getName()}</h1>
+                        </c:if>
 
-                    <h5>${Post.getDateTime()}</h5>
-                    <ul class="rate">
+                        <h5>${Post.getDateTime()}</h5>
+                        <ul class="rate">
 
-                        <c:forEach begin="1" end="${Post.getUser().getAssess().getRate()}" varStatus="loop">
-                            <li><i class='fas fa-star'></i></li>
-                        </c:forEach>
-                        <c:forEach begin="${Post.getUser().getAssess().getRate()}" end="4" varStatus="loop">
-                            <li><i class='far fa-star'></i></li>
-                        </c:forEach>
-                        <li>(${Post.getUser().getAssess().getReview()}) Lượt đánh giá</li>
-                    </ul>
+                            <c:forEach begin="1" end="${Post.getUser().getAssess().getRate()}" varStatus="loop">
+                                <li><i class='fas fa-star'></i></li>
+                            </c:forEach>
+                            <c:forEach begin="${Post.getUser().getAssess().getRate()}" end="4" varStatus="loop">
+                                <li><i class='far fa-star'></i></li>
+                            </c:forEach>
+                            <li>(${Post.getUser().getAssess().getReview()}) Lượt đánh giá</li>
+                        </ul>
 
-                    <div class="info">
-                        <div class="start-info">
-                            <h3>Điểm Xuất Phát</h3>
-                            <ul class="address">
-                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartProvince()}</li>
-                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartDistrict()}</li>
-                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartCommune()}</li>
-                            </ul>
+                        <div class="info">
+                            <div class="start-info">
+                                <h3>Điểm Xuất Phát</h3>
+                                <ul class="address">
+                                    <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartProvince()}</li>
+                                    <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartDistrict()}</li>
+                                    <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartCommune()}</li>
+                                </ul>
+                            </div>
+                            <div class="time-info">
+                                <h3>Thời gian: </h3>
+                                <p><i class="far fa-clock"></i> ${Post.getTimeStart()}</p>
+                                <p><i class="far fa-calendar-alt"></i> ${Post.getDate()}</p>
+                            </div>
+                            <div class="end-info">
+                                <h3>Điểm Đến</h3>
+                                <ul class="address">
+                                    <li><i class="fas fa-map-marker"></i> ${Post.getEndProvince()}</li>
+                                    <li><i class="fas fa-map-marker"></i> ${Post.getEndDistrict()}</li>
+                                    <li><i class="fas fa-map-marker"></i> ${Post.getEndCommune()}</li>
+                                </ul>
+                            </div>
+
+
                         </div>
-                        <div class="time-info">
-                            <h3>Thời gian: </h3>
-                            <p><i class="far fa-clock"></i> ${Post.getTimeStart()}</p>
-                            <p><i class="far fa-calendar-alt"></i> ${Post.getDate()}</p>
+                        <div class="status">
+                            <p><i class="far fa-clipboard"></i> ${Post.getCaption()}</p>
                         </div>
-                        <div class="end-info">
-                            <h3>Điểm Đến</h3>
-                            <ul class="address">
-                                <li><i class="fas fa-map-marker"></i> ${Post.getEndProvince()}</li>
-                                <li><i class="fas fa-map-marker"></i> ${Post.getEndDistrict()}</li>
-                                <li><i class="fas fa-map-marker"></i> ${Post.getEndCommune()}</li>
-                            </ul>
+                        <div class="post-button">
+                            <a
+                                    <c:if test="${user_info.getID() != Post.getUser().getID()}">
+                                        <c:if test="${logged == true}">
+                                            href="chat?myID=${user_info.getID()}&theirID=${Post.getUser().getID()}"
+                                        </c:if>
+                                        <c:if test="${logged == false}">
+                                            onclick="OpenLogin('chat' , ${Post.getUser().getID()})"
+                                        </c:if>
+                                    </c:if>
+                            ><i class="far fa-comment"></i> Liên Hệ </a>
+                            <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
+                            <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                         </div>
-
-
-                    </div>
-                    <div class="status">
-                        <p><i class="far fa-clipboard"></i> ${Post.getCaption()}</p>
-                    </div>
-                    <div class="post-button">
-                        <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
-                        <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
-                        <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                     </div>
                 </div>
-            </div>
 
-        </c:forEach>
-        <script>
-            ID = ${ListPost.get(ListPost.size() - 1).getID()};
-        </script>
+            </c:forEach>
+            <script>
+                ID = ${ListPost.get(ListPost.size() - 1).getID()};
+            </script>
         </c:if>
     </div>
 </div>
@@ -291,7 +311,8 @@
                 <input id="pass_txt" onblur="PassBlur()" type="password" name="pass_txt" value=""
                        placeholder="Password">
                 <span class="focus-border"><i></i></span>
-                <input id="checkLoginForNewPost" type="hidden" name="checkNewPost" value="null">
+                <input id="checkMessLogin" type="hidden" name="checkMessLogin" value="null">
+                <input id="checkTypeLogin" type="hidden" name="checkTypeLogin" value="null">
                 <i class="fas fa-eye" id="hide_show" onclick="HideShow()"></i>
             </form>
             <button onclick="checkLogin()">SIGN IN</button>
@@ -338,7 +359,8 @@
                     <div class="img-newPost">
                         <p><i class="fas fa-images" style="font-size: 25px;"></i> Thêm ảnh</p>
                         <img src="" alt="" id="out_img-newPost">
-                        <input name="description_img" id="chooseIMGNewPost" type="file" accept="image/*" onchange="loadFile(event)">
+                        <input name="description_img" id="chooseIMGNewPost" type="file" accept="image/*"
+                               onchange="loadFile(event)">
                         <span class="close" id="closeIMG" onclick="CloseChooseIMG()">&times;</span>
                     </div>
 
@@ -438,8 +460,11 @@
         }
 
         Mess();
+
+
     </script>
 </c:if>
+
 </body>
 
 </html>

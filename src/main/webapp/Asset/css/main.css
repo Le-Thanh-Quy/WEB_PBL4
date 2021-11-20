@@ -10,6 +10,10 @@ body {
     background: rgb(245, 243, 243);
     font-family: Verdana, sans-serif;
 }
+a{
+    cursor: pointer;
+    color: #1972e7;
+}
 
 #icon {
     background-image: url(../img/icon/addT.png);

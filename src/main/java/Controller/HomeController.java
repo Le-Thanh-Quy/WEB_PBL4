@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 
 @WebServlet(name = "trangchu", urlPatterns = {"/trangchu"})
@@ -32,24 +31,42 @@ public class HomeController extends HttpServlet {
         if(!"null".equals(Mess)){
             request.setAttribute("Mess" , Mess);
         }
-        String checkNewPost = "";
-        checkNewPost = (String) session.getAttribute("checkNewPost");
+        String checkTypeLogin  = (String) session.getAttribute("checkTypeLogin");
+        String checkMessLogin = (String) session.getAttribute("checkMessLogin");
 
-
-        if("oke".equals(checkNewPost)){
+        if("newPost".equals(checkTypeLogin)){
             request.setAttribute("checkNewPost" , "block");
         }
-        else {
+        else{
             request.setAttribute("checkNewPost" , "none");
         }
 
-        session.removeAttribute("checkNewPost");
+
+
+
+        session.removeAttribute("checkTypeLogin");
 
         boolean login = false;
         String user_name = "";
         if(session.getAttribute("logged") != null){
             login = (boolean) session.getAttribute("logged");
             user_name = session.getAttribute("user").toString();
+        }
+
+        if("chat".equals(checkTypeLogin)){
+            User user = new AuthBO().GetUser(user_name);
+            if(!checkMessLogin.equals(String.valueOf(user.getID()))){
+                request.setAttribute("myID" , user.getID());
+                if(!checkMessLogin.equals("null")){
+                    request.setAttribute("theirID" , checkMessLogin);
+                }
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("chat");
+                requestDispatcher.forward(request, response);
+                return;
+            }else{
+                request.setAttribute("Mess" , "Không thể tạo tin nhắn với chính mình!");
+            }
+
         }
 
         if(login){
@@ -68,6 +85,8 @@ public class HomeController extends HttpServlet {
         request.setAttribute("Tinhs" , AddressBO.getInstance().getTinh());
         RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
         rd.forward(request, response);
+
+
     }
 
     @Override

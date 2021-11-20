@@ -1,0 +1,253 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    width: 12px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: #ebebeb;
+;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #b9b8b8;
+    border-radius: 10px;
+}
+
+.header {
+    position: fixed;
+    z-index: 100000;
+    background-color: #f1f1f5;
+    width: 100%;
+    height: 10%;
+    border-bottom: 2px solid #e2e1e1;
+    display: flex;
+    padding-top: 0;
+    padding-bottom: 1%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.header-fake{
+    position: relative;
+    width: 100%;
+    height: 10%;
+    padding-top: 0;
+    padding-bottom: 1%;
+}
+
+.header img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin: 0.5%;
+    margin-left: 2%;
+}
+
+.header .header-info p {
+    font-size: 25px;
+    font-weight: 1000;
+    margin-top: 1%;
+    margin-bottom: 0;
+    margin-left: 1%;
+}
+
+.header .header-info pre {
+    font-size: 18px;
+    margin-left: 1%;
+    margin-top: 0%;
+}
+
+.header-info {
+    width: 50%;
+}
+
+.main_frame{
+    position: relative;
+    height: 76%;
+    overflow: auto;
+}
+.main_frame .main{
+    position: relative;
+    min-height: 100%;
+    height: auto;
+}
+.main_frame .main .list_mess {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.their_mess {
+    display: block;
+    position: relative;
+    margin-left: 1%;
+    margin-top: 0;
+    margin-bottom: 1%;
+}
+.their_mess img{
+    vertical-align: bottom;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.my_mess {
+    display: block;
+    position: relative;
+    margin: 1%;
+    margin-top: 0;
+    margin-bottom: 1%;
+}
+
+.my_time {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.61);
+    position: absolute;
+    top: 10%;
+    left: -165px;
+    padding: 10px 10px 10px 10px;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+
+}
+
+.their_time {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.61);
+    position: absolute;
+    top: 10%;
+    right: -165px;
+    padding: 10px 10px 10px 10px;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+
+.their_mess .mess_detail {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 1%;
+    margin-left: 0.5%;
+    border-radius: 15px;
+    border-bottom-left-radius: 0px;
+    max-width: 40%;
+    word-wrap: break-word;
+    background-color: rgb(228, 230, 231);
+}
+
+.their_mess .mess_detail p {
+    display: inline;
+}
+
+.my_mess .mess_detail {
+    position: relative;
+    display: inline-block;
+    float: right;
+    right: 0;
+    direction: ltr;
+    margin: 0;
+    padding: 1%;
+    border-radius: 15px;
+    border-bottom-right-radius: 0px;
+    max-width: 40%;
+    word-wrap: break-word;
+    background-color: #1877F2;
+    color: rgb(255, 255, 255);
+}
+
+.fake_mess {
+    display: inline-block;
+    direction: ltr;
+    max-width: 40%;
+    margin: 0;
+    padding: 1%;
+    word-wrap: break-word;
+    opacity: 0;
+}
+
+.fake_mess p {
+    display: inline;
+    opacity: 0;
+}
+
+.my_mess .mess_detail p {
+    display: inline;
+}
+
+.chat-input {
+    position: fixed;
+    border-top: 2px solid #e5e5e5;
+    bottom: 0;
+    width: 100%;
+    height: 12%;
+    margin: 0;
+    padding: 0;
+
+}
+.chat-input .input {
+    position: relative;
+    width: 98%;
+    margin: 1% auto;
+}
+.chat-input .input input{
+    width: 100%;
+    font-size: 18px;
+    padding: 14px 4% 14px 8%;
+    border: none;
+    border-radius: 15px;
+    background-color: #e1e4e9;
+    outline: none;
+}
+
+.fa-images{
+    position: absolute;
+    font-size: 25px;
+    color: #1877F2;
+    left: 0%;
+    top: 0;
+    cursor: pointer;
+    padding: 1%;
+}
+.fa-location-arrow:hover{
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 50%;
+}
+.fa-sticky-note:hover{
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 50%;
+}
+.fa-images:hover{
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 50%;
+}
+.fa-sticky-note{
+    position: absolute;
+    font-size: 25px;
+    color: #1877F2;
+    left: 4%;
+    top: 0%;
+    padding: 1%;
+    cursor: pointer;
+}
+.fa-location-arrow{
+    position: absolute;
+    transform: rotate(45deg);
+    font-size: 25px;
+    color: #1877F2;
+    right: 0%;
+    top: 0%;
+    cursor: pointer;
+    padding: 1%;
+}

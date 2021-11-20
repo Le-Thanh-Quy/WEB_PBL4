@@ -18,15 +18,13 @@ public class Connect {
     }
 
     public Connection con;
-    public Statement statement;
-    public ResultSet resultSet;
 
     public Connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
             System.out.println("Successs");
-            statement = con.createStatement();
+            Statement statement = con.createStatement();
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
 
@@ -40,8 +38,8 @@ public class Connect {
         List<Tinh> tinhs = new ArrayList<Tinh>();
         try {
             String str = "SELECT * FROM tinh;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
                 String matp = resultSet.getString("matp");
                 String name = resultSet.getString("name");
@@ -62,8 +60,8 @@ public class Connect {
         List<Huyen> huyens = new ArrayList<Huyen>();
         try {
             String str = "SELECT * FROM huyen WHERE  matp = '" + idTinh + "';";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
                 String maqh = resultSet.getString("maqh");
                 String name = resultSet.getString("name");
@@ -85,8 +83,8 @@ public class Connect {
         List<XaPhuong> xaPhuongs = new ArrayList<XaPhuong>();
         try {
             String str = "SELECT * FROM xaphuong WHERE  maqh = '" + idHuyen + "';";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
                 String xaid = resultSet.getString("xaid");
                 String name = resultSet.getString("name");
@@ -108,8 +106,8 @@ public class Connect {
         try {
             String str = "SELECT * FROM account WHERE  UserName = '" + Username + "' and PassWord = '" + Password + "';";
 
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             int Permission = -1;
             if (resultSet.next()) {
                 Permission = resultSet.getInt("Permission");
@@ -127,8 +125,8 @@ public class Connect {
         try {
             String str = "SELECT * FROM account WHERE  UserName = '" + Username + "' ;";
 
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             int Permission = -1;
             if (resultSet.next()) {
                 Permission = resultSet.getInt("Permission");
@@ -145,7 +143,7 @@ public class Connect {
     public boolean Register(String Username, String PassWord) {
         try {
             String str = "INSERT INTO account VALUES('" + Username + "' , '" + PassWord + "' , 0) ;";
-            statement = con.createStatement();
+            Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
             return true;
@@ -159,8 +157,8 @@ public class Connect {
     public int GetIDAssess() {
         try {
             String str = "SELECT MAX(ID) from assess;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             int id = 0;
             if (resultSet.next()) {
                 id = resultSet.getInt("MAX(ID)");
@@ -177,8 +175,8 @@ public class Connect {
     public int GetMaxIDPost() {
         try {
             String str = "SELECT MAX(ID) from post;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             int id = 0;
             if (resultSet.next()) {
                 id = resultSet.getInt("MAX(ID)");
@@ -195,8 +193,8 @@ public class Connect {
     public int GetIDUser() {
         try {
             String str = "SELECT MAX(ID) from user;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             int id = 0;
             if (resultSet.next()) {
                 id = resultSet.getInt("MAX(ID)");
@@ -213,7 +211,7 @@ public class Connect {
     public void DeleteAccount(String user_name) {
         try {
             String str = "DELETE FROM account WHERE UserName = '" + user_name + "';";
-            statement = con.createStatement();
+            Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
         } catch (Exception e) {
@@ -228,7 +226,7 @@ public class Connect {
             int IDAssess = GetIDAssess();
             if (IDAssess != -1) {
                 String str = "INSERT INTO assess VALUES( " + IDAssess + ", 0 , 0) ;";
-                statement = con.createStatement();
+                Statement statement = con.createStatement();
                 statement.executeUpdate(str);
                 statement.close();
 
@@ -238,7 +236,7 @@ public class Connect {
             if (GetIDUser() != -1) {
 
                 String str = "INSERT INTO user  VALUES ('" + GetIDUser() + "', '" + user.getName() + "', '" + user.getAge() + "', '" + user.getSex() + "' , '" + user.getPhone_Number() + "', '" + user.getAddress() + "', '" + user.getAvatar() + "', '" + user.getStatus() + "', '" + IDAssess + "', '" + user.getAccountID() + "');";
-                statement = con.createStatement();
+                Statement statement = con.createStatement();
                 statement.executeUpdate(str);
                 statement.close();
                 return true;
@@ -262,8 +260,8 @@ public class Connect {
                 str = "SELECT * FROM user WHERE  AccountID = '" + user_name + "' ;";
             }
 
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             if (resultSet.next()) {
                 user.setID(resultSet.getInt("ID"));
                 user.setName(resultSet.getString("Name"));
@@ -289,8 +287,8 @@ public class Connect {
         Assess assess = new Assess();
         try {
             String str = "SELECT * FROM assess WHERE  ID = '" + ID + "' ;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             if (resultSet.next()) {
                 assess.setID(resultSet.getInt("ID"));
                 assess.setRate(resultSet.getInt("Rate"));
@@ -319,8 +317,8 @@ public class Connect {
                     "JOIN tinh " +
                     "  ON tinh.matp = huyen.matp " +
                     "WHERE  xaid = '" + idXa + "';";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             if (resultSet.next()) {
                 result += resultSet.getString("xaphuong.name") + ", ";
                 result += resultSet.getString("huyen.name") + ", ";
@@ -341,8 +339,8 @@ public class Connect {
 
         try {
             String str = "SELECT * FROM post WHERE ID < " + ID + " and Date >= '" + Date + "' ORDER BY ID DESC   LIMIT 5;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
                 Post post = new Post();
                 post.setID(resultSet.getInt("ID"));
@@ -370,8 +368,8 @@ public class Connect {
 
         try {
             String str = "SELECT * FROM post WHERE ID < " + ID + " and UserID = " + IDUser + " ORDER BY ID DESC   LIMIT 5;";
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
                 Post post = new Post();
                 post.setID(resultSet.getInt("ID"));
@@ -408,7 +406,7 @@ public class Connect {
                     "' , '" + post.getDate() +
                     "' , '" + post.getCaption() +
                     "' , '" + post.getImage() + "') ;";
-            statement = con.createStatement();
+            Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
             return true;
@@ -419,25 +417,27 @@ public class Connect {
         }
     }
 
-    public List<Post> SearchPost(int ID,  String StartID, String EndID, String Time, String Date) {
+    public List<Post> SearchPost(int ID, String StartID, String EndID, String Time, String Date) {
         List<Post> postList = new ArrayList<Post>();
 
         try {
             String str = "SELECT * FROM post WHERE StartID = '" + StartID + "' and EndID = '" + EndID +
                     "' and TimeStart = '" + Time + "' and Date = '" + Date + "' and ID < " + ID +
                     " ORDER BY ID DESC   LIMIT 5;";
-            if(StartID.equals("null")){
-                str = str.replace("StartID = '" + StartID + "' and" , "");
+            if (StartID.equals("null")) {
+                str = str.replace("StartID = '" + StartID + "' and", "");
             }
-            if(EndID.equals("null")){
-                str = str.replace("EndID = '" + EndID + "' and" , "");
-            }if(Time.equals("null")){
-                str = str.replace("TimeStart = '" + Time + "' and" , "");
-            }if(Date.equals("null")){
-                str = str.replace("Date = '" + Date + "' and" , "");
+            if (EndID.equals("null")) {
+                str = str.replace("EndID = '" + EndID + "' and", "");
             }
-            statement = con.createStatement();
-            resultSet = statement.executeQuery(str);
+            if (Time.equals("null")) {
+                str = str.replace("TimeStart = '" + Time + "' and", "");
+            }
+            if (Date.equals("null")) {
+                str = str.replace("Date = '" + Date + "' and", "");
+            }
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
             while (resultSet.next()) {
                 Post post = new Post();
                 post.setID(resultSet.getInt("ID"));
@@ -458,5 +458,178 @@ public class Connect {
             e.printStackTrace();
         }
         return postList;
+    }
+
+    public List<ChatRoom> getListChatRoom(String idUser) {
+        List<ChatRoom> chatRoomList = new ArrayList<ChatRoom>();
+
+        try {
+            String str = "SELECT * FROM chatroom WHERE UserID1 = " + idUser + " or UserID2 = " + idUser + " order by ID DESC ;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                ChatRoom chatRoom = new ChatRoom();
+                chatRoom.setID(resultSet.getInt("ID"));
+                chatRoom.setUserID1(resultSet.getInt("UserID1"));
+                chatRoom.setUserID2(resultSet.getInt("UserID2"));
+                chatRoom.setStatusU1(resultSet.getBoolean("StatusU1"));
+                chatRoom.setStatusU2(resultSet.getBoolean("StatusU2"));
+                chatRoomList.add(chatRoom);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return chatRoomList;
+    }
+
+    public ChatRoom getChatRoomByID(String id) {
+        ChatRoom chatRoom = new ChatRoom();
+
+        try {
+            String str = "SELECT * FROM chatroom WHERE ID = " + id + ";";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                chatRoom.setID(resultSet.getInt("ID"));
+                chatRoom.setUserID1(resultSet.getInt("UserID1"));
+                chatRoom.setUserID2(resultSet.getInt("UserID2"));
+                chatRoom.setStatusU1(resultSet.getBoolean("StatusU1"));
+                chatRoom.setStatusU2(resultSet.getBoolean("StatusU2"));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return chatRoom;
+    }
+
+    public int getChatID() {
+        try {
+            String str = "SELECT MAX(ID) from chat;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public boolean addChat(Chat chat) {
+        try {
+            String str = "INSERT INTO chat VALUES('" + chat.getID() +
+                    "', '" + chat.getChatRoomID() + "', '" + chat.getUserID() +
+                    "', '" + chat.getMessenger() + "', '" + chat.getTime() + "') ;";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Chat> getListChat(String roomID) {
+        List<Chat> chatList = new ArrayList<Chat>();
+        try {
+            String str = "SELECT * FROM chat WHERE ChatRoomID = " + roomID + ";";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Chat chat = new Chat();
+                chat.setID(resultSet.getInt("ID"));
+                chat.setChatRoomID(resultSet.getInt("ChatRoomID"));
+                chat.setUserID(resultSet.getInt("UserID"));
+                chat.setMessenger(resultSet.getString("Messenger"));
+                chat.setTime(resultSet.getString("Time"));
+                chatList.add(chat);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return chatList;
+    }
+
+    public int getRoomChatID() {
+        try {
+            String str = "SELECT MAX(ID) from chatroom;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public boolean addRoomChat(int id, int my_userID, int their_userID) {
+        try {
+            String str = "INSERT INTO chatroom VALUES('" + id + "', '" + my_userID + "', '" + their_userID + "' , '1' , '1');";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public int checkRoomChatExist(int my_userID, int their_userID) {
+        try {
+            String str = "SELECT ID FROM chatroom WHERE (UserID1 = " + my_userID + " and UserID2 = " + their_userID +
+                    " ) or (UserID2 = " + my_userID + " and UserID1 = " + their_userID + ");";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = -1;
+            if (resultSet.next()) {
+                id = resultSet.getInt("ID");
+            }
+            resultSet.close();
+            statement.close();
+            return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+
+    }
+
+    public boolean sendStatus(ChatRoom chatRoom) {
+        try {
+            int statusU1 = chatRoom.isStatusU1() ? 1 : 0;
+            int statusU2 = chatRoom.isStatusU2() ? 1 : 0;
+            String str = "UPDATE chatroom SET StatusU1 = '" + statusU1 +
+                    "', StatusU2 = '" + statusU2 +
+                    "' WHERE ID = " + chatRoom.getID() + ";";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -1,8 +1,5 @@
 let ID = -1;
 
-window.onhashchange= function () {
-    alert("Hash đã được thay đổi!");
-}
 
 function btnAddH() {
     var icon = document.getElementById("icon");

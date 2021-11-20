@@ -99,8 +99,15 @@ function HideShowR() {
     }
 }
 let checkPage;
-function OpenLogin(check) {
+let messPage;
+function OpenLogin(check , mess) {
+
     checkPage = check;
+    messPage = mess;
+    console.log(checkPage);
+    console.log(messPage);
+
+
     var user_txt = document.getElementById("user_txt");
     var pass_txt = document.getElementById("pass_txt");
     var user_txt_singup = document.getElementById("user_txt_singup");
@@ -144,7 +151,13 @@ function checkLogin(check) {
                 setTimeout(function(){ notificationForm.style.display = "none"; }, 2000);
             }else{
                 if(checkPage == "newPost"){
-                    document.getElementById("checkLoginForNewPost").value = "oke";
+                    document.getElementById("checkTypeLogin").value = "newPost";
+                }
+                if(checkPage == "chat"){
+                    if(messPage != null){
+                        document.getElementById("checkMessLogin").value = messPage;
+                    }
+                    document.getElementById("checkTypeLogin").value = "chat";
                 }
                 document.formLogin.submit();
             }
