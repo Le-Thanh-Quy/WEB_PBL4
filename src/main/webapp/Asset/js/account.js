@@ -2,7 +2,6 @@ let ID = -1;
 
 
 window.onload = function LoadFormAccount() {
-    check = true;
     var frameDetalInfo = document.getElementById("frameDetalInfo");
     var framePostInfo = document.getElementById("framePostInfo");
     framePostInfo.style.display = "block";
@@ -13,6 +12,7 @@ window.onload = function LoadFormAccount() {
     for (let index = 0; index < text.length; index++) {
         text[index].style.fontSize = "18px";
     }
+    check = true;
 
 }
 
@@ -58,7 +58,10 @@ window.onscroll = function scroll() {
         active.style.color = "#8d99af!important";
     }
     var frameDetalInfo = document.getElementById("frameDetalInfo");
-    if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1 && frameDetalInfo.style.display == "none" && check && ID != -1) {
+    var frameEspeciallyInfo = document.getElementById("frameEspeciallyInfo");
+    if ((window.scrollY + window.innerHeight) >= document.body.scrollHeight - 1 &&
+        frameDetalInfo.style.display == "none" && check && ID != -1 &&
+        frameEspeciallyInfo.style.display == "none") {
         var loadPost = document.getElementById("loadPost");
 
         if (loadPost != null) {
@@ -153,8 +156,6 @@ function LoadPost(myObj) {
 }
 
 
-
-
 function MenuOn() {
     var menu = document.getElementById("menu_logout");
     menu.style.display = "block";
@@ -166,35 +167,52 @@ function MenuOff() {
     menu.style.display = "none";
 }
 
-function ChangePage1() {
-    var post_info = document.getElementById("post-info");
-    var detal_info = document.getElementById("detal-info");
-    var frameDetalInfo = document.getElementById("frameDetalInfo");
-    var framePostInfo = document.getElementById("framePostInfo");
-    if (post_info.className == "active-info") {
-        return;
-    } else {
-        detal_info.className = "";
-        post_info.className = "active-info";
-        framePostInfo.style.display = "block";
-        frameDetalInfo.style.display = "none";
+function ChangePage(checkPage) {
+    if (check) {
+        var post_info = document.getElementById("post-info");
+        var detal_info = document.getElementById("detal-info");
+        var especially_info = document.getElementById("especially-info");
+        var frameDetalInfo = document.getElementById("frameDetalInfo");
+        var framePostInfo = document.getElementById("framePostInfo");
+        var frameEspeciallyInfo = document.getElementById("frameEspeciallyInfo");
+        if (checkPage == 1) {
+            if (post_info.className == "active-info") {
+                return;
+            } else {
+                detal_info.className = "";
+                post_info.className = "active-info";
+                especially_info.className = "";
+                framePostInfo.style.display = "block";
+                frameDetalInfo.style.display = "none";
+                frameEspeciallyInfo.style.display = "none";
+            }
+        } else if (checkPage == 2) {
+            if (detal_info.className == "active-info") {
+                return;
+            } else {
+                detal_info.className = "active-info";
+                post_info.className = "";
+                especially_info.className = "";
+                framePostInfo.style.display = "none";
+                frameDetalInfo.style.display = "block";
+                frameEspeciallyInfo.style.display = "none";
+            }
+        } else {
+            if (especially_info.className == "active-info") {
+                return;
+            } else {
+                detal_info.className = "";
+                post_info.className = "";
+                especially_info.className = "active-info";
+                framePostInfo.style.display = "none";
+                frameDetalInfo.style.display = "none";
+                frameEspeciallyInfo.style.display = "block";
+            }
+        }
     }
+
 }
 
-function ChangePage2() {
-    var detal_info = document.getElementById("detal-info");
-    var post_info = document.getElementById("post-info");
-    var frameDetalInfo = document.getElementById("frameDetalInfo");
-    var framePostInfo = document.getElementById("framePostInfo");
-    if (detal_info.className == "active-info") {
-        return;
-    } else {
-        post_info.className = "";
-        detal_info.className = "active-info";
-        frameDetalInfo.style.display = "block";
-        framePostInfo.style.display = "none";
-    }
-}
 
 function viewAvatar() {
     var viewAvatar = document.getElementById("viewAvatar");
@@ -207,4 +225,61 @@ window.onclick = function (event) {
     if (event.target == viewAvatar) {
         viewAvatar.style.display = "none";
     }
+}
+
+let chooseStar = 0;
+
+function ChooseStar(check) {
+    var choose1 = document.getElementById("choose1");
+    var choose2 = document.getElementById("choose2");
+    var choose3 = document.getElementById("choose3");
+    var choose4 = document.getElementById("choose4");
+    var choose5 = document.getElementById("choose5");
+    if (check == 1) {
+        choose1.className = "fas fa-star choose";
+        choose2.className = "far fa-star choose";
+        choose3.className = "far fa-star choose";
+        choose4.className = "far fa-star choose";
+        choose5.className = "far fa-star choose";
+    } else if (check == 2) {
+        choose1.className = "fas fa-star choose";
+        choose2.className = "fas fa-star choose";
+        choose3.className = "far fa-star choose";
+        choose4.className = "far fa-star choose";
+        choose5.className = "far fa-star choose";
+    } else if (check == 3) {
+        choose1.className = "fas fa-star choose";
+        choose2.className = "fas fa-star choose";
+        choose3.className = "fas fa-star choose";
+        choose4.className = "far fa-star choose";
+        choose5.className = "far fa-star choose";
+    } else if (check == 4) {
+        choose1.className = "fas fa-star choose";
+        choose2.className = "fas fa-star choose";
+        choose3.className = "fas fa-star choose";
+        choose4.className = "fas fa-star choose";
+        choose5.className = "far fa-star choose";
+    } else if (check == 5) {
+        choose1.className = "fas fa-star choose";
+        choose2.className = "fas fa-star choose";
+        choose3.className = "fas fa-star choose";
+        choose4.className = "fas fa-star choose";
+        choose5.className = "fas fa-star choose";
+    }
+    chooseStar = check;
+}
+
+
+function SubmitAssess(myID, theirID) {
+    if (chooseStar != 0) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            if (this.responseText == "true") {
+                location.reload();
+            }
+        }
+        xhttp.open("POST", "account?rank=" + chooseStar + "&myID=" + myID + "&theirID=" + theirID);
+        xhttp.send();
+    }
+
 }

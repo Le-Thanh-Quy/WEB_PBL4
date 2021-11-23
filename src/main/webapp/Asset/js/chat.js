@@ -36,6 +36,20 @@ function SearchRoomChat() {
     }
 
 }
+window.onload = function () {
+    autoReload();
+}
+function autoReload() {
+    setTimeout(function () {
+        var reloadRoom = document.getElementById("reloadRoom");
+        var autoReload = document.getElementById("autoReload");
+        if(autoReload.checked){
+            reloadRoom.onclick();
+        }
+        this.autoReload();
+    } , 10000);
+
+}
 
 function ReloadChatRoom(myID) {
     var reloadRoom = document.getElementById("reloadRoom");
@@ -54,7 +68,6 @@ function ReloadChatRoom(myID) {
             '                </div>\n' +
             '            </a>';
         const myObj = JSON.parse(this.responseText);
-        console.log(myObj);
         for (const x of myObj) {
             var display = '';
             if (x.MyStatus == false) {

@@ -2,7 +2,7 @@ package Model.BEAN;
 
 public class Assess {
     private int ID;
-    private int Rate;
+    private double Rate;
     private int Review;
 
     public Assess() {
@@ -18,7 +18,7 @@ public class Assess {
         return ID;
     }
 
-    public int getRate() {
+    public double getRate() {
         return Rate;
     }
 
@@ -30,7 +30,7 @@ public class Assess {
         this.ID = ID;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         Rate = rate;
     }
 

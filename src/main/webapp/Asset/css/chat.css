@@ -88,7 +88,7 @@ body {
 }
 
 .chat_list .recent_messages {
-    height: 82%;
+    height: 73%;
     overflow: auto;
     margin: 0;
     width: 100%;
@@ -203,6 +203,25 @@ body {
 @keyframes mymove {
     from {transform: rotate(0deg);}
     to {transform: rotate(180deg);}
+}
+
+.autoReload{
+    position: fixed;
+    bottom: 0%;
+    display: flex;
+    margin: 0;
+    padding: 1% 0px 1% 0px;
+    font-size: 18px;
+    background-color: #c1ccd9;
+    width: 20%;
+}
+.autoReload p{
+    margin: 0;
+    padding: 0;
+}
+.autoReload input{
+    margin: 1%;
+    transform: scale(1.3);
 }
 
 

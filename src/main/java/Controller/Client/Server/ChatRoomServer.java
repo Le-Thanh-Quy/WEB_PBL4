@@ -1,4 +1,4 @@
-package Controller.Client;
+package Controller.Client.Server;
 
 import Model.BEAN.Chat;
 import Model.BO.ChatBO;

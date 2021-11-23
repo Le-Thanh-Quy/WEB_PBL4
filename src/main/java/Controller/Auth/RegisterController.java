@@ -38,24 +38,7 @@ public class RegisterController extends HttpServlet {
 
 
         if ("".equals(submitRegister)) {
-            Part filePart = request.getPart("avatar");
-            InputStream is = filePart.getInputStream();
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
-            int nRead;
-            byte[] data = new byte[16384];
-
-            while ((nRead = is.read(data, 0, data.length)) != -1) {
-                buffer.write(data, 0, nRead);
-            }
-            String avatar = "https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24";
-            try {
-
-                String nameIMG = user_name;
-                avatar = UploadImage.getInstance().UpLoadImage(buffer , "1JUy7im4fXDgBkY5cr9NzheZ3WxO_l87m" , nameIMG);
-            } catch (Exception e) {
-                avatar = "https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24";
-            }
 
             List<Integer> ints = new ArrayList<>();
             if (name.trim().equals("")) {
@@ -80,6 +63,25 @@ public class RegisterController extends HttpServlet {
             int check = AuthBO.getInstance().checkSignUp(user_name);
             if (check == -1) {
                 if (AuthBO.getInstance().Register(user_name, pass)) {
+
+                    Part filePart = request.getPart("avatar");
+                    InputStream is = filePart.getInputStream();
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+                    int nRead;
+                    byte[] data = new byte[16384];
+
+                    while ((nRead = is.read(data, 0, data.length)) != -1) {
+                        buffer.write(data, 0, nRead);
+                    }
+                    String avatar = "https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24";
+                    try {
+
+                        String nameIMG = user_name;
+                        avatar = UploadImage.getInstance().UpLoadImage(buffer , "1JUy7im4fXDgBkY5cr9NzheZ3WxO_l87m" , nameIMG);
+                    } catch (Exception e) {
+                        avatar = "https://drive.google.com/uc?export=view&id=1sAFmlSiwY_fporn9AdbnhUp3KTe5tL24";
+                    }
 
                     User user = new User(0, name, age, sex, phone, address, avatar, status, 0, user_name);
                     if (AuthBO.getInstance().AddUser(user)) {

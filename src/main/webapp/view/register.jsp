@@ -81,9 +81,9 @@
                 out.print(request.getParameter("status"));
             }%></textarea>
                 <i class="fas fa-exclamation-circle dacbiet" id="icon_status"></i></li>
-
+            <li><button id="SubmitRegister" name="submitRegister" type="submit" >Xác nhận đăng ký</button></li>
         </ul>
-        <button id="SubmitRegister" name="submitRegister" type="submit" >Xác nhận đăng ký</button>
+
     </form>
 
 

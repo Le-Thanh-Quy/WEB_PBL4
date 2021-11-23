@@ -221,7 +221,16 @@
                                         </c:if>
                                     </c:if>
                             ><i class="far fa-comment"></i> Liên Hệ </a>
-                            <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
+                            <a
+                                    <c:if test="${logged == true}">
+                                        href="${pageContext.request.contextPath}/comment?postID=${Post.getID()}&myID=${user_info.getID()}"
+                                        onclick="OpenComment()"
+                                        target="commentFrame"
+                                    </c:if>
+                                    <c:if test="${logged == false}">
+                                        onclick="OpenLogin('comment' , ${Post.getID()})"
+                                    </c:if>
+                            ><i class="far fa-comment-alt"></i> Bình Luận </a>
                             <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                         </div>
                     </div>
@@ -299,7 +308,6 @@
         </div>
     </div>
 </div>
-
 <div id="myModal-login" class="modal-login">
     <div class="modal-content-login">
         <span class="close" onclick="Close()">&times;</span>
@@ -441,6 +449,24 @@
         </div>
     </div>
 </div>
+
+
+<div id="myModal-comment" class="modal-comment"
+        <c:if test="${postCommentID != null}">
+            style="display: block!important;"
+        </c:if> >
+    <div class="modal-content">
+        <span class="close" onclick="CloseComment()">&times;</span>
+        <iframe
+                id="commentFrame"
+                name="commentFrame"
+                <c:if test="${postCommentID != null}">
+                    src="${pageContext.request.contextPath}/comment?postID=${postCommentID}&myID=${user_info.getID()}"
+                </c:if>
+                frameborder="0"></iframe>
+    </div>
+</div>
+
 
 <div class="notification" id="notificationForm">
     <p id="notification"></p>

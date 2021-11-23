@@ -67,6 +67,10 @@
 
             </c:forEach>
         </div>
+        <div class="autoReload">
+            <input id="autoReload" type="checkbox" checked>
+            <p>Tự động cập nhật</p>
+        </div>
 
     </div>
     <div class="chat_detal">

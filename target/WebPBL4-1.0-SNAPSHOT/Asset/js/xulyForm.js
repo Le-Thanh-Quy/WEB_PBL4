@@ -106,15 +106,26 @@ function SelectXa() {
     }
 }
 
+function CloseComment() {
 
+    var comment = document.getElementById("myModal-comment");
+    var commentFrame = document.getElementById("commentFrame");
+    comment.style.display = "none";
+    commentFrame.src = "";
+    document.body.style.overflow = "auto";
+}
+function OpenComment() {
+    var comment = document.getElementById("myModal-comment");
+    comment.style.display = "block";
+    document.body.style.overflow = "hidden";
 
-
-
+}
 window.onclick = function (event) {
     var modal = document.getElementById("myModal");
     var modal1 = document.getElementById("myModal-login");
     var modal2 = document.getElementById("myModal-signup");
     var modalpost = document.getElementById("myModal-newPost");
+    var comment = document.getElementById("myModal-comment");
     var selectTinh;
     if (StartorEnd == 0) {
         selectTinh = document.getElementById("selectTinhS");
@@ -131,6 +142,12 @@ window.onclick = function (event) {
         modal2.style.display = "none";
     } else if (event.target == modalpost) {
         modalpost.style.display = "none";
+    } else if(event.target == comment){
+        comment.style.display = "none";
+        var commentFrame = document.getElementById("commentFrame");
+        comment.style.display = "none";
+        commentFrame.src = "";
+        document.body.style.overflow = "auto";
     }
 }
 

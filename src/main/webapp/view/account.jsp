@@ -21,7 +21,7 @@
 <body onclick="checkLogOut = true;">
 
 <%
-    if(session.getAttribute("logged") == null){
+    if (session.getAttribute("logged") == null) {
         session.setAttribute("Mess", "Bạn đã đăng xuất khỏi tài khoản!");
         RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
@@ -36,7 +36,8 @@
 
             <li><a class="tab" id="active" href="index.jsp">Trang Chủ</a></li>
             <li><a class="tab" href="">Liên Hệ</a></li>
-            <li><a class="tab avatar_menu" href="" onmouseover="MenuOn()" onmouseleave="MenuOff()"><img
+            <li><a class="tab avatar_menu" href="${pageContext.request.contextPath}/account?others_user_name=null"
+                   onmouseover="MenuOn()" onmouseleave="MenuOff()"><img
                     class="avatar" src="${myAccount.getAvatar()}" alt=""> ${myAccount.getAccountID()}</a></li>
         </ul>
     </div>
@@ -46,7 +47,9 @@
         <div class="menu_info">
             <ul>
                 <li>Cập nhật thông tin</li>
-                <a href="${pageContext.request.contextPath}/logout" onclick="LogOut()"><li>Đăng Xuất</li></a>
+                <a href="${pageContext.request.contextPath}/logout" onclick="LogOut()">
+                    <li>Đăng Xuất</li>
+                </a>
             </ul>
         </div>
     </div>
@@ -70,77 +73,113 @@
         <h1>${user.getName()}</h1>
         <h3>${user.getStatus()}</h3>
         <div class="task-Info">
-            <p class="active-info" id="post-info" onclick="ChangePage1()">Bài Viết</p>
-            <p id="detal-info" onclick="ChangePage2()">Giới Thiệu</p>
+            <p class="active-info" id="post-info" onclick="ChangePage(1)">Bài Viết</p>
+            <p id="detal-info" onclick="ChangePage(2)">Giới Thiệu</p>
+            <c:if test="${rankAssess != null}">
+                <p id="especially-info" onclick="ChangePage(3)">Đánh Giá</p>
+            </c:if>
+            <c:if test="${rankAssess == null}">
+                <p id="especially-info" onclick="ChangePage(3)">Báo Cáo</p>
+            </c:if>
         </div>
     </div>
 </div>
+
+<c:if test="${rankAssess != null}">
+    <div class="frameEspeciallyInfo" id="frameEspeciallyInfo">
+        <div class="rate-choose">
+            <i class='far fa-star choose' id="choose1" onclick="ChooseStar(1)"></i>
+            <i class='far fa-star choose' id="choose2" onclick="ChooseStar(2)"></i>
+            <i class='far fa-star choose' id="choose3" onclick="ChooseStar(3)"></i>
+            <i class='far fa-star choose' id="choose4" onclick="ChooseStar(4)"></i>
+            <i class='far fa-star choose' id="choose5" onclick="ChooseStar(5)"></i>
+        </div>
+        <button onclick="SubmitAssess(${myAccount.getID()} , ${user.getID()})">Đánh giá</button>
+    </div>
+    <script>
+        function GetAssess() {
+            var choose = document.getElementById("choose" + ${rankAssess});
+            choose.onclick();
+        }
+
+        GetAssess();
+
+    </script>
+</c:if>
+<div class="frameEspeciallyInfos" id="frameEspeciallyInfo">
+
+</div>
+
 <div class="framePost" id="framePostInfo">
     <div class="title">
         <h1></h1>
     </div>
     <div class="list-post" id="list-post">
         <c:if test="${ListPost != []}">
-        <c:forEach items="${ListPost}" var="Post">
-            <div class="post">
-                <img class="post-img" src="${Post.getImage()}" alt="">
+            <c:forEach items="${ListPost}" var="Post">
+                <div class="post">
+                    <img class="post-img" src="${Post.getImage()}" alt="">
 
-                <div class="post-main">
-                    <h1>${Post.getUser().getName()}</h1>
-                    <h5>${Post.getDateTime()}</h5>
+                    <div class="post-main">
+                        <h1>${Post.getUser().getName()}</h1>
+                        <h5>${Post.getDateTime()}</h5>
 
-                    <ul class="rate">
+                        <ul class="rate">
 
-                        <c:forEach begin="1" end="${Post.getUser().getAssess().getRate()}" varStatus="loop">
-                            <li><i class='fas fa-star'></i></li>
-                        </c:forEach>
-                        <c:forEach begin="${Post.getUser().getAssess().getRate()}" end="4" varStatus="loop">
-                            <li><i class='far fa-star'></i></li>
-                        </c:forEach>
-                        <li>(${Post.getUser().getAssess().getReview()}) Lượt đánh giá</li>
-                    </ul>
+                            <c:forEach begin="1" end="${Post.getUser().getAssess().getRate()}" varStatus="loop">
+                                <li><i class='fas fa-star'></i></li>
+                            </c:forEach>
+                            <c:forEach begin="${Post.getUser().getAssess().getRate()}" end="4" varStatus="loop">
+                                <li><i class='far fa-star'></i></li>
+                            </c:forEach>
+                            <li>(${Post.getUser().getAssess().getReview()}) Lượt đánh giá</li>
+                        </ul>
 
-                    <div class="info">
-                        <div class="start-info">
-                            <h3>Điểm Xuất Phát</h3>
-                            <ul class="address">
-                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartProvince()}</li>
-                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartDistrict()}</li>
-                                <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartCommune()}</li>
-                            </ul>
+                        <div class="info">
+                            <div class="start-info">
+                                <h3>Điểm Xuất Phát</h3>
+                                <ul class="address">
+                                    <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartProvince()}</li>
+                                    <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartDistrict()}</li>
+                                    <li><i class="fas fa-map-marker-alt"></i> ${Post.getStartCommune()}</li>
+                                </ul>
+                            </div>
+                            <div class="time-info">
+                                <h3>Thời gian: </h3>
+                                <p><i class="far fa-clock"></i> ${Post.getTimeStart()}</p>
+                                <p><i class="far fa-calendar-alt"></i> ${Post.getDate()}</p>
+                            </div>
+                            <div class="end-info">
+                                <h3>Điểm Đến</h3>
+                                <ul class="address">
+                                    <li><i class="fas fa-map-marker"></i> ${Post.getEndProvince()}</li>
+                                    <li><i class="fas fa-map-marker"></i> ${Post.getEndDistrict()}</li>
+                                    <li><i class="fas fa-map-marker"></i> ${Post.getEndCommune()}</li>
+                                </ul>
+                            </div>
+
+
                         </div>
-                        <div class="time-info">
-                            <h3>Thời gian: </h3>
-                            <p><i class="far fa-clock"></i> ${Post.getTimeStart()}</p>
-                            <p><i class="far fa-calendar-alt"></i> ${Post.getDate()}</p>
+                        <div class="status">
+                            <p><i class="far fa-clipboard"></i> ${Post.getCaption()}</p>
                         </div>
-                        <div class="end-info">
-                            <h3>Điểm Đến</h3>
-                            <ul class="address">
-                                <li><i class="fas fa-map-marker"></i> ${Post.getEndProvince()}</li>
-                                <li><i class="fas fa-map-marker"></i> ${Post.getEndDistrict()}</li>
-                                <li><i class="fas fa-map-marker"></i> ${Post.getEndCommune()}</li>
-                            </ul>
+                        <div class="post-button">
+                            <a
+                                    <c:if test="${myAccount.getID() != Post.getUser().getID()}">
+                                        href="chat?myID=${myAccount.getID()}&theirID=${Post.getUser().getID()}"
+                                    </c:if>
+                            ><i class="far fa-comment"></i> Liên Hệ </a>
+                            <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
+                            <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                         </div>
-
-
-                    </div>
-                    <div class="status">
-                        <p><i class="far fa-clipboard"></i> ${Post.getCaption()}</p>
-                    </div>
-                    <div class="post-button">
-                        <a href=""><i class="far fa-comment"></i> Liên Hệ </a>
-                        <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
-                        <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                     </div>
                 </div>
-            </div>
 
-        </c:forEach>
-        <script>
-            let UserID = ${user.getID()};
-            ID = ${ListPost.get(ListPost.size() - 1).getID()};
-        </script>
+            </c:forEach>
+            <script>
+                let UserID = ${user.getID()};
+                ID = ${ListPost.get(ListPost.size() - 1).getID()};
+            </script>
         </c:if>
     </div>
 </div>
@@ -148,12 +187,13 @@
     <div class="detal-info">
         <ul class="rate rate-info">
             <p><i class="fas fa-edit iconDetalInfo"></i> Đánh giá:</p>
-            <%int rate = ((Assess)request.getAttribute("assess")).getRate();
-                for (int i = 0 ; i < rate ; i++){
+            <%
+                int rate = (int) ((Assess) request.getAttribute("assess")).getRate();
+                for (int i = 0; i < rate; i++) {
                     out.write("<li><i class='fas fa-star'></i></li>");
 
                 }
-                for (int i = rate ; i < 5 ; i++){
+                for (int i = rate; i < 5; i++) {
                     out.write("<li><i class='far fa-star'></i></li>");
                 }
 

@@ -23,7 +23,7 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String my_user_name = (String) request.getSession().getAttribute("user");
-        String others_user_name =  request.getParameter("others_user_name");
+        String others_user_name = request.getParameter("others_user_name");
 
         User myAccount = AuthBO.getInstance().GetUser(my_user_name);
         User user = new User();
@@ -31,6 +31,7 @@ public class AccountController extends HttpServlet {
             user = myAccount;
         } else {
             user = AuthBO.getInstance().GetUser(others_user_name);
+            request.setAttribute("rankAssess" ,AuthBO.getInstance().getInteract(String.valueOf(myAccount.getID()) , String.valueOf(user.getID())));
         }
         List<Post> postList = PostBO.getInstance().getPostListWithUser(-1, user.getID());
 
@@ -48,6 +49,15 @@ public class AccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String myID = request.getParameter("myID");
+        String theirID = request.getParameter("theirID");
+        String rank = request.getParameter("rank");
+        if(AuthBO.getInstance().Assess(rank , myID , theirID)){
 
+            response.getWriter().write("true");
+
+        }else{
+            response.getWriter().write("false");
+        }
     }
 }

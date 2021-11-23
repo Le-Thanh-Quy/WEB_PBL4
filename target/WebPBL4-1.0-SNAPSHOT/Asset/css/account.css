@@ -20,7 +20,7 @@
     margin-top: 5px;
     right: 6%;
     width: 200px;
-    background-color: rgb(216, 215, 215)!important;
+    background-color: rgb(216, 215, 215) !important;
     height: 100px;
     z-index: 1;
     box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
@@ -50,10 +50,10 @@
 
 .menu_model {
     position: absolute;
-    width: 70px!important;
-    height: 70px!important;
+    width: 70px !important;
+    height: 70px !important;
     background-color: rgb(216, 215, 215);
-    margin-left: 55%!important;
+    margin-left: 55% !important;
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     z-index: -1;
@@ -65,7 +65,8 @@
     margin: 0;
     padding: 0;
 }
-.menu_info a{
+
+.menu_info a {
     list-style: none;
     text-decoration: none;
     color: black;
@@ -125,7 +126,7 @@
     border: 5px solid rgb(218, 218, 218);
 }
 
-.Info-Avatar img:hover{
+.Info-Avatar img:hover {
     cursor: pointer;
 }
 
@@ -138,7 +139,7 @@
     position: absolute;
     bottom: 0;
     display: flex;
-    width: 50%;
+    width: 60%;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -198,10 +199,10 @@
 }
 
 .iconDetalInfo {
-    width: 16px!important;
+    width: 16px !important;
 }
 
-#viewAvatar{
+#viewAvatar {
     display: none;
 }
 
@@ -287,11 +288,54 @@
 .modal-body {
     padding: 10px 10px;
 }
-.modal-body img{
+
+.modal-body img {
     width: 100%;
 }
-.list-post{
+
+.list-post {
     padding-bottom: 1%;
 }
 
+
+.frameEspeciallyInfo {
+    display: none;
+    position: relative;
+    background-color: rgb(242, 245, 246);
+    width: 40%;
+    height: 22%;
+    margin: 30px auto;
+    border-radius: 5px;
+    border: 1px solid rgb(212, 212, 212);
+    box-shadow: 10px 20px 5px 5px rgba(45, 45, 45, 0.2), 20px 40px 20px 10px rgba(0, 0, 0, 0.19);
+}
+
+.frameEspeciallyInfo .rate-choose {
+    width: 45%;
+    margin: 15% auto;
+}
+
+.frameEspeciallyInfo .rate-choose .fas::before {
+    color: rgb(250 187 5);
+}
+
+.choose {
+    font-size: 180%;
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+.frameEspeciallyInfo button {
+    position: absolute;
+    width: 20%;
+    padding: 1%;
+    right: 5%;
+    bottom: 10%;
+    cursor: pointer;
+    color: white;
+    background-color: #8d99af;
+}
+.frameEspeciallyInfo button:hover {
+    background-color: #576a8b!important;
+}
 

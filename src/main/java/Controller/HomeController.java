@@ -66,8 +66,13 @@ public class HomeController extends HttpServlet {
             }else{
                 request.setAttribute("Mess" , "Không thể tạo tin nhắn với chính mình!");
             }
-
         }
+
+        if("comment".equals(checkTypeLogin)){
+            request.setAttribute("postCommentID" , checkMessLogin);
+        }
+
+
 
         if(login){
             User user = new AuthBO().GetUser(user_name);

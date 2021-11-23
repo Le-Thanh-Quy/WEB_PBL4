@@ -38,6 +38,8 @@
 }
 
 .post-main h1 {
+    display: inline-block;
+    width: auto;
     margin-top: 10px!important;
     margin: 0px;
     color: rgb(170, 109, 16);

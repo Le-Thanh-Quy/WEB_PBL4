@@ -104,8 +104,6 @@ function OpenLogin(check , mess) {
 
     checkPage = check;
     messPage = mess;
-    console.log(checkPage);
-    console.log(messPage);
 
 
     var user_txt = document.getElementById("user_txt");
@@ -159,6 +157,12 @@ function checkLogin(check) {
                     }
                     document.getElementById("checkTypeLogin").value = "chat";
                 }
+                if(checkPage == "comment"){
+                    if(messPage != null){
+                        document.getElementById("checkMessLogin").value = messPage;
+                    }
+                    document.getElementById("checkTypeLogin").value = "comment";
+                }
                 document.formLogin.submit();
             }
         }
@@ -208,5 +212,8 @@ function checkSignUp() {
         xhttp.send();
     }
 }
+
+
+
 
 

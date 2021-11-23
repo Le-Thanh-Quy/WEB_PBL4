@@ -12,6 +12,7 @@ function ClosePost() {
     post.style.display = "none";
 }
 
+
 var loadFile = function (event) {
     var output = document.getElementById('out_img-newPost');
     output.src = URL.createObjectURL(event.target.files[0]);

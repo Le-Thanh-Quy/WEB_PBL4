@@ -1,6 +1,7 @@
 package Model.DAO;
 
 import Model.BEAN.*;
+import Model.BO.CommentBO;
 
 
 import java.sql.*;
@@ -283,6 +284,23 @@ public class Connect {
         return user;
     }
 
+    public boolean setAssess(Assess assess) {
+        try {
+            String str = "UPDATE assess SET Rate = '" + assess.getRate() +
+                    "', Reviews = '" + assess.getReview() +
+                    "' WHERE ID = " + assess.getID() + ";";
+
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Assess GetAssess(int ID) {
         Assess assess = new Assess();
         try {
@@ -291,7 +309,7 @@ public class Connect {
             ResultSet resultSet = statement.executeQuery(str);
             if (resultSet.next()) {
                 assess.setID(resultSet.getInt("ID"));
-                assess.setRate(resultSet.getInt("Rate"));
+                assess.setRate(resultSet.getDouble("Rate"));
                 assess.setReview(resultSet.getInt("Reviews"));
             }
             resultSet.close();
@@ -524,11 +542,45 @@ public class Connect {
         }
     }
 
+    public int getCommentID() {
+        try {
+            String str = "SELECT MAX(ID) from comment;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
     public boolean addChat(Chat chat) {
         try {
             String str = "INSERT INTO chat VALUES('" + chat.getID() +
                     "', '" + chat.getChatRoomID() + "', '" + chat.getUserID() +
                     "', '" + chat.getMessenger() + "', '" + chat.getTime() + "') ;";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean addComment(Comment comment) {
+        try {
+            String str = "INSERT INTO comment VALUES('" + comment.getID() +
+                    "', '" + comment.getPostID() + "', '" + comment.getUserID() +
+                    "', '" + comment.getContent() + "', '" + comment.getTime() + "') ;";
             Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
@@ -632,4 +684,98 @@ public class Connect {
             return false;
         }
     }
+
+    public List<Comment> getListComment(int postID) {
+        List<Comment> comments = new ArrayList<Comment>();
+        try {
+            String str = "SELECT * FROM comment WHERE PostID = " + postID + ";";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Comment comment = new Comment();
+                comment.setID(resultSet.getInt("ID"));
+                comment.setPostID(resultSet.getInt("PostID"));
+                comment.setUserID(resultSet.getInt("UserID"));
+                comment.setContent(resultSet.getString("Comment"));
+                comment.setTime(resultSet.getString("Time"));
+
+                comments.add(comment);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return comments;
+    }
+
+    public Interact checkInteractID(String myID, String theirID) {
+        Interact interact = new Interact();
+        interact.setID(-1);
+        try {
+            String str = "SELECT * from interact WHERE (UserID1 = " + myID + " and UserID2 = " + theirID +
+                    ") or (UserID1 = " + theirID + " and UserID2 = " + myID + ");";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            if (resultSet.next()) {
+                interact.setID(resultSet.getInt("ID"));
+                interact.setUserID1(resultSet.getInt("UserID1"));
+                interact.setUserID2(resultSet.getInt("UserID2"));
+                interact.setRankUser1(resultSet.getInt("User1ToUser2"));
+                interact.setRankUser2(resultSet.getInt("User2ToUser1"));
+            }
+            resultSet.close();
+            statement.close();
+            return interact;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return interact;
+        }
+    }
+
+    public int getInteractID() {
+        try {
+            String str = "SELECT MAX(ID) from interact;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public boolean setInteractID(Interact interact, int ID) {
+        try {
+            String str = "";
+            if (ID == -1) {
+                str = "UPDATE interact SET User1ToUser2 = '" + interact.getRankUser1() +
+                        "', User2ToUser1 = '" + interact.getRankUser2() +
+                        "' WHERE ID = " + interact.getID() + ";";
+            } else {
+                str = "INSERT INTO interact VALUES('" + interact.getID() +
+                        "', '" + interact.getUserID1() +
+                        "', '" + interact.getUserID2() +
+                        "' , '" + interact.getRankUser1() +
+                        "' , '" + interact.getRankUser2() + "');";
+            }
+
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
