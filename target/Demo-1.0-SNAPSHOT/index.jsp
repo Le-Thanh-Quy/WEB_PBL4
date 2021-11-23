@@ -36,9 +36,9 @@
                 <i class="fas fa-chevron-left icon" id="icon1" ></i>
             </li>
             <div class="info-link" id="choose1">
-                <a href="${pageContext.request.contextPath}/view/admin/list_Account.jsp" target="frame"><i class="far fa-circle"></i> Danh sách người dùng</a>
-                <a href="register.html" target="frame"><i class="far fa-circle"></i> Thêm người dùng</a>
-                <a href="${pageContext.request.contextPath}/view/admin/delete_Account.jsp" target="frame"><i class="far fa-circle"></i> Xóa người dùng</a>
+                <a href="ViewUserForAdmin" target="frame"><i class="far fa-circle"></i> Danh sách người dùng</a>
+                <a href="AddUser" target="frame"><i class="far fa-circle"></i> Thêm người dùng</a>
+                <a href="DelUser" target="frame"><i class="far fa-circle"></i> Xóa người dùng</a>
             </div>
 
             <li onclick="OpenChoose(2)" id="header2"><i class="fas fa-edit"></i>
@@ -47,7 +47,7 @@
 
             </li>
             <div class="info-link" id="choose2">
-                <a href="${pageContext.request.contextPath}/view/admin/list_Post.jsp" target="frame"><i class="far fa-circle"></i> Danh sách bài đăng</a>
+                <a href="ViewPost" target="frame"><i class="far fa-circle"></i> Danh sách bài đăng</a>
                 <a href="${pageContext.request.contextPath}/view/admin/delete_Post.jsp" target="frame"><i class="far fa-circle"></i> Xóa bài đăng</a>
             </div>
 
@@ -56,16 +56,10 @@
                 <p class="new-report">1</p>
 
             </li>
-            <li onclick="OpenChoose(3)" id="header3"><i class="fas fa-map-marked-alt "></i>
-                <a>Quản lý địa chỉ</a>
-                <i class="fas fa-chevron-left icon" id="icon3" ></i>
+            <li id="header3"><i class="fas fa-map-marked-alt "></i>
+                <a href="getProv" target="frame" >Quản lý địa chỉ</a>
 
             </li>
-            <div class="info-link" id="choose3">
-                <a  href="register.html" target="frame"><i class="far fa-circle"></i> Cập nhật Tỉnh/TP</a>
-                <a><i class="far fa-circle"></i> Cập nhật Quận/Huyện</a>
-                <a><i class="far fa-circle"></i> Cập nhật Xã/Phường</a>
-            </div>
             <li><i class="fas fa-exclamation-triangle"></i>
                 <a >Đăng thông báo</a>
             </li>

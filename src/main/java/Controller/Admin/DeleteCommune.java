@@ -1,0 +1,37 @@
+package Controller.Admin;
+
+import Model.BO.Address_BO;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@WebServlet("/DeleteCommune")
+public class DeleteCommune extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(req.getParameterValues("cb")==null){
+            req.setAttribute("ListCommune", Address_BO.getInstance().getAllCommune(req.getParameter("IDDistrict")));
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/ShowCommune.jsp");
+            requestDispatcher.forward(req,resp);
+            return;
+        }
+        List<String> listID = Arrays.asList(req.getParameterValues("cb"));
+        for (String id:listID){
+            System.out.println(id);
+            if(!Address_BO.getInstance().DeleteCommune(id)){
+                return;
+            }
+        }
+        req.setAttribute("ListCommune", Address_BO.getInstance().getAllCommune(req.getParameter("IDDistrict")));
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/ShowCommune.jsp");
+        requestDispatcher.forward(req,resp);
+    }
+}

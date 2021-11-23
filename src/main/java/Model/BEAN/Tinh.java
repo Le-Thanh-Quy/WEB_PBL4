@@ -1,10 +1,10 @@
 package Model.BEAN;
 
 public class Tinh {
-    private String matp;
-    private String name;
-    private String type;
-    private String slug;
+    public String matp;
+    public String name;
+    public String type;
+    public String slug;
 
     public Tinh(String matp, String name, String type, String slug) {
         this.matp = matp;

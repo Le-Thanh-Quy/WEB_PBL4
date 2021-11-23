@@ -5,6 +5,7 @@ import Model.BEAN.User;
 import Model.DAO.Connect;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -202,5 +203,23 @@ public class PostBO {
         }
 
         return postList;
+    }
+
+    public List<Post> getAllPost() {
+        return Connect.getInstance().getAllPost();
+    }
+
+    public List<Post> getPostByFind(String key) {
+        List<Post> list = new ArrayList<>();
+        for(Post p: PostBO.getInstance().getAllPost()){
+            if(String.valueOf(p.getUserID()).toUpperCase().trim().contains(key.toUpperCase().trim())){
+                list.add(p);
+            }
+        }
+        return list;
+    }
+
+    public boolean DeletePost(String idPost) {
+        return Connect.getInstance().DeletePost(idPost);
     }
 }

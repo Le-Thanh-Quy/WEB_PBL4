@@ -1,10 +1,10 @@
 
 window.onload = function Load() {
-    for (let index = 0; index < 4; index++) {
-        var choose = document.getElementById("choose" + index);
-        choose.style.display == "none"
-    }
-    
+    // for (let index = 0; index < 2; index++) {
+    //     var choose = document.getElementById("choose" + index);
+    //     choose.style.display == "none"
+    // }
+
 }
 function OpenChoose(check) {
     var choose = document.getElementById("choose" + check);

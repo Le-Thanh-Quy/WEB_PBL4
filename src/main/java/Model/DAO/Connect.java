@@ -24,7 +24,7 @@ public class Connect {
     public Connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1234");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "mysql");
             System.out.println("Successs");
             statement = con.createStatement();
         } catch (ClassNotFoundException ex) {
@@ -419,22 +419,24 @@ public class Connect {
         }
     }
 
-    public List<Post> SearchPost(int ID,  String StartID, String EndID, String Time, String Date) {
+    public List<Post> SearchPost(int ID, String StartID, String EndID, String Time, String Date) {
         List<Post> postList = new ArrayList<Post>();
 
         try {
             String str = "SELECT * FROM post WHERE StartID = '" + StartID + "' and EndID = '" + EndID +
                     "' and TimeStart = '" + Time + "' and Date = '" + Date + "' and ID < " + ID +
                     " ORDER BY ID DESC   LIMIT 5;";
-            if(StartID.equals("null")){
-                str = str.replace("StartID = '" + StartID + "' and" , "");
+            if (StartID.equals("null")) {
+                str = str.replace("StartID = '" + StartID + "' and", "");
             }
-            if(EndID.equals("null")){
-                str = str.replace("EndID = '" + EndID + "' and" , "");
-            }if(Time.equals("null")){
-                str = str.replace("TimeStart = '" + Time + "' and" , "");
-            }if(Date.equals("null")){
-                str = str.replace("Date = '" + Date + "' and" , "");
+            if (EndID.equals("null")) {
+                str = str.replace("EndID = '" + EndID + "' and", "");
+            }
+            if (Time.equals("null")) {
+                str = str.replace("TimeStart = '" + Time + "' and", "");
+            }
+            if (Date.equals("null")) {
+                str = str.replace("Date = '" + Date + "' and", "");
             }
             statement = con.createStatement();
             resultSet = statement.executeQuery(str);
@@ -462,30 +464,438 @@ public class Connect {
 
     //các chức năng trang admin...................M vieets owr ddaay nghe............................................
     //Lấy all post
-    public ArrayList<Post> getAllPost(){
-        ArrayList<Post> list = new ArrayList<Post>();
-        try{
+    public List<Post> getAllPost() {
+        List<Post> list = new ArrayList<Post>();
+        try {
             String sql = "SELECT * FROM post";
             statement = con.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Post post = new Post();
                 post.setID(resultSet.getInt("ID"));
+                post.setUserID(resultSet.getInt("UserID"));
                 post.setStartAddress(resultSet.getString("StartID"));
                 post.setEndAddress(resultSet.getString("EndID"));
                 post.setDateTime(resultSet.getString("Time"));
                 post.setTimeStart(resultSet.getString("TimeStart"));
                 post.setDate(resultSet.getString("Date"));
                 post.setCaption(resultSet.getString("Caption"));
-                post.setUserID(resultSet.getInt("UserID"));
                 post.setImage(resultSet.getString("Image"));
 
                 list.add(post);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<UserForAdmin> GetListUserForAdminList() {
+        List<UserForAdmin> userForAdminList = new ArrayList<>();
+        try {
+            String str = "SELECT *FROM pbl4.user" +
+                    " INNER JOIN pbl4.assess" +
+                    " ON pbl4.user.AssessID = pbl4.assess.ID" +
+                    " INNER JOIN pbl4.account" +
+                    " ON pbl4.user.AccountID = pbl4.account.UserName;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                UserForAdmin userForAdmin = new UserForAdmin();
+                userForAdmin.setID(resultSet.getInt("ID"));
+                userForAdmin.setName(resultSet.getString("Name"));
+                userForAdmin.setAge(resultSet.getString("Age"));
+                userForAdmin.setSex(resultSet.getString("Sex"));
+                userForAdmin.setRate(resultSet.getInt("Rate"));
+                userForAdmin.setRoles(resultSet.getString("Permission"));
+
+                userForAdminList.add(userForAdmin);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userForAdminList;
+    }
+
+    public int GetIDAccount() {
+        try {
+            String str = "SELECT MAX(ID) from account;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public boolean AddAssess(int idAssess) {
+        try {
+            String str = "INSERT INTO assess VALUES ('" + idAssess + "', '0', '0');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean AddAccount(String userName, String passWord, String permission) {
+        try {
+            String str = "INSERT INTO account VALUES ('" + userName + "', '" + passWord + "', b'" + permission + "');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public int getIDUser() {
+        try {
+            String str = "SELECT MAX(ID) from user;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public List<String> GetIDAssessAndIDAccountToDel(String id){
+        List<String > list = new ArrayList<>();
+        try {
+            String str = "SELECT * FROM user WHERE ID = '"+id+"';";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            if(resultSet.next()){
+                list.add(resultSet.getString("AssessID"));
+                list.add(resultSet.getString("AccountID"));
+            }
+            resultSet.close();
+            statement.close();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return list;
+        }
+    }
+
+    public boolean DelUser(String id) {
+        try {
+            List<String> list = GetIDAssessAndIDAccountToDel(id);
+            String str1 = "DELETE FROM account WHERE (UserName = '"+list.get(1)+"');";
+            String str2 = "DELETE FROM assess WHERE (ID = '"+list.get(0)+"');";
+            String str = "DELETE FROM user WHERE (ID = '"+id+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.executeUpdate(str1);
+            statement.executeUpdate(str2);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String getIDProvince() {
+        try {
+            String str = "SELECT * FROM tinh ORDER BY matp DESC LIMIT 1;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            int id = 0;
+
+            if (resultSet.next()) {
+                id = resultSet.getInt("matp");
+            }
+            resultSet.close();
+            statement.close();
+            String idString = String.valueOf(id+1);
+            return idString;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "-1";
+        }
+    }
+
+    public boolean addProvince(Tinh tinh) {
+        try {
+            String str = "INSERT INTO tinh VALUES ('" + tinh.getMatp() + "', '"+tinh.getName()+"', '"+tinh.getType()+"', '"+tinh.getSlug()+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean DeleteProvince(String id) {
+        try {
+            String str = "DELETE FROM tinh WHERE (matp = '"+id+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Tinh getProvinceByID(String idProvince) {
+        Tinh tinh = new Tinh();
+        try {
+            String str = "SELECT * from tinh WHERE matp = "+idProvince+";";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            if(resultSet.next()){
+                tinh = new Tinh(resultSet.getString("matp"), resultSet.getString("name"), resultSet.getString("type"), resultSet.getString("slug"));
+
+            }
+            resultSet.close();
+            statement.close();
+            return tinh;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return tinh;
+        }
+    }
+
+    public boolean UpdateProvince(String matp, String name, String type, String slug) {
+        try {
+            String str = "UPDATE tinh SET matp = '"+matp+"', name = '"+name+"', type = '"+type+"', slug = '"+slug+"' WHERE (matp = '"+matp+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<String> getAllIDProv() {
+        List<String> lisID = new ArrayList<>();
+        try {
+            String str = "SELECT matp from tinh;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            while (resultSet.next()){
+                lisID.add(resultSet.getString("matp"));
+            }
+            resultSet.close();
+            statement.close();
+            return lisID;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return lisID;
+        }
+    }
+
+    public String getIDDistrict() {
+        try {
+            String str = "SELECT * FROM huyen ORDER BY maqh DESC LIMIT 1;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            int id = 0;
+
+            if (resultSet.next()) {
+                id = resultSet.getInt("maqh");
+            }
+            resultSet.close();
+            statement.close();
+            String idString = String.valueOf(id+1);
+            return idString;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "-1";
+        }
+    }
+
+    public boolean addDistrict(Huyen huyen) {
+        try {
+            String str = "INSERT INTO huyen VALUES ('" + huyen.getMaqh() + "', '"+huyen.getName()+"', '"+huyen.getType()+"', '"+huyen.getMatp()+"');";
+            System.out.println(str);
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Huyen getDistrictByID(String idDistrict) {
+        Huyen huyen = new Huyen();
+        try {
+            String str = "SELECT * from huyen WHERE maqh = "+idDistrict+";";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            if(resultSet.next()){
+                huyen = new Huyen(resultSet.getString("maqh"), resultSet.getString("name"), resultSet.getString("type"), resultSet.getString("matp"));
+
+            }
+            resultSet.close();
+            statement.close();
+            return huyen;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return huyen;
+        }
+    }
+
+    public boolean UpdateDistrict(String maqh, String name, String type, String matp) {
+        try {
+            String str = "UPDATE huyen SET maqh = '"+maqh+"', name = '"+name+"', type = '"+type+"', matp = '"+matp+"' WHERE (maqh = '"+maqh+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean DeleteDistrict(String id) {
+        try {
+            String str = "DELETE FROM huyen WHERE (maqh = '"+id+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String getIDCommune() {
+        try {
+            String str = "SELECT * FROM xaphuong ORDER BY xaid DESC LIMIT 1;";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            int id = 0;
+
+            if (resultSet.next()) {
+                id = resultSet.getInt("xaid");
+            }
+            resultSet.close();
+            statement.close();
+            String idString = String.valueOf(id+1);
+            return idString;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "-1";
+        }
+    }
+
+    public boolean addCommune(XaPhuong xaPhuong) {
+        try {
+            String str = "INSERT INTO xaphuong VALUES ('" + xaPhuong.getXaid() + "', '"+xaPhuong.getName()+"', '"+xaPhuong.getType()+"', '"+xaPhuong.getMaqh()+"');";
+            System.out.println(str);
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public XaPhuong getCommuneByID(String idCommune) {
+        XaPhuong xaPhuong = new XaPhuong();
+        try {
+            String str = "SELECT * from xaphuong WHERE xaid = "+idCommune+";";
+            statement = con.createStatement();
+            resultSet = statement.executeQuery(str);
+            if(resultSet.next()){
+                xaPhuong = new XaPhuong(resultSet.getString("xaid"), resultSet.getString("name"), resultSet.getString("type"), resultSet.getString("maqh"));
+
+            }
+            resultSet.close();
+            statement.close();
+            return xaPhuong;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return xaPhuong;
+        }
+    }
+
+    public boolean UpdateCommune(String xaid, String name, String type, String maqh) {
+        try {
+            String str = "UPDATE xaphuong SET xaid = '"+xaid+"', name = '"+name+"', type = '"+type+"', maqh = '"+maqh+"' WHERE (xaid = '"+xaid+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean DeleteCommune(String id) {
+        try {
+            String str = "DELETE FROM xaphuong WHERE (xaid = '"+id+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean DeletePost(String idPost) {
+        try {
+            String str = "DELETE FROM post WHERE (id = '"+idPost+"');";
+            statement = con.createStatement();
+            statement.executeUpdate(str);
+            resultSet.close();
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

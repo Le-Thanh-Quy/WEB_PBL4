@@ -161,4 +161,26 @@ public class Post {
     public String getCaption() {
         return Caption;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "ID=" + ID +
+                ", user=" + user +
+                ", UserID=" + UserID +
+                ", StartProvince='" + StartProvince + '\'' +
+                ", StartDistrict='" + StartDistrict + '\'' +
+                ", StartCommune='" + StartCommune + '\'' +
+                ", EndProvince='" + EndProvince + '\'' +
+                ", EndDistrict='" + EndDistrict + '\'' +
+                ", EndCommune='" + EndCommune + '\'' +
+                ", StartAddress='" + StartAddress + '\'' +
+                ", EndAddress='" + EndAddress + '\'' +
+                ", DateTime='" + DateTime + '\'' +
+                ", TimeStart='" + TimeStart + '\'' +
+                ", Date='" + Date + '\'' +
+                ", Caption='" + Caption + '\'' +
+                ", Image='" + Image + '\'' +
+                '}';
+    }
 }
