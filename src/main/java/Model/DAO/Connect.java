@@ -23,7 +23,7 @@ public class Connect {
     public Connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1234");
             System.out.println("Successs");
             Statement statement = con.createStatement();
         } catch (ClassNotFoundException ex) {

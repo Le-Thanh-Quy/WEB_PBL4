@@ -14,12 +14,34 @@
 <body>
 <input type="search" name="searchBox" id="searchBox">
 <button for="searchBox" onclick="findPost()">OK</button>
-<div id="data">
-    <c:forEach items="${listPost}" var="post">
-        <br><br>${post}<br>
-        <a href="DeletePost?IDPost=${post.ID}">Delete</a>
+<table>
+    <tr>
+        <th>ID.Post</th>
+        <th>Người đăng</th>
+        <th>Đi từ</th>
+        <th>Đến</th>
+        <th>Ngày khởi hành</th>
+        <th>Giờ khởi hành</th>
+        <th>Mô tả</th>
+        <th>Action</th>
+    </tr>
+    <c:forEach items="${listPost}" var="item">
+        <tr>
+            <td>${item.getID()}</td>
+            <td>${item.getUser().getName()}</td>
+            <td>${item.getStartCommune()}, ${item.getStartDistrict()}, ${item.getStartProvince()}</td>
+            <td>${item.getEndCommune()}, ${item.getEndDistrict()}, ${item.getEndProvince()}</td>
+            <td>${item.getDate()}</td>
+            <td>${item.getTimeStart()}</td>
+            <td>${item.getCaption()}</td>
+            <td>
+                <a href=""> <i class="fas fa-eye"></i> </a>
+                <a href=""> <i class="fas fa-trash-alt"></i> </a>
+            </td>
+        </tr>
     </c:forEach>
-</div>
 
+
+</table>
 </body>
 </html>

@@ -208,7 +208,21 @@ public class PostBO {
 
 
     public List<Post> getAllPost() {
-        return ConnectAdmin.getInstance().getAllPost();
+        List<Post> list = null;
+        list = ConnectAdmin.getInstance().getAllPost();
+        for (int i = 0; i < list.size(); i++){
+            User user = Connect.getInstance().GetUser("-1", list.get(i).getUserID());
+            list.get(i).setUser(user);
+            String[] startAddress = handleString(Connect.getInstance().GetAddress(list.get(i).getStartAddress()));
+            String[] endAddress = handleString(Connect.getInstance().GetAddress(list.get(i).getEndAddress()));
+            list.get(i).setStartCommune(startAddress[0]);
+            list.get(i).setStartDistrict(startAddress[1]);
+            list.get(i).setStartProvince(startAddress[2]);
+            list.get(i).setEndCommune(endAddress[0]);
+            list.get(i).setEndDistrict(endAddress[1]);
+            list.get(i).setEndProvince(endAddress[2]);
+        }
+        return list;
     }
 
     public List<Post> getPostByFind(String key) {
