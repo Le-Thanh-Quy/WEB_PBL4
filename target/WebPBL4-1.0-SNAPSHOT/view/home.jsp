@@ -22,10 +22,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
+
 <body>
+<script>
+    let myID = -1;
+    let logged = false;
+    <c:if test="${logged == true}">
+        logged = true;
+        myID = ${user_info.getID()};
+    </c:if>
+
+</script>
 <header id="menu">
     <div class="nav" id="nav">
-        <img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt="">
+        <a href=""><img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt=""></a>
         <ul>
             <li><a class="tab" id="active" href="index.jsp">Trang Chủ</a></li>
             <li><a
@@ -231,7 +241,18 @@
                                         onclick="OpenLogin('comment' , ${Post.getID()})"
                                     </c:if>
                             ><i class="far fa-comment-alt"></i> Bình Luận </a>
-                            <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
+                            <a
+                                    <c:if test="${user_info.getID() != Post.getUser().getID()}">
+                                        <c:if test="${logged == true}">
+                                            href="${pageContext.request.contextPath}/report?myID=${user_info.getID()}&theirID=${Post.getUser().getID()}"
+                                            onclick="OpenReport()"
+                                            target="reportFrame"
+                                        </c:if>
+                                        <c:if test="${logged == false}">
+                                            onclick="OpenLogin('report' , ${Post.getUser().getID()})"
+                                        </c:if>
+                                    </c:if>
+                            ><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                         </div>
                     </div>
                 </div>
@@ -259,8 +280,7 @@
     <footer>
         <div class="column">
             <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
-            <p>Nếu bạn cho rằng website Plot của chúng tôi hữu ích cho bạn, <br>Vui lòng hỗ trợ chúng tôi một chút
-                qua BIDVBanking.</p>
+            <p>Nếu bạn cho rằng website QTH của chúng tôi hữu ích cho bạn, <br>Còn chờ gì nữa mà không banking cho chúng tôi!</p>
         </div>
         <div class="column columnG">
             <h1>Chính sách</h1>
@@ -279,7 +299,7 @@
 
     </footer>
     <div class="end-footer">
-        <p>Bản quyền © 2021 bởi Plot. Đã đăng ký Bản quyền.
+        <p>Bản quyền © 2021 bởi QTH. Đã đăng ký Bản quyền.
             <br>Cung cấp bởi: Quý, Trình , Hoàng
         </p>
     </div>
@@ -462,6 +482,21 @@
                 name="commentFrame"
                 <c:if test="${postCommentID != null}">
                     src="${pageContext.request.contextPath}/comment?postID=${postCommentID}&myID=${user_info.getID()}"
+                </c:if>
+                frameborder="0"></iframe>
+    </div>
+</div>
+<div id="myModal-report" class="modal-report"
+        <c:if test="${reportID != null}">
+            style="display: block!important;"
+        </c:if> >
+    <div class="modal-content">
+        <span class="close" onclick="CloseReport()">&times;</span>
+        <iframe
+                id="reportFrame"
+                name="reportFrame"
+                <c:if test="${reportID != null}">
+                    src="${pageContext.request.contextPath}/report?myID=${user_info.getID()}&theirID=${reportID}"
                 </c:if>
                 frameborder="0"></iframe>
     </div>

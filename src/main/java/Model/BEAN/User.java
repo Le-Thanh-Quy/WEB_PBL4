@@ -1,5 +1,7 @@
 package Model.BEAN;
 
+import Model.DAO.Connect;
+
 import java.util.Date;
 
 public class User {
@@ -14,6 +16,7 @@ public class User {
     private int AssessID;
     private String AccountID;
     private Assess Assess;
+    private int Permission;
 
     public User(int ID, String name, String age, String sex, String phone_Number, String address, String avatar, String status, int assessID, String accountID) {
         this.ID = ID;
@@ -45,6 +48,15 @@ public class User {
                 ", AccountID='" + AccountID + '\'' +
                 '}';
     }
+
+    public void setPermission(int permission) {
+        Permission = permission;
+    }
+
+    public int getPermission() {
+        return Permission;
+    }
+
 
     public Assess getAssess() {
         return Assess;

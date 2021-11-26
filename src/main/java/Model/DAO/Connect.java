@@ -778,4 +778,75 @@ public class Connect {
     }
 
 
+    public int getReportID() {
+        try {
+            String str = "SELECT MAX(ID) from report;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public boolean addReport(int id, String myID, String theirID, String content, String format) {
+        try {
+            String str = "INSERT INTO report VALUES ('" + id + "', '" + myID + "', '" + theirID + "', '" + content + "', '" + format + "', '0', '');";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deletePost(String postID) {
+        try {
+            String str = "DELETE FROM post WHERE (`ID` = '" + postID + "');";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Report> getListReport(int id) {
+        List<Report> reports = new ArrayList<Report>();
+        try {
+            String str = "SELECT * from report WHERE UserReportID = '" + id + "';";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Report report = new Report();
+                report.setID(resultSet.getInt("ID"));
+                report.setUserReportID(resultSet.getInt("UserReportID"));
+                report.setUserViolateID(resultSet.getInt("UserViolateID"));
+                report.setContent(resultSet.getString("Content"));
+                report.setTime(resultSet.getString("Time"));
+                report.setStatus(resultSet.getBoolean("Status"));
+                report.setFeedback(resultSet.getString("Feedback"));
+                reports.add(report);
+            }
+            resultSet.close();
+            statement.close();
+            return reports;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return reports;
+        }
+    }
 }

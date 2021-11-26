@@ -2,6 +2,7 @@ package Model.BO;
 
 import Model.BEAN.*;
 import Model.DAO.Connect;
+import Model.DAO.ConnectAdmin;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -203,5 +204,24 @@ public class PostBO {
         }
 
         return postList;
+    }
+
+
+    public List<Post> getAllPost() {
+        return ConnectAdmin.getInstance().getAllPost();
+    }
+
+    public List<Post> getPostByFind(String key) {
+        List<Post> list = new ArrayList<>();
+        for(Post p: PostBO.getInstance().getAllPost()){
+            if(String.valueOf(p.getUserID()).toUpperCase().trim().contains(key.toUpperCase().trim())){
+                list.add(p);
+            }
+        }
+        return list;
+    }
+
+    public boolean DeletePost(String idPost) {
+        return Connect.getInstance().deletePost(idPost);
     }
 }

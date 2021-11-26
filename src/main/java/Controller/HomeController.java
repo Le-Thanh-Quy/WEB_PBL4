@@ -23,6 +23,12 @@ public class HomeController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        if(1 == 1){
+            request.getSession().setAttribute("admin", "LeThanhQuy");
+            RequestDispatcher requestDispatcherss = request.getRequestDispatcher("admin_home");
+            requestDispatcherss.forward(request, response);
+            return;
+        }
 
 
         HttpSession session =  request.getSession();
@@ -70,6 +76,14 @@ public class HomeController extends HttpServlet {
 
         if("comment".equals(checkTypeLogin)){
             request.setAttribute("postCommentID" , checkMessLogin);
+        }
+        if("report".equals(checkTypeLogin)){
+            User user = new AuthBO().GetUser(user_name);
+            if(checkMessLogin.equals(String.valueOf(user.getID()))){
+                request.setAttribute("Mess" , "Không thể báo cáo chính mình!");
+            }else{
+                request.setAttribute("reportID" , checkMessLogin);
+            }
         }
 
 

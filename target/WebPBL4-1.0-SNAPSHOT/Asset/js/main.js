@@ -106,9 +106,13 @@ function LoadPost(myObj) {
             '<div class="post">' +
             '<img class="post-img" src="' + x.Image + '" alt="">' +
 
-            '<div class="post-main">' +
-            '<h1>' + x.user.Name + '</h1>' +
-            '<h5>' + x.DateTime + '</h5>' +
+            '<div class="post-main">';
+        if (logged) {
+            str += '<a href="account?others_user_name=' + x.user.AccountID +'" style="text-decoration: none;" ><h1>' + x.user.Name + '</h1></a>';
+        } else {
+            str += '<h1 onclick="OpenLogin()">' + x.user.Name + '</h1>';
+        }
+        str += '<h5>' + x.DateTime + '</h5>' +
 
             '<ul class="rate">';
 
@@ -151,10 +155,26 @@ function LoadPost(myObj) {
             '<div class="status">' +
             '<p><i class="far fa-clipboard"></i> ' + x.Caption + '</p>' +
             '</div>' +
-            '<div class="post-button">' +
-            ' <a href=""><i class="far fa-comment"></i> Liên Hệ </a>' +
-            '<a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>' +
-            '<a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>' +
+            '<div class="post-button">';
+
+
+        if (logged) {
+            if (myID != x.user.ID) {
+                str += ' <a href="chat?myID=' + myID + '&theirID=' + x.user.ID + '"><i class="far fa-comment"></i> Liên Hệ </a>';
+                str += '<a href="comment?postID=' + x.ID + '&myID=' + myID + '" onclick="OpenComment()" target="commentFrame"><i class="far fa-comment-alt"></i> Bình Luận </a>';
+                str += '<a href="report?myID=' + myID + '&theirID=' + x.user.ID + '" onclick="OpenReport()" target="reportFrame" ><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>';
+            } else {
+                str += ' <a><i class="far fa-comment"></i> Liên Hệ </a>';
+                str += '<a href="comment?postID=' + x.ID + '&myID=' + myID + '" onclick="OpenComment()" target="commentFrame"><i class="far fa-comment-alt"></i> Bình Luận </a>';
+                str += '<a><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>';
+            }
+        } else {
+            str += ' <a onclick="OpenLogin(\'chat\' , ' + x.user.ID + ')"><i class="far fa-comment"></i> Liên Hệ </a>';
+            str += '<a onclick="OpenLogin(\'comment\' , ' + x.ID + ')"><i class="far fa-comment-alt"></i> Bình Luận </a>';
+            str += '<a onclick="OpenLogin(\'report\' ,' + x.user.ID + ')"><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>';
+        }
+
+        str +=
             '</div>' +
             '</div>' +
             '</div>';

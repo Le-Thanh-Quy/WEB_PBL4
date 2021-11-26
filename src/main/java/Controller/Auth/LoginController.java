@@ -26,6 +26,8 @@ public class LoginController extends HttpServlet {
         if (check == 1) {
             HttpSession session = request.getSession();
             session.setAttribute("admin", user_txt);
+            RequestDispatcher rd = request.getRequestDispatcher("view/admin/admin_home.jsp");
+            rd.forward(request, response);
         } else if (check == 0) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user_txt);

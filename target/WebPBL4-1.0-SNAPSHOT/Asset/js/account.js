@@ -4,8 +4,10 @@ let ID = -1;
 window.onload = function LoadFormAccount() {
     var frameDetalInfo = document.getElementById("frameDetalInfo");
     var framePostInfo = document.getElementById("framePostInfo");
+    var frameEspeciallyInfo = document.getElementById("frameEspeciallyInfo");
     framePostInfo.style.display = "block";
     frameDetalInfo.style.display = "none";
+    frameEspeciallyInfo.style.display = "none";
     var header = document.getElementById("menu");
     header.style.height = "13%";
     var text = document.getElementsByClassName("tab");
@@ -63,7 +65,6 @@ window.onscroll = function scroll() {
         frameDetalInfo.style.display == "none" && check && ID != -1 &&
         frameEspeciallyInfo.style.display == "none") {
         var loadPost = document.getElementById("loadPost");
-
         if (loadPost != null) {
             loadPost.style.display = "block";
         }
@@ -85,6 +86,7 @@ window.onscroll = function scroll() {
 
     }
 }
+
 var check = true;
 
 function LoadPost(myObj) {
@@ -92,7 +94,11 @@ function LoadPost(myObj) {
         ID = x.ID;
         var str = "";
         str +=
-            '<div class="post">' +
+            '<div class="post">';
+        if (myID == x.user.ID) {
+            str += ' <span class="delete" onClick="DeletePost(' + x.ID + ')">&times;</span>';
+        }
+        str +=
             '<img class="post-img" src="' + x.Image + '" alt="">' +
 
             '<div class="post-main">' +
@@ -140,10 +146,20 @@ function LoadPost(myObj) {
             '<div class="status">' +
             '<p><i class="far fa-clipboard"></i> ' + x.Caption + '</p>' +
             '</div>' +
-            '<div class="post-button">' +
-            ' <a href=""><i class="far fa-comment"></i> Liên Hệ </a>' +
-            '<a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>' +
-            '<a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>' +
+            '<div class="post-button">';
+
+
+        if (myID != x.user.ID) {
+            str += ' <a href="chat?myID=' + myID + '&theirID=' + x.user.ID + '"><i class="far fa-comment"></i> Liên Hệ </a>';
+            str += '<a href="comment?postID=' + x.ID + '&myID=' + myID + '" onclick="OpenComment()" target="commentFrame"><i class="far fa-comment-alt"></i> Bình Luận </a>';
+            str += '<a href="report?myID=' + myID + '&theirID=' + x.user.ID + '" onclick="OpenReport()" target="reportFrame" ><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>';
+        } else {
+            str += ' <a><i class="far fa-comment"></i> Liên Hệ </a>';
+            str += '<a href="comment?postID=' + x.ID + '&myID=' + myID + '" onclick="OpenComment()" target="commentFrame"><i class="far fa-comment-alt"></i> Bình Luận </a>';
+            str += '<a><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>';
+        }
+
+        str +=
             '</div>' +
             '</div>' +
             '</div>';
@@ -168,46 +184,45 @@ function MenuOff() {
 }
 
 function ChangePage(checkPage) {
-    if (check) {
-        var post_info = document.getElementById("post-info");
-        var detal_info = document.getElementById("detal-info");
-        var especially_info = document.getElementById("especially-info");
-        var frameDetalInfo = document.getElementById("frameDetalInfo");
-        var framePostInfo = document.getElementById("framePostInfo");
-        var frameEspeciallyInfo = document.getElementById("frameEspeciallyInfo");
-        if (checkPage == 1) {
-            if (post_info.className == "active-info") {
-                return;
-            } else {
-                detal_info.className = "";
-                post_info.className = "active-info";
-                especially_info.className = "";
-                framePostInfo.style.display = "block";
-                frameDetalInfo.style.display = "none";
-                frameEspeciallyInfo.style.display = "none";
-            }
-        } else if (checkPage == 2) {
-            if (detal_info.className == "active-info") {
-                return;
-            } else {
-                detal_info.className = "active-info";
-                post_info.className = "";
-                especially_info.className = "";
-                framePostInfo.style.display = "none";
-                frameDetalInfo.style.display = "block";
-                frameEspeciallyInfo.style.display = "none";
-            }
+
+    var post_info = document.getElementById("post-info");
+    var detal_info = document.getElementById("detal-info");
+    var especially_info = document.getElementById("especially-info");
+    var frameDetalInfo = document.getElementById("frameDetalInfo");
+    var framePostInfo = document.getElementById("framePostInfo");
+    var frameEspeciallyInfo = document.getElementById("frameEspeciallyInfo");
+    if (checkPage == 1) {
+        if (post_info.className == "active-info") {
+            return;
         } else {
-            if (especially_info.className == "active-info") {
-                return;
-            } else {
-                detal_info.className = "";
-                post_info.className = "";
-                especially_info.className = "active-info";
-                framePostInfo.style.display = "none";
-                frameDetalInfo.style.display = "none";
-                frameEspeciallyInfo.style.display = "block";
-            }
+            detal_info.className = "";
+            post_info.className = "active-info";
+            especially_info.className = "";
+            framePostInfo.style.display = "block";
+            frameDetalInfo.style.display = "none";
+            frameEspeciallyInfo.style.display = "none";
+        }
+    } else if (checkPage == 2) {
+        if (detal_info.className == "active-info") {
+            return;
+        } else {
+            detal_info.className = "active-info";
+            post_info.className = "";
+            especially_info.className = "";
+            framePostInfo.style.display = "none";
+            frameDetalInfo.style.display = "block";
+            frameEspeciallyInfo.style.display = "none";
+        }
+    } else {
+        if (especially_info.className == "active-info") {
+            return;
+        } else {
+            detal_info.className = "";
+            post_info.className = "";
+            especially_info.className = "active-info";
+            framePostInfo.style.display = "none";
+            frameDetalInfo.style.display = "none";
+            frameEspeciallyInfo.style.display = "block";
         }
     }
 
@@ -220,12 +235,6 @@ function viewAvatar() {
 
 }
 
-window.onclick = function (event) {
-    var viewAvatar = document.getElementById("viewAvatar");
-    if (event.target == viewAvatar) {
-        viewAvatar.style.display = "none";
-    }
-}
 
 let chooseStar = 0;
 
@@ -279,6 +288,22 @@ function SubmitAssess(myID, theirID) {
             }
         }
         xhttp.open("POST", "account?rank=" + chooseStar + "&myID=" + myID + "&theirID=" + theirID);
+        xhttp.send();
+    }
+}
+
+function DeletePost(postID) {
+    var answer = window.confirm("Bạn chắc chắn muốn xóa bài viết này?");
+    if (answer) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            if (this.responseText == "true") {
+                location.reload();
+            } else {
+                alert("Xóa không thành công!");
+            }
+        }
+        xhttp.open("POST", "account?postID=" + postID);
         xhttp.send();
     }
 

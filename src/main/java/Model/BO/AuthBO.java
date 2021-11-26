@@ -2,8 +2,14 @@ package Model.BO;
 
 import Model.BEAN.Assess;
 import Model.BEAN.Interact;
+import Model.BEAN.Report;
 import Model.BEAN.User;
 import Model.DAO.Connect;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class AuthBO {
@@ -101,7 +107,7 @@ public class AuthBO {
         if (check) {
             total = total + 1;
         }
-        double newRank = (assess.getReview() * assess.getRate() + Double.parseDouble(rank) + 0.5) / (total + 1);
+        double newRank = (assess.getReview() * assess.getRate() + Double.parseDouble(rank) + 0.5) / (assess.getReview() + 1);
         if (newRank > 5) {
             newRank = 5;
         }
@@ -117,5 +123,32 @@ public class AuthBO {
         } else {
             return interact.getRankUser2();
         }
+    }
+
+
+    public boolean addReport(String myID, String theirID, String content) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        int ID = Connect.getInstance().getReportID();
+        if(ID == -1){
+            return false;
+        }
+        return  Connect.getInstance().addReport(ID , myID , theirID , content , formatter.format(date));
+    }
+
+    public String FormatDateTime(String date) {
+        String[] strings = date.split(" ");
+        String result = "";
+        result = Format(strings[0]) + " lúc " + strings[1];
+        return result;
+    }
+    public List<Report> getListReport(int id) {
+        List<Report> reports = new ArrayList<Report>();
+        for (Report i:Connect.getInstance().getListReport(id)) {
+            i.setUserViolate(Connect.getInstance().GetUser("-1" , i.getUserViolateID()));
+            i.setTime(FormatDateTime(i.getTime()));
+            reports.add(i);
+        }
+        return reports;
     }
 }

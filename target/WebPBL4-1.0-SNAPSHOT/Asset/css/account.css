@@ -234,7 +234,7 @@
     /* Black w/ opacity */
 }
 
-.modal-content {
+.modal-avatar .modal-content {
     position: relative;
     top: 0%;
     background-color: #e0dfdf;
@@ -243,13 +243,13 @@
     border: 3px solid rgb(165, 164, 164);
     width: 40%;
     box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
+    -webkit-animation-name: animateAvatarView;
     -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
+    animation-name: animateAvatarView;
     animation-duration: 0.4s
 }
 
-@-webkit-keyframes animatetop {
+@-webkit-keyframes animateAvatarView {
     from {
         top: -400px;
         opacity: 0
@@ -260,7 +260,7 @@
     }
 }
 
-@keyframes animatetop {
+@keyframes animateAvatarView {
     from {
         top: -400px;
         opacity: 0
@@ -337,5 +337,46 @@
 }
 .frameEspeciallyInfo button:hover {
     background-color: #576a8b!important;
+}
+
+.frameEspeciallyInfos {
+    display: none;
+    position: relative;
+    background-color: rgb(242, 245, 246);
+}
+.frameEspeciallyInfos .report{
+    position: relative;
+    margin: 1% auto;
+    padding-left: 2%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    width: 45%;
+    background-color: #e8ecee;
+}
+.report h3 , h5{
+    margin: 1%;
+}
+.report h3{
+    padding-top: 1%!important;
+}
+
+.report p,h4{
+    margin: 1%;
+    max-width: 95%;
+}
+.report .content{
+    margin-left: 6%;
+}
+.report .icon{
+    position: absolute;
+    right: 2%;
+    top: 0;
+    font-size: 25px;
+}
+.fa-check{
+    color: #8fce28;
+}
+.fa-times{
+    color: #bd0202;
 }
 

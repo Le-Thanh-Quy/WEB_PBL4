@@ -1,0 +1,39 @@
+body{
+    margin-left: 3%;
+}
+a{
+    text-decoration: none;
+    color: #1972e7;
+}
+.header{
+    width: 100%;
+    height: 15%;
+    border-bottom: 2px solid #d7d6d6;
+    margin-bottom: 4%;
+}
+form textarea{
+    padding: 2%;
+    font-size: 16px;
+    border-radius: 8px;
+}
+h3:not(.header){
+    color: #2c2c2c;
+}
+h3 span{
+    color: #1972e7;
+    cursor: pointer;
+}
+form input{
+    padding: 1.5% 8% 1.5% 8%;
+    float: right;
+    margin-right: 3%;
+    margin-top: 3%;
+    cursor: pointer;
+    background-color: #8d99af;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+form input:hover{
+    background-color: #576a8b !important;
+}

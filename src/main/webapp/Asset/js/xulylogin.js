@@ -105,7 +105,6 @@ function OpenLogin(check , mess) {
     checkPage = check;
     messPage = mess;
 
-
     var user_txt = document.getElementById("user_txt");
     var pass_txt = document.getElementById("pass_txt");
     var user_txt_singup = document.getElementById("user_txt_singup");
@@ -162,6 +161,12 @@ function checkLogin(check) {
                         document.getElementById("checkMessLogin").value = messPage;
                     }
                     document.getElementById("checkTypeLogin").value = "comment";
+                }
+                if(checkPage == "report"){
+                    if(messPage != null){
+                        document.getElementById("checkMessLogin").value = messPage;
+                    }
+                    document.getElementById("checkTypeLogin").value = "report";
                 }
                 document.formLogin.submit();
             }

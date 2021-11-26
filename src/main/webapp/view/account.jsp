@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/post.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/account.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dialog.css">
 
     <script src="${pageContext.request.contextPath}/Asset/js/account.js"></script>
+    <script src="${pageContext.request.contextPath}/Asset/js/xulyForm.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
-<body onclick="checkLogOut = true;">
+<body>
 
 <%
     if (session.getAttribute("logged") == null) {
@@ -28,14 +30,17 @@
         return;
     }
 %>
-
+<script>
+    let myID = -1;
+    myID = ${myAccount.getID()};
+</script>
 <header id="menu">
     <div class="nav" id="nav">
-        <img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt="">
+        <a href="${pageContext.request.contextPath}/index.jsp"><img id="logo" src="${pageContext.request.contextPath}/Asset/img/white-logo.png" alt=""></a>
         <ul>
 
             <li><a class="tab" id="active" href="index.jsp">Trang Chủ</a></li>
-            <li><a class="tab" href="">Liên Hệ</a></li>
+            <li><a class="tab" href="chat?myID=${myAccount.getID()}">Liên Hệ</a></li>
             <li><a class="tab avatar_menu" href="${pageContext.request.contextPath}/account?others_user_name=null"
                    onmouseover="MenuOn()" onmouseleave="MenuOff()"><img
                     class="avatar" src="${myAccount.getAvatar()}" alt=""> ${myAccount.getAccountID()}</a></li>
@@ -46,7 +51,9 @@
         </div>
         <div class="menu_info">
             <ul>
-                <li>Cập nhật thông tin</li>
+                <a href="${pageContext.request.contextPath}/view/update_account.jsp" onclick="LogOut()">
+                    <li>Cập nhật thông tin</li>
+                </a>
                 <a href="${pageContext.request.contextPath}/logout" onclick="LogOut()">
                     <li>Đăng Xuất</li>
                 </a>
@@ -55,6 +62,7 @@
     </div>
 
 </header>
+
 
 <div id="viewAvatar" class="modal-avatar">
     <div class="modal-content">
@@ -98,17 +106,44 @@
     </div>
     <script>
         function GetAssess() {
-            var choose = document.getElementById("choose" + ${rankAssess});
-            choose.onclick();
+            var choose = document.getElementById("choose" + ${rankAssess})
+            var rank = ${rankAssess};
+            if (rank != 0) {
+                choose.onclick();
+            }
+
         }
 
         GetAssess();
 
     </script>
 </c:if>
-<div class="frameEspeciallyInfos" id="frameEspeciallyInfo">
+<c:if test="${rankAssess == null}">
+    <div class="frameEspeciallyInfos" id="frameEspeciallyInfo">
 
-</div>
+        <c:forEach items="${listReport}" var="Report">
+            <div class="report">
+                <h3>Báo cáo người dùng: ${Report.getUserViolate().getName()}</h3>
+                <h5>${Report.getTime()}</h5>
+                <div class="content">
+                    <h4>Nội dụng:</h4>
+                    <p>${Report.getContent()}</p>
+                    <h4>Phản hồi:</h4>
+                    <p>${Report.getFeedback()}</p>
+                </div>
+                <div class="icon">
+                    <c:if test="${Report.isStatus()}">
+                        <i class="fas fa-check"></i>
+                    </c:if>
+                    <c:if test="${!Report.isStatus()}">
+                        <i class="fas fa-times"></i>
+                    </c:if>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</c:if>
+
 
 <div class="framePost" id="framePostInfo">
     <div class="title">
@@ -118,6 +153,10 @@
         <c:if test="${ListPost != []}">
             <c:forEach items="${ListPost}" var="Post">
                 <div class="post">
+                    <c:if test="${myAccount.getID() == Post.getUser().getID()}">
+                        <span class="delete" onclick="DeletePost(${Post.getID()})">&times;</span>
+                    </c:if>
+
                     <img class="post-img" src="${Post.getImage()}" alt="">
 
                     <div class="post-main">
@@ -169,8 +208,18 @@
                                         href="chat?myID=${myAccount.getID()}&theirID=${Post.getUser().getID()}"
                                     </c:if>
                             ><i class="far fa-comment"></i> Liên Hệ </a>
-                            <a href=""><i class="far fa-comment-alt"></i> Bình Luận </a>
-                            <a href=""><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
+                            <a
+                                    href="${pageContext.request.contextPath}/comment?postID=${Post.getID()}&myID=${myAccount.getID()}"
+                                    onclick="OpenComment()"
+                                    target="commentFrame"
+                            ><i class="far fa-comment-alt"></i> Bình Luận </a>
+                            <a
+                                    <c:if test="${myAccount.getID() != Post.getUser().getID()}">
+                                        href="${pageContext.request.contextPath}/report?myID=${myAccount.getID()}&theirID=${Post.getUser().getID()}"
+                                        target="reportFrame"
+                                        onclick="OpenReport()"
+                                    </c:if>
+                            ><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
                         </div>
                     </div>
                 </div>
@@ -221,6 +270,31 @@
 
 <div class="end_body">
 
+</div>
+
+<div id="myModal-comment" class="modal-comment"
+        <c:if test="${postCommentID != null}">
+            style="display: block!important;"
+        </c:if> >
+    <div class="modal-content">
+        <span class="close" onclick="CloseComment()">&times;</span>
+        <iframe
+                id="commentFrame"
+                name="commentFrame"
+                frameborder="0"></iframe>
+    </div>
+</div>
+<div id="myModal-report" class="modal-report"
+        <c:if test="${reportID != null}">
+            style="display: block!important;"
+        </c:if> >
+    <div class="modal-content">
+        <span class="close" onclick="CloseReport()">&times;</span>
+        <iframe
+                id="reportFrame"
+                name="reportFrame"
+                frameborder="0"></iframe>
+    </div>
 </div>
 </body>
 

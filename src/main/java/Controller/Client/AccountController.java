@@ -29,6 +29,7 @@ public class AccountController extends HttpServlet {
         User user = new User();
         if ("null".equals(others_user_name)) {
             user = myAccount;
+            request.setAttribute("listReport", AuthBO.getInstance().getListReport(myAccount.getID()));
         } else {
             user = AuthBO.getInstance().GetUser(others_user_name);
             request.setAttribute("rankAssess" ,AuthBO.getInstance().getInteract(String.valueOf(myAccount.getID()) , String.valueOf(user.getID())));
@@ -36,6 +37,7 @@ public class AccountController extends HttpServlet {
         List<Post> postList = PostBO.getInstance().getPostListWithUser(-1, user.getID());
 
         Assess assess = AuthBO.getInstance().GetAssess(user.getAssessID());
+
 
         request.setAttribute("ListPost", postList);
         request.setAttribute("myAccount", myAccount);
@@ -49,15 +51,29 @@ public class AccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String myID = request.getParameter("myID");
-        String theirID = request.getParameter("theirID");
-        String rank = request.getParameter("rank");
-        if(AuthBO.getInstance().Assess(rank , myID , theirID)){
+        if(request.getParameter("postID") != null){
+            String postID = request.getParameter("postID");
+            if(PostBO.getInstance().DeletePost(postID)){
 
-            response.getWriter().write("true");
+                response.getWriter().write("true");
 
+            }else{
+                response.getWriter().write("false");
+            }
         }else{
-            response.getWriter().write("false");
+            String myID = request.getParameter("myID");
+            String theirID = request.getParameter("theirID");
+            String rank = request.getParameter("rank");
+            if(AuthBO.getInstance().Assess(rank , myID , theirID)){
+
+                response.getWriter().write("true");
+
+            }else{
+                response.getWriter().write("false");
+            }
         }
+
+
+
     }
 }

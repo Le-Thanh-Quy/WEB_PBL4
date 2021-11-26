@@ -10,12 +10,29 @@
 
 .post {
     display: flex;
+    position: relative;
     background-color: rgb(237, 240, 241);
     margin: 50px auto;
     width: 85%;
     border-radius: 20px;
     overflow: auto;
 }
+.post .delete{
+    position: absolute;
+    z-index: 99;
+    right: 0.5%;
+    font-size: 30px;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.post .delete:hover{
+    color: #f35050 !important;
+    background-color: rgb(179, 192, 194);
+}
+
 
 .post-img {
     width: 500px;

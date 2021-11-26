@@ -106,6 +106,7 @@ function SelectXa() {
     }
 }
 
+
 function CloseComment() {
 
     var comment = document.getElementById("myModal-comment");
@@ -114,18 +115,36 @@ function CloseComment() {
     commentFrame.src = "";
     document.body.style.overflow = "auto";
 }
+
 function OpenComment() {
     var comment = document.getElementById("myModal-comment");
     comment.style.display = "block";
     document.body.style.overflow = "hidden";
 
 }
+
+function CloseReport() {
+    var report = document.getElementById("myModal-report");
+    var reportFrame = document.getElementById("reportFrame");
+    report.style.display = "none";
+    reportFrame.src = "";
+    document.body.style.overflow = "auto";
+}
+
+function OpenReport() {
+    var report = document.getElementById("myModal-report");
+    report.style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
 window.onclick = function (event) {
     var modal = document.getElementById("myModal");
     var modal1 = document.getElementById("myModal-login");
     var modal2 = document.getElementById("myModal-signup");
     var modalpost = document.getElementById("myModal-newPost");
     var comment = document.getElementById("myModal-comment");
+    var report = document.getElementById("myModal-report");
+    var viewAvatar = document.getElementById("viewAvatar");
     var selectTinh;
     if (StartorEnd == 0) {
         selectTinh = document.getElementById("selectTinhS");
@@ -133,7 +152,9 @@ window.onclick = function (event) {
         selectTinh = document.getElementById("selectTinhE");
     }
 
-    if (event.target == modal) {
+    if (event.target == viewAvatar) {
+        viewAvatar.style.display = "none";
+    } else if (event.target == modal) {
         modal.style.display = "none";
         selectTinh.selectedIndex = "0";
     } else if (event.target == modal1) {
@@ -142,11 +163,15 @@ window.onclick = function (event) {
         modal2.style.display = "none";
     } else if (event.target == modalpost) {
         modalpost.style.display = "none";
-    } else if(event.target == comment){
-        comment.style.display = "none";
+    } else if (event.target == comment) {
         var commentFrame = document.getElementById("commentFrame");
         comment.style.display = "none";
         commentFrame.src = "";
+        document.body.style.overflow = "auto";
+    } else if (event.target == report) {
+        var reportFrame = document.getElementById("reportFrame");
+        report.style.display = "none";
+        reportFrame.src = "";
         document.body.style.overflow = "auto";
     }
 }

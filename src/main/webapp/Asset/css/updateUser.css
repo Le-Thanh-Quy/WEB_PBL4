@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    background-image: url(../img/banner-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.modal {
+    position: relative;
+    width: 85%;
+    margin: 5% auto;
+    background-color: rgba(255, 255, 255, 0.842);
+    padding-top: 1%;
+    border-radius: 7px;
+}
+.modal form{
+    display: flex;
+}
+.modal a{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    font-size: 35px;
+    color: black;
+}
+
+.modal ul {
+    display: block;
+    width: 55%;
+    list-style: none;
+    margin: 1%;
+}
+
+.modal ul li {
+    display: flex;
+    margin: 2% auto;
+    position: relative;
+}
+
+.modal ul li label {
+    width: 43%!important;
+    font-size: 20px;
+}
+
+.modal ul li select {
+    width: 72%!important;
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.modal ul li input:not(.btnSubmit) {
+    width: 70%!important;
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.modal ul li input[type=date] {
+    width: 70%!important;
+    padding: 1%;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.modal ul li textarea {
+    width: 100%!important;
+    padding: 1%;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.modal ul li .btnSubmit {
+    width: 45%!important;
+    padding: 1%;
+    margin: 0 auto;
+    margin-top: 3%;
+    border-radius: 7px;
+    font-size: 16px;
+    background-color: #8d99af;
+    color: rgb(255, 255, 255);
+}
+
+.modal ul li input[type=submit]:hover {
+    background-color: #576a8b!important;
+    cursor: pointer;
+}
+
+.avatarFrame {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 5% auto;
+    background-color: rgb(253, 253, 253);
+    border-radius: 50%;
+    border: 3px solid rgb(253, 253, 253);
+    padding: 0;
+}
+.avatarFrame h2,h3{
+    text-align: center;
+    margin-top: 3%;
+}
+.fa-edit::before {
+    cursor: pointer;
+}
+
+.avatarFrame img {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+}
+
+.chooseIMGFrame {
+    position: absolute;
+    width: 22%;
+    height: 22%;
+    right: 4%;
+    bottom: 4%;
+    border-radius: 50%;
+    background-color: rgb(216, 216, 216);
+    border: 1px solid white;
+}
+
+.chooseIMGFrame i {
+    position: absolute;
+    left: 19%;
+    top: 19%;
+}
+
+.fa-camera {
+    font-size: 25px;
+}
+
+.chooseIMG {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    font-size: 0px;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: 50%;
+}
+
+::-webkit-file-upload-button {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+}
+
+#SubmitRegister{
+    position: relative;
+}
+.fa-exclamation-circle{
+    color: red;
+    position: absolute;
+    right: -6%;
+    top: 25%;
+}
+.dacbiet{
+    top: 10%!important;
+}
+
+#icon_name, #icon_phone , #icon_address , #icon_status{
+    display: none;
+}
