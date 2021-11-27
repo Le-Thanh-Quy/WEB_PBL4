@@ -1,0 +1,204 @@
+body {
+    background-color: #fefefe;
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    width: 12px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background-color: #ebebeb;
+;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #b9b8b8;
+    border-radius: 10px;
+}
+.null img {
+    margin-top: 15%;
+    width: 40%;
+}
+
+.task-Info {
+    top: 0;
+    z-index: 10000000;
+    text-align: center;
+    padding-top: 2%;
+    position: fixed;
+    background-color: #fefefe;
+    display: flex;
+    width: 100%;
+}
+
+.active-info {
+    border-bottom: 3px solid hsl(214deg 89% 59%);
+    color: hsl(214deg 89% 59%);
+}
+
+.task-Info p {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 2%;
+    cursor: pointer;
+}
+
+
+.receive {
+    padding-top: 10%;
+    margin-bottom: 15%;
+
+}
+
+.receive .request {
+    position: relative;
+    display: flex;
+    width: 95%;
+    background-color: #d3d1d1;
+    margin: 0 auto;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+
+.receive .request img {
+    width: 30%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.fa-check {
+    color: #03c403;
+    font-size: 20px;
+    margin-right: 20%;
+    cursor: pointer;
+}
+
+.statusIcon{
+    cursor: inherit;
+    margin: 0!important;
+}
+.fa-comment-alt {
+    color: #1972e7;
+    font-size: 20px;
+    margin-right: 20%;
+    cursor: pointer;
+}
+
+.fa-times {
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.receive .request .info {
+
+    margin: 0;
+    padding: 0;
+    width: 70%;
+}
+
+.receive .request .info h3{
+    margin: 0;
+    padding-left: 2%;
+    padding-bottom: 2%;
+}
+
+.dacbiet1{
+    color: rgb(170, 109, 16);
+}
+.dacbiet{
+    color: #1972e7;
+}
+.receive .request .info h4 span{
+    position: absolute;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: 500;
+    right: 5%;
+}
+
+.receive .request .info ul,h4 {
+    margin: 0;
+    padding-left: 12%;
+    padding-bottom: 3%;
+
+}
+
+.fa-calendar-alt {
+    padding-right: 1%;
+}
+
+.address {
+    list-style: none;
+}
+
+.position {
+    display: flex;
+}
+
+.position ul {
+    width: 50%;
+}
+
+.address li {
+    display: flex;
+}
+
+.fas {
+    padding-right: 1%;
+}
+.content{
+    list-style: none;
+
+}
+.content li{
+    padding: 0;
+    margin: 0;
+    max-width: 65%;
+    word-wrap: break-word;
+}
+
+.submit {
+    position: absolute;
+    width: 20%;
+    display: flex;
+    right: 1%;
+    bottom: 5%;
+}
+.submitSend{
+    position: absolute;
+    width: 5%;
+    display: flex;
+    right: 1%;
+    bottom: 5%;
+}
+.status{
+    position: absolute;
+    width: 15%;
+    display: flex;
+    right: 0;
+    top: 2%;
+}
+
+#send{
+    display: none;
+}
+
+
+
+
+
+
+

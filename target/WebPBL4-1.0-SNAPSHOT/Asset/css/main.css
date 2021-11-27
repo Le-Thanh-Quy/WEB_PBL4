@@ -343,3 +343,90 @@ header {
 .avatar_menu:hover {
     padding-bottom: 80px;
 }
+
+
+.transaction{
+    position: fixed;
+    display: flex;
+    right: 1%;
+    bottom: 0%;
+    background-color: rgb(255, 255, 255);
+    color: #203180;
+    font-size: 15px;
+    padding: 0;
+    width: 7%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 2px solid #c9c9c9;
+    cursor: pointer;
+    box-shadow: 4px 5px 10px 5px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
+}
+.transaction p{
+    text-align: center;
+    width: 100%;
+}
+.transactionDetail{
+    display: none;
+    position: fixed;
+    right: 1%;
+    bottom: 0;
+    background-color: rgb(248, 248, 248);
+    width: 50%;
+    height: 80%;
+    border: 1px solid #9a9a9a;
+    border-radius: 5px;
+    box-shadow: -10px 0 10px 10px rgba(0, 0, 0, 0.2), 0 10px 20px 10px rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animate_requestFrame;
+    -webkit-animation-duration: 0.3s;
+    animation-name: animate_requestFrame;
+    animation-duration: 0.3s
+}
+
+@-webkit-keyframes animate_requestFrame {
+    from {
+        width: 0;
+        opacity: 0;
+        height: 0;
+    }
+    to {
+        width: 50%;
+        opacity: 1;
+        height: 80%;
+    }
+}
+
+@keyframes animate_requestFrame {
+    from {
+        width: 0;
+        opacity: 0;
+        height: 0;
+    }
+    to {
+        width: 50%;
+        opacity: 1;
+        height: 80%;
+    }
+}
+
+.transactionDetail .offTransaction{
+    width: 100%;
+    border-bottom: 1px solid #9a9a9a;
+
+}
+.transactionDetail .offTransaction h3{
+    margin-top: 1%;
+    margin-left: 2%;
+}
+.transactionDetail .offTransaction .fa-chevron-down{
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    border: 2px solid #9a9a9a;
+    padding: 1%;
+    cursor: pointer;
+}
+.transactionDetail iframe{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}

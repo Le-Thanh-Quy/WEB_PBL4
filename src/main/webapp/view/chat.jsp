@@ -33,7 +33,7 @@
     <div class="chat_list">
         <div class="chat_list_title">
             <h1>Tin nhắn gần đây</h1>
-            <i class="fas fa-sync-alt" onclick="ReloadChatRoom('${myID}')" id="reloadRoom"></i>
+            <i style="opacity: 0" class="fas fa-sync-alt" onclick="ReloadChatRoom('${myID}')" id="reloadRoom"></i>
         </div>
         <div class="search">
             <input id="searchRoomChat" type="text" placeholder="Tìm kiếm tin nhắn" value="" onkeydown="SearchRoomChat()">
@@ -67,7 +67,7 @@
 
             </c:forEach>
         </div>
-        <div class="autoReload">
+        <div class="autoReload" style="opacity: 0">
             <input id="autoReload" type="checkbox" checked>
             <p>Tự động cập nhật</p>
         </div>

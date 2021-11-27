@@ -238,4 +238,15 @@ public class PostBO {
     public boolean DeletePost(String idPost) {
         return Connect.getInstance().deletePost(idPost);
     }
+
+    public boolean newRequest(Request requestPost) {
+        int ID = Connect.getInstance().getRequestID(requestPost.getPostID() , requestPost.getSenderID());
+        if(ID == -1){
+            return false;
+        }else{
+            requestPost.setID(ID);
+            return Connect.getInstance().newRequest(requestPost);
+        }
+
+    }
 }

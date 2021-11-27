@@ -23,7 +23,7 @@ public class Connect {
     public Connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1234");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
             System.out.println("Successs");
             Statement statement = con.createStatement();
         } catch (ClassNotFoundException ex) {
@@ -560,6 +560,41 @@ public class Connect {
         }
     }
 
+    public int getRequestID(int postID, int senderID) {
+        try {
+            String str = "SELECT ID from request WHERE  SenderID = '" + senderID + "' and PostID = '" + postID + "';";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = -1;
+            if (resultSet.next()) {
+                id = resultSet.getInt("ID");
+            }
+            resultSet.close();
+            statement.close();
+            if(id != -1){
+                return -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+        try {
+            String str = "SELECT MAX(ID) from request;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            int id = 0;
+            if (resultSet.next()) {
+                id = resultSet.getInt("MAX(ID)");
+            }
+            resultSet.close();
+            statement.close();
+            return id + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
     public boolean addChat(Chat chat) {
         try {
             String str = "INSERT INTO chat VALUES('" + chat.getID() +
@@ -847,6 +882,21 @@ public class Connect {
         } catch (Exception e) {
             e.printStackTrace();
             return reports;
+        }
+    }
+
+    public boolean newRequest(Request requestPost) {
+        try {
+            String str = "INSERT INTO request VALUES ('" + requestPost.getID() + "', '" + requestPost.getSenderID() + "', '" + requestPost.getReceiverID() + "', '" + requestPost.getPostID() + "', '" + requestPost.getContent() + "', '0');";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

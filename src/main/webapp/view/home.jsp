@@ -19,6 +19,7 @@
     <script src="${pageContext.request.contextPath}/Asset/js/xulyForm.js"></script>
     <script src="${pageContext.request.contextPath}/Asset/js/newpost.js"></script>
     <script src="${pageContext.request.contextPath}/Asset/js/xulylogin.js"></script>
+    <script src="${pageContext.request.contextPath}/Asset/js/request.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
@@ -28,8 +29,8 @@
     let myID = -1;
     let logged = false;
     <c:if test="${logged == true}">
-        logged = true;
-        myID = ${user_info.getID()};
+    logged = true;
+    myID = ${user_info.getID()};
     </c:if>
 
 </script>
@@ -224,6 +225,16 @@
                             <a
                                     <c:if test="${user_info.getID() != Post.getUser().getID()}">
                                         <c:if test="${logged == true}">
+                                            onclick="OpenRequest(${user_info.getID()} , ${Post.getUser().getID()} , ${Post.getID()} )"
+                                        </c:if>
+                                        <c:if test="${logged == false}">
+                                            onclick="OpenLogin()"
+                                        </c:if>
+                                    </c:if>
+                            ><i class="fas fa-share-square"></i> Gửi yêu cầu</a>
+                            <a
+                                    <c:if test="${user_info.getID() != Post.getUser().getID()}">
+                                        <c:if test="${logged == true}">
                                             href="chat?myID=${user_info.getID()}&theirID=${Post.getUser().getID()}"
                                         </c:if>
                                         <c:if test="${logged == false}">
@@ -280,7 +291,8 @@
     <footer>
         <div class="column">
             <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
-            <p>Nếu bạn cho rằng website QTH của chúng tôi hữu ích cho bạn, <br>Còn chờ gì nữa mà không banking cho chúng tôi!</p>
+            <p>Nếu bạn cho rằng website QTH của chúng tôi hữu ích cho bạn, <br>Còn chờ gì nữa mà không banking cho chúng
+                tôi!</p>
         </div>
         <div class="column columnG">
             <h1>Chính sách</h1>
@@ -502,6 +514,40 @@
     </div>
 </div>
 
+
+<div id="myModal-request" class="modal-request">
+    <div class="modal-content-request">
+        <span class="close" onclick="CloseRequest()">&times;</span>
+        <div class="modal-body-request">
+            <form action="request" method="post">
+                <h3>Gửi yêu cầu</h3>
+                <input type="hidden" id="senderID" name="senderID" value="">
+                <input type="hidden" id="receiverID" name="receiverID" value="">
+                <input type="hidden" id="postID" name="postID" value="">
+                <textarea name="content" rows="10" placeholder="Nội dung...."></textarea>
+                <input type="submit" value="Xác nhận">
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<c:if test="${logged == true}">
+    <div class="transaction" onclick="OnTransaction()">
+        <p><i class="fas fa-file-signature"></i> Giao dịch</p>
+    </div>
+    <div class="transactionDetail" id="transaction">
+        <div class="offTransaction">
+            <h3>Giao dịch</h3>
+            <i class="fas fa-chevron-down" onclick="OffTransaction()"></i>
+        </div>
+
+        <iframe src="${pageContext.request.contextPath}/view/request.jsp" frameborder="0"></iframe>
+    </div>
+</c:if>
 
 <div class="notification" id="notificationForm">
     <p id="notification"></p>

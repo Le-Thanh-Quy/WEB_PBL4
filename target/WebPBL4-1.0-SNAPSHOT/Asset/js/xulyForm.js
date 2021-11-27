@@ -145,6 +145,8 @@ window.onclick = function (event) {
     var comment = document.getElementById("myModal-comment");
     var report = document.getElementById("myModal-report");
     var viewAvatar = document.getElementById("viewAvatar");
+    var myModal_request = document.getElementById("myModal-request");
+
     var selectTinh;
     if (StartorEnd == 0) {
         selectTinh = document.getElementById("selectTinhS");
@@ -173,7 +175,23 @@ window.onclick = function (event) {
         report.style.display = "none";
         reportFrame.src = "";
         document.body.style.overflow = "auto";
+    }else if(event.target == myModal_request){
+        myModal_request.style.display = "none";
     }
+}
+function OpenRequest(senderID , receiverID , postID) {
+    var SenderID = document.getElementById("senderID");
+    var ReceiverID = document.getElementById("receiverID");
+    var PostID= document.getElementById("postID");
+    SenderID.value = senderID;
+    ReceiverID.value = receiverID;
+    PostID.value = postID;
+    var myModal_request = document.getElementById("myModal-request");
+    myModal_request.style.display = "block";
+}
+function CloseRequest() {
+    var myModal_request = document.getElementById("myModal-request");
+    myModal_request.style.display = "none";
 }
 
 
