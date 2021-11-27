@@ -268,7 +268,7 @@ public class Connect {
                 user.setName(resultSet.getString("Name"));
                 user.setAge(resultSet.getString("Age"));
                 user.setSex(resultSet.getString("Sex"));
-                user.setPhone_Number(resultSet.getString("Phone Number"));
+                user.setPhone_Number(resultSet.getString("PhoneNumber"));
                 user.setAddress(resultSet.getString("Address"));
                 user.setAvatar(resultSet.getString("Avatar"));
                 user.setStatus(resultSet.getString("Status"));

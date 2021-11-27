@@ -19,7 +19,6 @@ public class FindPost extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         json = new Gson().toJson(PostBO.getInstance().getPostByFind(key));
-        System.out.println(key+PostBO.getInstance().getPostByFind(key).size());
         resp.getWriter().write(json);
     }
 }

@@ -13,3 +13,7 @@ th {
     color: #1972e7!important;
     cursor: pointer;
 }
+.fa-eye::before{
+    color: #1972e7!important;
+    cursor: pointer;
+}

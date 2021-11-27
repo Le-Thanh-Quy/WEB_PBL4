@@ -23,12 +23,12 @@ public class HomeController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        if(1 == 1){
-            request.getSession().setAttribute("admin", "LeThanhQuy");
-            RequestDispatcher requestDispatcherss = request.getRequestDispatcher("admin_home");
-            requestDispatcherss.forward(request, response);
-            return;
-        }
+//        if(1 == 1){
+//            request.getSession().setAttribute("admin", "LeThanhQuy");
+//            RequestDispatcher requestDispatcherss = request.getRequestDispatcher("admin_home");
+//            requestDispatcherss.forward(request, response);
+//            return;
+//        }
 
 
         HttpSession session =  request.getSession();

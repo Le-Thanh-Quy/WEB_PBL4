@@ -25,7 +25,7 @@
                 '<th>Ngày sinh</th>' +
                 '<th>Giới tính</th>' +
                 '<th>Số điện thoại</th>' +
-                '<th>Phân quyền</th><' +
+                '<th>Phân quyền</th>' +
                 '<th>Chọn</th> </tr>';
             for (const x of myObj) {
                 html += "<tr><td>" + x.ID + "</td>" +

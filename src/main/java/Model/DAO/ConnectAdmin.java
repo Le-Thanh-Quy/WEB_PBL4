@@ -63,7 +63,7 @@ public class ConnectAdmin {
                 user.setName(resultSet.getString("Name"));
                 user.setAge(resultSet.getString("Age"));
                 user.setSex(resultSet.getString("Sex"));
-                user.setPhone_Number(resultSet.getString("Phone Number"));
+                user.setPhone_Number(resultSet.getString("PhoneNumber"));
                 user.setAddress(resultSet.getString("Address"));
                 user.setAvatar(resultSet.getString("Avatar"));
                 user.setStatus(resultSet.getString("Status"));
@@ -497,4 +497,26 @@ public class ConnectAdmin {
     }
 
 
+    public boolean UpdateUser(User user) {
+        try {
+            String sql = "UPDATE user set Name = '" + user.getName() +
+                    "' ,Age = '" + user.getAge() +
+                    "' ,Sex = '" + user.getSex() +
+                    "' ,PhoneNumber = '" + user.getPhone_Number() +
+                    "' ,Avatar = '" + user.getAvatar() +
+                    "' ,Status = '" + user.getStatus() +
+                    "' ,Address = '" + user.getAddress() +
+                    "' WHERE ID = '" + user.getID() + "' ;";
+            String sql1 = "UPDATE account set Permission = b'" + user.getPermission() +
+                    "' WHERE UserName = '" + user.getAccountID() + "' ;";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(sql);
+            statement.executeUpdate(sql1);
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

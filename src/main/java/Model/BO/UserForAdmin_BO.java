@@ -82,7 +82,6 @@ public class UserForAdmin_BO {
 
     public boolean DelUser(List<String> listID) {
         for (String id : listID) {
-            System.out.println(id);
             if(!ConnectAdmin.getInstance().DelUser(id)){
                 return false;
             }
@@ -96,5 +95,9 @@ public class UserForAdmin_BO {
 
     public User getUserbyID(String userID) {
         return Connect.getInstance().GetUser("-1" , Integer.parseInt(userID));
+    }
+
+    public boolean UpdateUser(User user) {
+        return ConnectAdmin.getInstance().UpdateUser(user);
     }
 }
