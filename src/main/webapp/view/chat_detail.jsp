@@ -100,7 +100,7 @@
 
 </div>
 <script type="text/javascript">
-    var websocket = new WebSocket("ws://localhost:8080/WebPBL4_war_exploded/Chatroom");
+    var websocket = new WebSocket(`ws://`+ window.location.hostname + `/Chatroom`);
     websocket.onopen = function (message) {
         processOpen(message);
     };
