@@ -19,13 +19,16 @@ import java.util.Date;
 public class RequestController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+
         if (request.getParameter("newRequest") != null) {
+
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(PostBO.getInstance().checkRequest(request.getParameter("newRequest")));
             return;
+
         }
+        request.setCharacterEncoding("UTF-8");
         String content = request.getParameter("content");
         String senderID = request.getParameter("senderID");
         String receiverID = request.getParameter("receiverID");

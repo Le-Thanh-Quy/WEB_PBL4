@@ -436,7 +436,7 @@ public class ConnectAdmin {
     public ArrayList<Report> getAllReport() {
         ArrayList<Report> list = new ArrayList<Report>();
         try {
-            String sql = "SELECT * FROM Report";
+            String sql = "SELECT * FROM report";
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -462,7 +462,7 @@ public class ConnectAdmin {
     public Report getReportByID(int ID_report) {
         Report report = new Report();
         try {
-            String sql = "SELECT * FROM Report WHERE  ID = '" + ID_report + "' ;";
+            String sql = "SELECT * FROM report WHERE  ID = '" + ID_report + "' ;";
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             if (resultSet.next()) {
@@ -485,7 +485,7 @@ public class ConnectAdmin {
     //update tinh trang report
     public boolean updateReport(int ID, String feedback) {
         try {
-            String sql = "UPDATE Report set Status = '" + 1 + "' ,Feedback = '" + feedback + "' WHERE ID = '" + ID + "' ;";
+            String sql = "UPDATE report set Status = '" + 1 + "' ,Feedback = '" + feedback + "' WHERE ID = '" + ID + "' ;";
             Statement statement = con.createStatement();
             statement.executeUpdate(sql);
             statement.close();
