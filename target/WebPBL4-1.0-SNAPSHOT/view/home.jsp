@@ -89,7 +89,7 @@
 
 <div class="frameSearch">
     <div class="search-lable">
-        <h5>Over 3+ Active Listings</h5>
+        <h5></h5>
         <h1>Tìm Kiếm Lịch Trình</h1>
     </div>
     <form action="trangchu" method="post">
@@ -347,16 +347,16 @@
             <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
             <form name="formLogin" action="login" method="get">
                 <input id="user_txt" onblur="UserBlur()" type="text" name="user_txt" value=""
-                       placeholder="User Name">
+                       placeholder="Tên tài khoản">
                 <input id="pass_txt" onblur="PassBlur()" type="password" name="pass_txt" value=""
-                       placeholder="Password">
+                       placeholder="Mật khẩu">
                 <span class="focus-border"><i></i></span>
                 <input id="checkMessLogin" type="hidden" name="checkMessLogin" value="null">
                 <input id="checkTypeLogin" type="hidden" name="checkTypeLogin" value="null">
                 <i class="fas fa-eye" id="hide_show" onclick="HideShow()"></i>
             </form>
-            <button onclick="checkLogin()">SIGN IN</button>
-            <p>Don’t have an account?<a class="btnRegister" onclick="Signup()"> Sign Up</a></p>
+            <button onclick="checkLogin()">Đăng Nhập</button>
+            <p>Chưa có tài khoản?<a class="btnRegister" onclick="Signup()"> Đăng ký ngay</a></p>
         </div>
     </div>
 </div>
@@ -367,16 +367,16 @@
             <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
             <form name="formSignUp" action="${pageContext.request.contextPath}/register" method="get">
                 <input id="user_txt_singup" onblur="SingUpUserBlur()" type="text" name="user_txt_singup" value=""
-                       placeholder="User Name" maxlength="35">
+                       placeholder="Tên tài khoản" maxlength="35">
                 <input id="pass_txt_signup" onblur="SingUpPassBlur()" type="password" name="pass_txt_signup" value=""
-                       placeholder="Password" maxlength="20">
+                       placeholder="Mật khẩu" maxlength="20">
                 <i class="fas fa-eye" id="hide_show_signup" onclick="HideShowSignUp()"></i>
                 <input id="pass_confirm_txt" onblur="ConfirmPassBlur()" type="password" name="pass_confirm_txt" value=""
-                       placeholder="Confirm Password" maxlength="20">
+                       placeholder="Xác nhận mật khẩu" maxlength="20">
                 <i class="fas fa-eye" id="hide_showr" onclick="HideShowR()"></i>
             </form>
-            <button onclick="checkSignUp()">SIGN UP</button>
-            <p>If you have an account?Just<a class="btnRegister" onclick="Signup()"> Sign In</a></p>
+            <button onclick="checkSignUp()">Đăng ký</button>
+            <p>Bạn đã có tài khoản?<a class="btnRegister" onclick="Signup()"> Đăng nhập</a></p>
         </div>
     </div>
 </div>
@@ -524,7 +524,7 @@
                 <input type="hidden" id="senderID" name="senderID" value="">
                 <input type="hidden" id="receiverID" name="receiverID" value="">
                 <input type="hidden" id="postID" name="postID" value="">
-                <textarea name="content" rows="10" placeholder="Nội dung...."></textarea>
+                <textarea name="content" rows="10" placeholder="Nội dung...." maxlength="100"></textarea>
                 <input type="submit" value="Xác nhận">
             </form>
 
@@ -536,21 +536,26 @@
 
 
 <c:if test="${logged == true}">
-    <div class="transaction" onclick="OnTransaction()">
-        <p><i class="fas fa-file-signature"></i> Giao dịch</p>
+    <script>
+        newRequest();
+    </script>
+    <div class="transaction" onclick="OnTransaction(${user_info.getID()})">
+        <p><i class="fas fa-file-signature"></i> Yêu cầu</p>
+        <i class="fas fa-circle" id="newRequest"></i>
     </div>
     <div class="transactionDetail" id="transaction">
         <div class="offTransaction">
-            <h3>Giao dịch</h3>
+            <h3>Yêu cầu</h3>
             <i class="fas fa-chevron-down" onclick="OffTransaction()"></i>
         </div>
 
-        <iframe src="${pageContext.request.contextPath}/view/request.jsp" frameborder="0"></iframe>
+        <iframe id="transactionFrame" src="" frameborder="0"></iframe>
     </div>
 </c:if>
 
 <div class="notification" id="notificationForm">
     <p id="notification"></p>
+    <i class="fas fa-exclamation-triangle"></i>
 </div>
 
 <c:if test="${Mess != null}">

@@ -9,21 +9,20 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/table.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="${pageContext.request.contextPath}/Asset/js/FindPost.js"></script>
-    <title>Danh sach bai dang</title>
+    <title>Danh sách bài đăng</title>
 </head>
 <body>
 <input type="search" name="searchBox" id="searchBox">
 <button for="searchBox" onclick="findPost()">OK</button>
 <table>
     <tr>
-        <th>ID.Post</th>
+        <th>ID</th>
         <th>Người đăng</th>
-        <th>Đi từ</th>
-        <th>Đến</th>
+        <th>Điểm xuất phát</th>
+        <th>Điểm đến</th>
         <th>Ngày khởi hành</th>
         <th>Giờ khởi hành</th>
-        <th>Mô tả</th>
-        <th>Action</th>
+        <th>Chi tiết</th>
     </tr>
     <c:forEach items="${listPost}" var="item">
         <tr>
@@ -33,10 +32,8 @@
             <td>${item.getEndCommune()}, ${item.getEndDistrict()}, ${item.getEndProvince()}</td>
             <td>${item.getDate()}</td>
             <td>${item.getTimeStart()}</td>
-            <td>${item.getCaption()}</td>
             <td>
                 <a href=""> <i class="fas fa-eye"></i> </a>
-                <a href=""> <i class="fas fa-trash-alt"></i> </a>
             </td>
         </tr>
     </c:forEach>

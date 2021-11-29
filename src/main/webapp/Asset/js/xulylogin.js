@@ -135,19 +135,19 @@ function checkLogin(check) {
     if (user_txt.value.toString().trim() == "") {
         notification.innerHTML = "Không được để trống tài khoản!";
         notificationForm.style.display = "block";
-        setTimeout(function(){notificationForm.style.display = "none"; }, 2000);
+        setTimeout(function(){notificationForm.style.display = "none"; }, 3000);
     }else if (pass_txt.value.toString().trim() == ""){
         notification.innerHTML = "Không được để trống mật khẩu!";
         notificationForm.style.display = "block";
-        setTimeout(function(){notificationForm.style.display = "none"; }, 2000);
+        setTimeout(function(){notificationForm.style.display = "none"; }, 3000);
     }
     else {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
             if(this.responseText == -1){
-                notification.innerHTML = "Tài khoản hoặc mật khẩu của bạn không chính xác!";
+                notification.innerHTML = "Tài khoản hoặc mật khẩu không chính xác!";
                 notificationForm.style.display = "block";
-                setTimeout(function(){ notificationForm.style.display = "none"; }, 2000);
+                setTimeout(function(){ notificationForm.style.display = "none"; }, 3000);
             }else{
                 if(checkPage == "newPost"){
                     document.getElementById("checkTypeLogin").value = "newPost";
@@ -189,19 +189,19 @@ function checkSignUp() {
     if (user_txt_singup.value.toString().trim() == "") {
         notification.innerHTML = "Không được để trống tài khoản!";
         notificationForm.style.display = "block";
-        setTimeout(function(){notificationForm.style.display = "none"; }, 2000);
+        setTimeout(function(){notificationForm.style.display = "none"; }, 3000);
     }else if (pass_txt_signup.value.toString().trim() == ""){
         notification.innerHTML = "Không được để trống mật khẩu!";
         notificationForm.style.display = "block";
-        setTimeout(function(){notificationForm.style.display = "none"; }, 2000);
+        setTimeout(function(){notificationForm.style.display = "none"; }, 3000);
     } else if(pass_confirm_txt.value.toString().trim() == ""){
         notification.innerHTML = "Không được để trống mật khẩu xác nhận!";
         notificationForm.style.display = "block";
-        setTimeout(function(){notificationForm.style.display = "none"; }, 2000);
+        setTimeout(function(){notificationForm.style.display = "none"; }, 3000);
     }else if(pass_confirm_txt.value.toString().trim() != pass_txt_signup.value.toString().trim()){
         notification.innerHTML = "Mật khẩu xác nhận không trùng khớp!";
         notificationForm.style.display = "block";
-        setTimeout(function(){notificationForm.style.display = "none"; }, 2000);
+        setTimeout(function(){notificationForm.style.display = "none"; }, 3000);
     }
     else {
         const xhttp = new XMLHttpRequest();
@@ -211,7 +211,7 @@ function checkSignUp() {
             }else{
                 notification.innerHTML = "Tài khoản đã tồn tại!";
                 notificationForm.style.display = "block";
-                setTimeout(function(){ notificationForm.style.display = "none"; }, 2000);
+                setTimeout(function(){ notificationForm.style.display = "none"; }, 3000);
 
             }
         }

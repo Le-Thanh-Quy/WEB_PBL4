@@ -308,3 +308,72 @@ function DeletePost(postID) {
     }
 
 }
+
+function Hide_Show_PassOld() {
+    var x = document.getElementById("pass_old");
+    var icon = document.getElementById("hide_show_passOld");
+    if (x.type === "password") {
+        x.type = "text";
+        icon.className = "fas fa-eye-slash";
+    } else {
+        x.type = "password";
+        icon.className = "fas fa-eye";
+    }
+}
+
+function Hide_Show_PassNew() {
+    var x = document.getElementById("pass_new");
+    var icon = document.getElementById("hide_show_passNew");
+    if (x.type === "password") {
+        x.type = "text";
+        icon.className = "fas fa-eye-slash";
+    } else {
+        x.type = "password";
+        icon.className = "fas fa-eye";
+    }
+}
+
+function Hide_Show_PassConfirm() {
+    var x = document.getElementById("pass_confirm");
+    var icon = document.getElementById("hide_show_confPass");
+    if (x.type === "password") {
+        x.type = "text";
+        icon.className = "fas fa-eye-slash";
+    } else {
+        x.type = "password";
+        icon.className = "fas fa-eye";
+    }
+}
+
+function ChangePassSubmit() {
+
+    var pass_old = document.getElementById("pass_old");
+    var pass_new = document.getElementById("pass_new");
+    var pass_confirm = document.getElementById("pass_confirm");
+    var notification = document.getElementById("notification");
+    var notificationForm = document.getElementById("notificationForm");
+
+    if (pass_old.value.trim() == "") {
+        notification.innerHTML = "Không được để trống mật khẩu cũ";
+        notificationForm.style.display = "block";
+        setTimeout(function () {
+            notificationForm.style.display = "none";
+        }, 3000);
+    } else if (pass_new.value.trim() == "") {
+        notification.innerHTML = "Không được để trống mật khẩu mới";
+        notificationForm.style.display = "block";
+        setTimeout(function () {
+            notificationForm.style.display = "none";
+        }, 3000);
+    } else if (pass_confirm.value.trim() != pass_new.value.trim()) {
+        notification.innerHTML = "Mật khẩu xác nhận không trùng khớp";
+        notificationForm.style.display = "block";
+        setTimeout(function () {
+            notificationForm.style.display = "none";
+        }, 3000);
+    }else{
+        document.getElementById("updatePass").submit();
+    }
+
+
+}

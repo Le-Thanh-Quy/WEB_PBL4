@@ -59,6 +59,7 @@ body {
 
 .modal ul li input:not(.btnSubmit) {
     width: 70%!important;
+    margin: 0.5%;
     padding: 1%;
     font-size: 15px;
     border-radius: 5px;
@@ -79,7 +80,7 @@ body {
 }
 
 .modal ul li .btnSubmit {
-    width: 45%!important;
+    width: 50%!important;
     padding: 1%;
     margin: 0 auto;
     margin-top: 3%;
@@ -108,10 +109,17 @@ body {
     text-align: center;
     margin-top: 3%;
 }
-.fa-edit::before {
-    cursor: pointer;
+.avatarFrame input{
+    width: 70%!important;
+    padding: 1%;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
+.fa-sync-alt::before {
+    cursor: pointer!important;
+
+}
 .avatarFrame img {
     left: 0;
     top: 0;

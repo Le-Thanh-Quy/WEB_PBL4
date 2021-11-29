@@ -24,10 +24,10 @@ public class LoginController extends HttpServlet {
         int check = AuthBO.getInstance().checkLogin(user_txt, pass_txt);
 
         if (check == 1) {
-            HttpSession session = request.getSession();
-            session.setAttribute("admin", user_txt);
-            RequestDispatcher rd = request.getRequestDispatcher("view/admin/admin_home.jsp");
-            rd.forward(request, response);
+            request.getSession().setAttribute("admin", user_txt);
+            RequestDispatcher requestDispatcherss = request.getRequestDispatcher("admin_home");
+            requestDispatcherss.forward(request, response);
+            return;
         } else if (check == 0) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user_txt);

@@ -137,6 +137,16 @@ function OpenReport() {
     document.body.style.overflow = "hidden";
 }
 
+function ChangePass() {
+    var passChange = document.getElementById("myModal-pass");
+    passChange.style.display = "block";
+}
+
+function ClosePass() {
+    var passChange = document.getElementById("myModal-pass");
+    passChange.style.display = "none";
+}
+
 window.onclick = function (event) {
     var modal = document.getElementById("myModal");
     var modal1 = document.getElementById("myModal-login");
@@ -146,6 +156,8 @@ window.onclick = function (event) {
     var report = document.getElementById("myModal-report");
     var viewAvatar = document.getElementById("viewAvatar");
     var myModal_request = document.getElementById("myModal-request");
+    var passChange = document.getElementById("myModal-pass");
+
 
     var selectTinh;
     if (StartorEnd == 0) {
@@ -175,20 +187,24 @@ window.onclick = function (event) {
         report.style.display = "none";
         reportFrame.src = "";
         document.body.style.overflow = "auto";
-    }else if(event.target == myModal_request){
+    } else if (event.target == myModal_request) {
         myModal_request.style.display = "none";
+    } else if(event.target == passChange){
+        passChange.style.display = "none";
     }
 }
-function OpenRequest(senderID , receiverID , postID) {
+
+function OpenRequest(senderID, receiverID, postID) {
     var SenderID = document.getElementById("senderID");
     var ReceiverID = document.getElementById("receiverID");
-    var PostID= document.getElementById("postID");
+    var PostID = document.getElementById("postID");
     SenderID.value = senderID;
     ReceiverID.value = receiverID;
     PostID.value = postID;
     var myModal_request = document.getElementById("myModal-request");
     myModal_request.style.display = "block";
 }
+
 function CloseRequest() {
     var myModal_request = document.getElementById("myModal-request");
     myModal_request.style.display = "none";

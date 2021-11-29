@@ -361,6 +361,17 @@ header {
     cursor: pointer;
     box-shadow: 4px 5px 10px 5px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
 }
+#newRequest{
+    display: none;
+}
+
+.fa-circle{
+
+    position: absolute;
+    right: -5%;
+    top: -10%;
+    color: red;
+}
 .transaction p{
     text-align: center;
     width: 100%;
@@ -371,7 +382,7 @@ header {
     right: 1%;
     bottom: 0;
     background-color: rgb(248, 248, 248);
-    width: 50%;
+    width: 55%;
     height: 80%;
     border: 1px solid #9a9a9a;
     border-radius: 5px;
@@ -389,7 +400,7 @@ header {
         height: 0;
     }
     to {
-        width: 50%;
+        width: 55%;
         opacity: 1;
         height: 80%;
     }
@@ -402,7 +413,7 @@ header {
         height: 0;
     }
     to {
-        width: 50%;
+        width: 55%;
         opacity: 1;
         height: 80%;
     }

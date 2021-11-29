@@ -209,6 +209,7 @@
 .modal-body-login {
     padding: 20px 16px;
     text-align: center;
+
 }
 
 .modal-body-login h1 {
@@ -244,7 +245,9 @@
     border-bottom: 5px solid rgb(186, 173, 204) !important;
 }
 
-
+.modal-body-login p{
+    font-size: 14px;
+}
 
 
 .modal-body-login button {
@@ -252,12 +255,14 @@
     border-radius: 5px;
     margin: 30px auto;
     padding: 5px;
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 1000;
     color: white;
     background: linear-gradient(to right, #8d99af 50%, #576a8b 50%) left;
     background-size: 200%;
     transition: 0.3s ease-out;
+    font-family: "Arial Rounded MT Bold";
+
 }
 
 .modal-body-login button:hover {
@@ -267,6 +272,7 @@
 
 .btnRegister {
     color: rgb(117, 117, 175);
+    font-size: 14px;
 }
 
 .btnRegister:hover {
@@ -345,6 +351,9 @@
     padding: 20px 16px;
     text-align: center;
 }
+.modal-body-signup p{
+    font-size: 14px;
+}
 
 .modal-body-signup h1 {
     padding: 0;
@@ -366,6 +375,7 @@
     border-bottom: 5px solid rgb(214, 214, 214);
     border-radius: 10px;
     background-color: #f5f5f5;
+
 }
 
 
@@ -385,12 +395,13 @@
     border-radius: 5px;
     margin: 30px auto;
     padding: 5px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 800;
     color: white;
     background: linear-gradient(to right, #8d99af 50%, #576a8b 50%) left;
     background-size: 200%;
     transition: 0.3s ease-out;
+    font-family: "Arial Rounded MT Bold";
 }
 
 .modal-body-signup button:hover {
@@ -708,22 +719,72 @@
     -ms-user-select: none;
 }
 
+.notification .fa-exclamation-triangle{
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    color: red;
+}
 .notification{
     display: none;
     z-index: 1000000000;
     position: fixed;
-    height: 8%;
-    width: 30%;
-    top: 85%;
-    left: 35%;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 20px;
+    height: 10%;
+    width: 32%;
+    top: 15%;
+    left: 0;
+    background-color: rgb(243, 243, 243);
+    border: 3px solid #a9a9a9;
+    -webkit-animation-name: animate_notification;
+    -webkit-animation-duration: 0.6s;
+    animation-name: animate_notification;
+    animation-duration: 0.6s
+}
+
+@-webkit-keyframes animate_notification {
+    from {
+        width: 0;
+    }
+    to {
+        width: 32%;
+    }
+}
+
+@keyframes animate_notification {
+    from {
+        width: 0;
+    }
+    to {
+        width: 32%;
+    }
 }
 .notification p{
-    color: #ebebec;
+    color: #000000;
     text-align: center;
     height: 100%;
     line-height: 180%;
+    font-size: 18px;
+    -webkit-animation-name: animate_notificationP;
+    -webkit-animation-duration: 0.6s;
+    animation-name: animate_notificationP;
+    animation-duration: 0.6s
+}
+@-webkit-keyframes animate_notificationP {
+    from {
+       opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animate_notificationP {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #notification_newPost{
@@ -980,4 +1041,125 @@
     padding: 2%;
     border-radius: 10px;
 }
+
+
+
+/*dialog change pass*/
+
+
+.modal-pass{
+    display: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 101000;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.699);
+    /* Black w/ opacity */
+}
+
+.modal-pass .modal-content-pass{
+    position: relative;
+    top: 5%;
+    background-color: #f6f6f6;
+    margin: auto;
+    padding: 0;
+    border: 1px solid rgb(165, 164, 164);
+    width: 30%;
+    border-radius: 5px;
+    box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animate_pass;
+    -webkit-animation-duration: 0.5s;
+    animation-name: animate_pass;
+    animation-duration: 0.5s
+}
+
+@-webkit-keyframes animate_pass {
+    from {
+        top: -400px;
+        opacity: 0
+    }
+    to {
+        top: 5%;
+        opacity: 1
+    }
+}
+
+@keyframes animate_pass {
+    from {
+        top: -400px;
+        opacity: 0
+    }
+    to {
+        top: 5%;
+        opacity: 1
+    }
+}
+
+
+.modal-body-pass {
+    padding: 20px 16px;
+    text-align: center;
+}
+
+
+.modal-body-pass img {
+    width: 100px;
+    margin-bottom: 30px;
+}
+
+.modal-body-pass  input {
+    width: 80%;
+    margin: 10px auto;
+    font-size: 15px;
+    padding: 10px;
+    border: none;
+    border-bottom: 5px solid rgb(214, 214, 214);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+
+
+.modal-body-pass input:focus {
+    outline: none;
+    border-bottom: 5px solid rebeccapurple !important;
+    transition: all 0.5s;
+}
+
+.modal-body-pass  input:hover:not(:focus-visible) {
+    outline: none;
+    border-bottom: 5px solid rgb(186, 173, 204) !important;
+}
+
+.modal-body-pass button{
+    padding: 2%;
+    width: 50%;
+    margin-top: 8%;
+    background-color: #9aa7bd;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+}
+.modal-body-pass button:hover{
+    background-color: #576a8b!important;
+}
+
+
 

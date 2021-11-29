@@ -1,5 +1,6 @@
 package Controller.Admin;
 
+import Model.BO.AddressBO;
 import Model.BO.UserForAdmin_BO;
 
 import javax.servlet.RequestDispatcher;
@@ -13,9 +14,10 @@ import java.io.IOException;
 @WebServlet("/AddUser")
 public class AddUser extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/admin/AddUser.jsp");
-        requestDispatcher.forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("Tinhs", AddressBO.getInstance().getTinh());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/admin/AddUser.jsp");
+        requestDispatcher.forward(request, response);
     }
 
     @Override

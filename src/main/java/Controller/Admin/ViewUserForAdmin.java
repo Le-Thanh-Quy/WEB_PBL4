@@ -99,11 +99,11 @@ public class ViewUserForAdmin extends HttpServlet {
             }
             User user = new User();
             user.setID(Integer.parseInt(userID));
-            user.setName(name);
+            user.setName(name.trim());
             user.setPhone_Number(phone);
             user.setAge(age);
             user.setSex(sex);
-            user.setStatus(status);
+            user.setStatus(status.trim());
             user.setAccountID(user_name);
             user.setAddress(address);
             user.setPermission(Integer.parseInt(permission));

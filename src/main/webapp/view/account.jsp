@@ -51,10 +51,13 @@
         </div>
         <div class="menu_info">
             <ul>
-                <a href="${pageContext.request.contextPath}/view/update_account.jsp" onclick="LogOut()">
+                <a onclick="ChangePass()">
+                    <li>Thay đổi mật khẩu</li>
+                </a>
+                <a href="updateAccount?userID=${myAccount.getID()}">
                     <li>Cập nhật thông tin</li>
                 </a>
-                <a href="${pageContext.request.contextPath}/logout" onclick="LogOut()">
+                <a href="${pageContext.request.contextPath}/logout" >
                     <li>Đăng Xuất</li>
                 </a>
             </ul>
@@ -296,6 +299,49 @@
                 frameborder="0"></iframe>
     </div>
 </div>
-</body>
 
+<div id="myModal-pass" class="modal-pass">
+    <div class="modal-content-pass">
+        <span class="close" onclick="ClosePass()">&times;</span>
+        <div class="modal-body-pass">
+            <img src="${pageContext.request.contextPath}/Asset/img/black-logo.png" alt="">
+            <form action="updateAccount" id="updatePass" method="post">
+                <input type="hidden" name="user_name" value="${myAccount.getAccountID()}">
+                <input id="pass_old" type="password" name="pass_old" value=""
+                       placeholder="Mật khẩu cũ" maxlength="20">
+                <i class="fas fa-eye" id="hide_show_passOld" onclick="Hide_Show_PassOld()"></i>
+                <input id="pass_new"  type="password" name="pass_new" value=""
+                       placeholder="Mật khẩu mới" maxlength="20">
+                <i class="fas fa-eye" id="hide_show_passNew" onclick="Hide_Show_PassNew()"></i>
+                <input id="pass_confirm" type="password" name="pass_confirm" value=""
+                       placeholder="Xác nhận mật khẩu" maxlength="20">
+                <i class="fas fa-eye" id="hide_show_confPass" onclick="Hide_Show_PassConfirm()"></i>
+            </form>
+            <button onclick="ChangePassSubmit()">Xác nhận</button>
+        </div>
+    </div>
+</div>
+<div class="notification" id="notificationForm">
+    <p id="notification"></p>
+    <i class="fas fa-exclamation-triangle"></i>
+</div>
+</body>
+<c:if test="${Mess != null}">
+    <script !src="">
+        function Mess() {
+            var notification = document.getElementById("notification");
+
+            var notificationForm = document.getElementById("notificationForm");
+            notification.innerHTML = "${Mess}";
+            notificationForm.style.display = "block";
+            setTimeout(function () {
+                notificationForm.style.display = "none";
+            }, 4000);
+        }
+
+        Mess();
+
+
+    </script>
+</c:if>
 </html>

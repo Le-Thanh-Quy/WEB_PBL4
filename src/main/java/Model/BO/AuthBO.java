@@ -151,4 +151,16 @@ public class AuthBO {
         }
         return reports;
     }
+
+    public boolean UpdateUser(User user) {
+        return Connect.getInstance().UpdateUser(user);
+    }
+
+    public boolean changePassWord(String userName, String passWord, String newPassWord) {
+        if(Connect.getInstance().checkLogin(userName , passWord) == -1){
+            return false;
+        }else{
+            return Connect.getInstance().changePassWord(userName , passWord , newPassWord);
+        }
+    }
 }

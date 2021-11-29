@@ -36,7 +36,7 @@
                 <c:if test="${Permission == 0}">
                     Người dùng
                 </c:if>
-                <i style="color: #1877F2" class="fas fa-edit" onclick="ChangePermission()"></i></h3>
+                <i style="color: #1877F2" class="fas fa-sync-alt" onclick="ChangePermission()"></i></h3>
         </div>
         <ul>
             <li><label>Họ tên</label>
@@ -132,10 +132,10 @@
         var permissionTxt = document.getElementById("permissionTxt");
         if (permission.value == "1") {
             permission.value = "0";
-            permissionTxt.innerHTML = 'Người dùng <i style="color: #1877F2" class="fas fa-edit" onclick="ChangePermission()"></i>';
+            permissionTxt.innerHTML = 'Người dùng <i style="color: #1877F2" class="fas fa-sync-alt" onclick="ChangePermission()"></i>';
         } else {
             permission.value = "1";
-            permissionTxt.innerHTML = 'Quản lý <i style="color: #1877F2" class="fas fa-edit" onclick="ChangePermission()"></i>';
+            permissionTxt.innerHTML = 'Quản lý <i style="color: #1877F2" class="fas fa-sync-alt" onclick="ChangePermission()"></i>';
         }
     }
 

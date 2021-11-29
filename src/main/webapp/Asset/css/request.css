@@ -2,7 +2,12 @@ body {
     background-color: #fefefe;
     margin: 0;
     padding: 0;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -15,8 +20,7 @@ body {
 }
 
 ::-webkit-scrollbar-track:hover {
-    background-color: #ebebeb;
-;
+    background-color: #ebebeb;;
 }
 
 /* Handle */
@@ -25,8 +29,18 @@ body {
     background: #b9b8b8;
     border-radius: 10px;
 }
+
+.null {
+    text-align: center;
+}
+
+.null h3 {
+    margin: 0;
+    padding: 0;
+}
+
 .null img {
-    margin-top: 15%;
+    margin-top: 0;
     width: 40%;
 }
 
@@ -65,7 +79,7 @@ body {
     position: relative;
     display: flex;
     width: 95%;
-    background-color: #d3d1d1;
+    background-color: #e5e6e7;
     margin: 0 auto;
     border-radius: 10px;
     margin-bottom: 5%;
@@ -84,10 +98,17 @@ body {
     cursor: pointer;
 }
 
-.statusIcon{
-    cursor: inherit;
-    margin: 0!important;
+.fa-clock:before {
+    color: #8f979f;
+    margin-right: 20%;
+    cursor: pointer;
 }
+
+.statusIcon {
+    cursor: inherit;
+    margin: 0 !important;
+}
+
 .fa-comment-alt {
     color: #1972e7;
     font-size: 20px;
@@ -99,29 +120,36 @@ body {
     color: red;
     font-size: 20px;
     cursor: pointer;
+    margin-right: 20%;
 }
 
 
 .receive .request .info {
-
     margin: 0;
     padding: 0;
     width: 70%;
 }
 
-.receive .request .info h3{
+.receive .request .info h3 {
     margin: 0;
     padding-left: 2%;
     padding-bottom: 2%;
 }
 
-.dacbiet1{
+.receive .request .info a {
     color: rgb(170, 109, 16);
 }
-.dacbiet{
+
+
+.dacbiet1 {
+    color: rgb(170, 109, 16);
+}
+
+.dacbiet {
     color: #1972e7;
 }
-.receive .request .info h4 span{
+
+.receive .request .info h4 span {
     position: absolute;
     color: rgb(0, 0, 0);
     font-size: 15px;
@@ -129,7 +157,7 @@ body {
     right: 5%;
 }
 
-.receive .request .info ul,h4 {
+.receive .request .info ul, h4 {
     margin: 0;
     padding-left: 12%;
     padding-bottom: 3%;
@@ -159,11 +187,13 @@ body {
 .fas {
     padding-right: 1%;
 }
-.content{
+
+.content {
     list-style: none;
 
 }
-.content li{
+
+.content li {
     padding: 0;
     margin: 0;
     max-width: 65%;
@@ -173,26 +203,51 @@ body {
 .submit {
     position: absolute;
     width: 20%;
-    display: flex;
     right: 1%;
     bottom: 5%;
+
 }
-.submitSend{
+
+.submit a {
+    float: right;
+    text-decoration: none;
+}
+.fa-truck-moving{
+    position: absolute;
+    color: #656d82;
+    top: 38%;
+    animation-name: example;
+    animation-duration: 4s;
+    opacity: 0;
+}
+@keyframes example {
+    0%   {left:40%; opacity: 1}
+    99%  {left:95%; opacity: 1}
+    100%  {opacity: 0}
+}
+.submitSend {
     position: absolute;
     width: 5%;
     display: flex;
     right: 1%;
     bottom: 5%;
 }
-.status{
+
+.status {
     position: absolute;
-    width: 15%;
-    display: flex;
+    text-align: right;
+    width: 25%;
     right: 0;
     top: 2%;
 }
 
-#send{
+.status p {
+    margin: 0;
+    padding: 0;
+}
+
+
+#send {
     display: none;
 }
 

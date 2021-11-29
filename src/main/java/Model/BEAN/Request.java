@@ -7,6 +7,9 @@ public class Request {
     int PostID;
     String Content;
     int Status;
+    Post post;
+    User Sender;
+    String Datetime;
 
     public Request(int ID, int senderID, int receiverID, int postID, String content, int status) {
         this.ID = ID;
@@ -18,6 +21,30 @@ public class Request {
     }
 
     public Request() {
+    }
+
+    public String getDatetime() {
+        return Datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        Datetime = datetime;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public User getSender() {
+        return Sender;
+    }
+
+    public void setSender(User sender) {
+        Sender = sender;
     }
 
     public int getID() {

@@ -12,6 +12,12 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.fa-arrow-left::before{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    font-size: 35px;
+}
 
 .modal {
     position: relative;
@@ -20,6 +26,9 @@ body {
     background-color: rgba(255, 255, 255, 0.842);
     padding-top: 1%;
     border-radius: 7px;
+}
+.modal h2 {
+    text-align: center;
 }
 
 .modal ul {

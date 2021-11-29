@@ -5,7 +5,9 @@ import Model.BO.CommentBO;
 
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Connect {
@@ -251,6 +253,25 @@ public class Connect {
         }
     }
 
+    public boolean UpdateUser(User user) {
+        try {
+            String sql = "UPDATE user set Name = '" + user.getName() +
+                    "' ,Age = '" + user.getAge() +
+                    "' ,Sex = '" + user.getSex() +
+                    "' ,PhoneNumber = '" + user.getPhone_Number() +
+                    "' ,Avatar = '" + user.getAvatar() +
+                    "' ,Status = '" + user.getStatus() +
+                    "' ,Address = '" + user.getAddress() +
+                    "' WHERE ID = '" + user.getID() + "' ;";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public User GetUser(String user_name, int ID) {
         User user = new User();
         try {
@@ -452,7 +473,9 @@ public class Connect {
                 str = str.replace("TimeStart = '" + Time + "' and", "");
             }
             if (Date.equals("null")) {
-                str = str.replace("Date = '" + Date + "' and", "");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date date = new Date(System.currentTimeMillis());
+                str = str.replace("Date = '" + Date + "' and", "Date >= '" + formatter.format(date) + "' and");
             }
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(str);
@@ -571,7 +594,7 @@ public class Connect {
             }
             resultSet.close();
             statement.close();
-            if(id != -1){
+            if (id != -1) {
                 return -1;
             }
         } catch (Exception e) {
@@ -887,13 +910,109 @@ public class Connect {
 
     public boolean newRequest(Request requestPost) {
         try {
-            String str = "INSERT INTO request VALUES ('" + requestPost.getID() + "', '" + requestPost.getSenderID() + "', '" + requestPost.getReceiverID() + "', '" + requestPost.getPostID() + "', '" + requestPost.getContent() + "', '0');";
+            String str = "INSERT INTO request VALUES ('" + requestPost.getID() + "', '" + requestPost.getSenderID() + "', '" + requestPost.getReceiverID() + "', '" + requestPost.getPostID() + "', '" + requestPost.getContent() + "', '0' , '" + requestPost.getDatetime() + "');";
             Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
 
             return true;
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Request> getRequestSend(String userID) {
+        List<Request> requests = new ArrayList<Request>();
+        try {
+            String str = "SELECT * from request WHERE SenderID = '" + userID + "'  order by ID DESC;";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Request request = new Request();
+                request.setID(resultSet.getInt("ID"));
+                request.setSenderID(resultSet.getInt("SenderID"));
+                request.setReceiverID(resultSet.getInt("ReceiverID"));
+                request.setPostID(resultSet.getInt("PostID"));
+                request.setContent(resultSet.getString("Content"));
+                request.setStatus(resultSet.getInt("Status"));
+                request.setDatetime(resultSet.getString("DateTime"));
+                request.setSender(getInstance().GetUser("-1", request.getSenderID()));
+                requests.add(request);
+            }
+            resultSet.close();
+            statement.close();
+            return requests;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return requests;
+        }
+    }
+
+
+    public List<Request> getRequestReceive(String userID) {
+        List<Request> requests = new ArrayList<Request>();
+        try {
+            String str = "SELECT * from request WHERE ReceiverID = '" + userID + "' order by ID DESC";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Request request = new Request();
+                request.setID(resultSet.getInt("ID"));
+                request.setSenderID(resultSet.getInt("SenderID"));
+                request.setReceiverID(resultSet.getInt("ReceiverID"));
+                request.setPostID(resultSet.getInt("PostID"));
+                request.setContent(resultSet.getString("Content"));
+                request.setStatus(resultSet.getInt("Status"));
+                request.setDatetime(resultSet.getString("DateTime"));
+                request.setSender(getInstance().GetUser("-1", request.getSenderID()));
+                requests.add(request);
+            }
+            resultSet.close();
+            statement.close();
+            return requests;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return requests;
+        }
+    }
+
+    public void confirmRequest(String status, String requestID) {
+        try {
+            int statusInt = status.equals("true") ? 1 : 2;
+            String str = "UPDATE request SET Status = '" + statusInt + "' WHERE ID = " + requestID + ";";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkRequest(String newRequest) {
+        try {
+            String str = "SELECT * from request WHERE  ReceiverID = '" + newRequest + "' and Status = '0';";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            if (resultSet.next()) {
+                resultSet.close();
+                statement.close();
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean changePassWord(String userName, String passWord, String newPassWord) {
+        try {
+            String str = "UPDATE account SET PassWord = '"+newPassWord+"'  WHERE  UserName = '" + userName + "' and PassWord = '" + passWord + "';";
+            Statement statement = con.createStatement();
+            statement.executeUpdate(str);
+            statement.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -21,7 +21,6 @@
     right: 6%;
     width: 200px;
     background-color: rgb(216, 215, 215) !important;
-    height: 100px;
     z-index: 1;
     box-shadow: 15px 30px 10px 10px rgba(0, 0, 0, 0.2), 0 40px 20px 10px rgba(0, 0, 0, 0.19);
     -webkit-animation-name: animate_menu;
