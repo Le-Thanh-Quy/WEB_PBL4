@@ -34,7 +34,6 @@
                 </c:if>
                 <td>
                     <a href="detailReport?IDRP=${item.getID()}"> <i class="fas fa-eye"></i> </a>
-                    <a href=""> <i class="fas fa-trash-alt"></i> </a>
                 </td>
             </tr>
         </c:forEach>

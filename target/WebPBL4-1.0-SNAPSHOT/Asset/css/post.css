@@ -137,3 +137,43 @@
 .fa-star::before{
     color: rgb(124, 124, 123);
 }
+
+.postDetail{
+    display: flex;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.71);
+    margin: 6% auto;
+    overflow: auto;
+    border-radius: 15px;
+}
+.postDetail a{
+    text-decoration: none;
+    color: rgb(170, 109, 16);
+}
+.postDetail .postImg{
+    width: 500px;
+    height: 380px;
+    display: block;
+    margin-right: 70px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.postDetail .postButton input{
+    padding: 1%;
+    width: 20%;
+    position: absolute;
+    right: 1%;
+    bottom: 1%;
+    cursor: pointer;
+    background-color: #8d99af;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 7px;
+}
+.postDetail .postButton input:hover{
+    background-color: #576a8b;
+}
+body{
+    background-size: cover;
+}

@@ -135,6 +135,32 @@ public class ChatBO {
         }
 
     }
+    public int CreateRoomChatAdmin(int my_userID,  String mess) {
+        int IDRoom = Connect.getInstance().checkRoomChatExist(my_userID, 0);
+        if (IDRoom != -1) {
+            return IDRoom;
+        }
+        int ID = Connect.getInstance().getRoomChatID();
+        if (ID == -1) {
+            return -1;
+        }
+        if (Connect.getInstance().addRoomChat(ID, my_userID, 0)) {
+            Chat chat = new Chat();
+            chat.setChatRoomID(ID);
+            chat.setMessenger(mess);
+            chat.setUserID(my_userID);
+            chat.setTime(getInstance().GetDateTime());
+            if (addChat(chat) != -1) {
+                sendStatus(String.valueOf(ID) ,String.valueOf(my_userID));
+                return ID;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+
+    }
 
 
     public boolean sendStatus(String id, String idUser) {

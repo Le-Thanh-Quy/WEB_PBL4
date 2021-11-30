@@ -32,4 +32,8 @@ public class ReportBO {
     public boolean updateReport(int ID, String feedback){
         return  ConnectAdmin.getInstance().updateReport(ID, feedback);
     }
+
+    public boolean noiReport() {
+        return  ConnectAdmin.getInstance().noiReport();
+    }
 }

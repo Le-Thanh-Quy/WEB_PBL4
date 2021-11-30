@@ -229,7 +229,7 @@ public class PostBO {
         return list;
     }
 
-    public Post gePost(int id) {
+    public Post getPost(int id) {
         List<Post> list = null;
         list = ConnectAdmin.getInstance().getAllPost();
         Post post = new Post();
@@ -257,7 +257,8 @@ public class PostBO {
     public List<Post> getPostByFind(String key) {
         List<Post> list = new ArrayList<>();
         for (Post p : PostBO.getInstance().getAllPost()) {
-            if (String.valueOf(p.getUserID()).toUpperCase().trim().contains(key.toUpperCase().trim())) {
+            if (String.valueOf(p.getUserID()).toUpperCase().trim().contains(key.toUpperCase().trim())
+                    || String.valueOf(p.getID()).toUpperCase().trim().contains(key.toUpperCase().trim())) {
                 list.add(p);
             }
         }
@@ -284,7 +285,7 @@ public class PostBO {
         List<Request> requests = new ArrayList<>();
         for (Request i : Connect.getInstance().getRequestSend(userID)) {
             i.setDatetime(FormatDateTime(i.getDatetime()));
-            i.setPost(getInstance().gePost(i.getPostID()));
+            i.setPost(getInstance().getPost(i.getPostID()));
             requests.add(i);
         }
 
@@ -295,7 +296,7 @@ public class PostBO {
         List<Request> requests = new ArrayList<>();
         for (Request i : Connect.getInstance().getRequestReceive(userID)) {
             i.setDatetime(FormatDateTime(i.getDatetime()));
-            i.setPost(getInstance().gePost(i.getPostID()));
+            i.setPost(getInstance().getPost(i.getPostID()));
             requests.add(i);
         }
 
@@ -314,4 +315,5 @@ public class PostBO {
             return "false";
         }
     }
+
 }

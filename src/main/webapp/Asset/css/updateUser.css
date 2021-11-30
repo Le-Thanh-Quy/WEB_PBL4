@@ -109,12 +109,7 @@ body {
     text-align: center;
     margin-top: 3%;
 }
-.avatarFrame input{
-    width: 70%!important;
-    padding: 1%;
-    font-size: 14px;
-    border-radius: 5px;
-}
+
 
 .fa-sync-alt::before {
     cursor: pointer!important;
@@ -143,7 +138,7 @@ body {
 
 .chooseIMGFrame i {
     position: absolute;
-    left: 19%;
+    left: 21%;
     top: 19%;
 }
 
@@ -183,6 +178,6 @@ body {
     top: 10%!important;
 }
 
-#icon_name, #icon_phone , #icon_address , #icon_status{
+#icon_name, #icon_phone , #icon_address , #icon_status ,#user_name ,#pass_word{
     display: none;
 }

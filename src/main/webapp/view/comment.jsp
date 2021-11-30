@@ -70,7 +70,7 @@
 
 </div>
 <script type="text/javascript">
-    var websocket = new WebSocket("ws://localhost:8080/WebPBL4_war_exploded/commentServer");
+    var websocket = new WebSocket(`ws://`+ window.location.hostname + '/commentServer');
     websocket.onopen = function (message) {
         processOpen(message);
     };

@@ -519,4 +519,22 @@ public class ConnectAdmin {
             return false;
         }
     }
+
+
+
+    public boolean noiReport() {
+        try {
+            String str = "SELECT * from report WHERE  Status = '0';";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            if (resultSet.next()) {
+                resultSet.close();
+                statement.close();
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

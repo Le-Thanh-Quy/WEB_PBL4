@@ -115,7 +115,7 @@
             </textarea>
                 <i class="fas fa-exclamation-circle dacbiet" id="icon_status"></i></li>
             <li>
-                <input class="btnSubmit" name="submitRegister" type="submit" value="Cập nhật">
+                <input class="btnSubmit" name="submitRegister" type="submit" value="Cập nhật">&nbsp;
                 <input class="btnSubmit" name="submitRegister" type="submit" value="Xóa người dùng">
             </li>
         </ul>

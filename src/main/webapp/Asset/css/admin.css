@@ -2,9 +2,9 @@ body {
     display: flex;
     margin: 0;
     padding: 0;
-    height: 110vh;
+    height: 100ch;
+    overflow: hidden;
 }
-
 
 #menu{
     display: block;
@@ -122,8 +122,13 @@ body {
 
 .main iframe {
     width: 100%;
-    height: 93%;
+    height: 85%;
     background-color: rgb(236, 236, 236);
+    overflow: auto!important;
+}
+
+.main .task a{
+    text-decoration: none;
 }
 
 .main .task {
@@ -140,7 +145,7 @@ body {
 .main .task p {
     font-size: 16px;
     margin-left: 1%;
-    color: #9da0a3;
+    color: #75767c;
 }
 
 .fa-bars {

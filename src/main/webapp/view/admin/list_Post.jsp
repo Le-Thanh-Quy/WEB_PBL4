@@ -8,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/table.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <script src="${pageContext.request.contextPath}/Asset/js/FindPost.js"></script>
     <title>Danh sách bài đăng</title>
 </head>
 <body>
-<input type="search" name="searchBox" id="searchBox">
-<button for="searchBox" onclick="findPost()">OK</button>
+<form action="ViewPost" method="post">
+    <input type="text" name="postSearch" placeholder="Nhập vào mã người dùng, mã bài đăng...">
+    <input type="submit" value="Tìm kiếm">
+</form>
+
 <table>
     <tr>
         <th>ID</th>
@@ -33,12 +35,10 @@
             <td>${item.getDate()}</td>
             <td>${item.getTimeStart()}</td>
             <td>
-                <a href=""> <i class="fas fa-eye"></i> </a>
+                <a href="postDetail?postID=${item.getID()}"> <i class="fas fa-eye"></i> </a>
             </td>
         </tr>
     </c:forEach>
-
-
 </table>
 </body>
 </html>

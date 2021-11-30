@@ -26,6 +26,7 @@ public class Connect {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://pbltest.cmfxmyflmata.us-east-2.rds.amazonaws.com:3306/pbl4?useUnicode=true&characterEncoding=utf-8", "admin", "adminqth");
+//          con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
             System.out.println("Successs");
             Statement statement = con.createStatement();
         } catch (ClassNotFoundException ex) {

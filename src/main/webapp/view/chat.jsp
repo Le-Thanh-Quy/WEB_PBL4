@@ -40,7 +40,7 @@
             <i class="fas fa-search" ></i>
         </div>
         <div class="recent_messages" id="recent_messages">
-            <a href="">
+            <a href="chat?myID=${myID}">
                 <div class="messages">
                     <img src="${pageContext.request.contextPath}/Asset/img/logo/logo_user.png" alt="">
                     <div class="content">
@@ -51,20 +51,21 @@
             </a>
 
             <c:forEach items="${ListChatRoom}" var="ChatRoom">
-                <a href="chatDetail?RoomID=${ChatRoom.getID()}&myID=${ChatRoom.getMyUser().getID()}" target="chat_detail">
-                    <div class="messages">
-                        <img src="${ChatRoom.getTheirUser().getAvatar()}" alt="">
-                        <div class="content">
-                            <pre>${ChatRoom.getTheirUser().getName()}</pre>
-                            <p><i class="fas fa-sms"
-                                    <c:if test="${ChatRoom.isMyStatus() == false}">
-                                        style="display: block!important;"
-                                    </c:if>
-                                 ></i></p>
+                <c:if test="${ChatRoom.getTheirUser().getID() != 0}">
+                    <a href="chatDetail?RoomID=${ChatRoom.getID()}&myID=${ChatRoom.getMyUser().getID()}" target="chat_detail">
+                        <div class="messages">
+                            <img src="${ChatRoom.getTheirUser().getAvatar()}" alt="">
+                            <div class="content">
+                                <pre>${ChatRoom.getTheirUser().getName()}</pre>
+                                <p><i class="fas fa-sms"
+                                        <c:if test="${ChatRoom.isMyStatus() == false}">
+                                            style="display: block!important;"
+                                        </c:if>
+                                ></i></p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-
+                    </a>
+                </c:if>
             </c:forEach>
         </div>
         <div class="autoReload" style="opacity: 0">

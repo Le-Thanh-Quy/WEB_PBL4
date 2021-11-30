@@ -38,6 +38,13 @@ public class ChatRoomServer {
         String ID = strings[1];
         String IDUser = strings[2];
         userSession.getUserProperties().put("RoomID", ID);
+
+        if (ID.equals("admin")) {
+            int RoomID = ChatBO.getInstance().CreateRoomChatAdmin(Integer.parseInt(IDUser), mess);
+            return;
+        }
+
+
         if (mess.equals("1!2!@@12@@")) {
             return;
         }
@@ -50,12 +57,12 @@ public class ChatRoomServer {
         chat.setMessenger(mess);
         chat.setTime(formatter.format(date));
         chat.setUserID(Integer.parseInt(IDUser));
-        int ChatID  = ChatBO.getInstance().addChat(chat);
+        int ChatID = ChatBO.getInstance().addChat(chat);
 
         for (Session session : chatRoomUser) {
             if (session.getUserProperties().get("RoomID").toString().equals(ID)) {
-                if(ChatID != -1){
-                    if(ChatBO.getInstance().sendStatus(ID , IDUser)){
+                if (ChatID != -1) {
+                    if (ChatBO.getInstance().sendStatus(ID, IDUser)) {
                         session.getBasicRemote().sendText(mess + "!!##@@" + IDUser + "!!##@@" + GetDateTime() + "!!##@@" + ChatID);
                     }
                 }

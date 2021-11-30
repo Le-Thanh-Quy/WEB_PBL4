@@ -32,7 +32,7 @@
                     html += "<td>Người dùng</td>";
                 }
                 html += "<td>  " +
-                    "</a> <a href=''> <i class='fas fa-edit'></i> </a>" +
+                    "</a> <a href='ViewUserForAdmin?userID=" + x.ID + "'> <i class='fas fa-edit'></i> </a>" +
                     "  </td> </tr>";
             }
             html += '</table>';
@@ -44,7 +44,8 @@
 </script>
 
 <body>
-<input onkeyup="loadDataUser()" placeholder="Nhập vào id,tên,giới tính,số điện thoại..." type="search" name="searchBox" id="searchBox" onfocus="
+<input onkeyup="loadDataUser()" placeholder="Nhập vào id,tên,giới tính,số điện thoại..." type="search" name="searchBox"
+       id="searchBox" onfocus="
 document.getElementById('permission').selectedIndex = 0;
 ">
 <br>
@@ -82,7 +83,8 @@ Rs1()">
                     <td>Quản lý</td>
                 </c:if>
                 <td>
-                    <a href="ViewUserForAdmin?userID=${user.getID()}"> <i style="color: #1877F2" class="fas fa-edit"></i> </a>
+                    <a href="ViewUserForAdmin?userID=${user.getID()}"> <i style="color: #1877F2"
+                                                                          class="fas fa-edit"></i> </a>
                 </td>
             </tr>
         </c:forEach>

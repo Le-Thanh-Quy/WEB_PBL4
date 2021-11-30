@@ -48,8 +48,13 @@ public class ChatController extends HttpServlet {
 
         request.setAttribute("myID", my_userID);
         request.setAttribute("ListChatRoom", ChatBO.getInstance().getListChatRoom(my_userID + ""));
+        RequestDispatcher requestDispatcher;
+        if(my_userID == 0){
+            requestDispatcher = request.getRequestDispatcher("view/admin/chatAdmin.jsp");
+        }else{
+            requestDispatcher = request.getRequestDispatcher("view/chat.jsp");
+        }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/chat.jsp");
         requestDispatcher.forward(request, response);
     }
 

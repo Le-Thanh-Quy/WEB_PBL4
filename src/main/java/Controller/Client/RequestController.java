@@ -20,6 +20,7 @@ public class RequestController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
         if (request.getParameter("newRequest") != null) {
 
             response.setContentType("application/json");
@@ -28,7 +29,6 @@ public class RequestController extends HttpServlet {
             return;
 
         }
-        request.setCharacterEncoding("UTF-8");
         String content = request.getParameter("content");
         String senderID = request.getParameter("senderID");
         String receiverID = request.getParameter("receiverID");

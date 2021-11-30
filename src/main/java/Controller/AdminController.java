@@ -1,6 +1,9 @@
 package Controller;
 
+import Model.BEAN.Request;
 import Model.BO.AuthBO;
+import Model.BO.PostBO;
+import Model.BO.ReportBO;
 import Model.BO.UserForAdmin_BO;
 
 import javax.servlet.RequestDispatcher;
@@ -25,6 +28,7 @@ public class AdminController extends HttpServlet {
         }else{
             request.setAttribute("user_name" , request.getSession().getAttribute("admin"));
             request.setAttribute("user_info" , UserForAdmin_BO.getInstance().getUser());
+            request.setAttribute("noiReport" , new ReportBO().noiReport());
             RequestDispatcher rd = request.getRequestDispatcher("view/admin/admin_home.jsp");
             rd.forward(request, response);
         }

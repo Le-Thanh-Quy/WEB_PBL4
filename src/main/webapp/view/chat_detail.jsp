@@ -12,14 +12,14 @@
 
 <body>
 <div class="header">
-    <c:if test="${admin == null}">
+    <c:if test="${admin == false}">
         <img src="${chatRoom.getTheirUser().getAvatar()}" alt="">
         <div class="header-info">
             <p>${chatRoom.getTheirUser().getName()}</p>
             <pre>${chatRoom.getTheirUser().getStatus()}</pre>
         </div>
     </c:if>
-    <c:if test="${admin != null}">
+    <c:if test="${admin == true}">
         <img src="${pageContext.request.contextPath}/Asset/img/logo/logo_user.png" alt="">
         <div class="header-info">
             <p>Admin QTH</p>
@@ -36,7 +36,7 @@
     <div class="main" id="main">
         <div class="list_mess" id="list_mess">
 
-            <c:if test="${admin != null}">
+            <c:if test="${admin == true}">
                 <div class="their_mess">
                     <img src="${pageContext.request.contextPath}/Asset/img/logo/logo_user.png">
                     <div class="mess_detail">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </c:if>
-            <c:if test="${admin == null}">
+            <c:if test="${listMess != null}">
                 <c:forEach items="${listMess}" var="Mess">
                     <c:if test="${Mess.getUserID() != chatRoom.getMyUser().getID()}">
                         <div class="their_mess">
@@ -79,28 +79,48 @@
 
                 </c:forEach>
             </c:if>
-
-
-
         </div>
     </div>
 </div>
 
 
-<div class="chat-input">
-    <div class="input">
-        <i class="far fa-images"></i>
-        <i class="fas fa-sticky-note"></i>
-        <input name="textMessage" id="textMessage" type="text" placeholder="Aa">
-        <i class="fas fa-location-arrow" onclick="sendMessage()"></i>
+<c:if test="${chatRoom == null}">
+    <div class="chat-input">
+        <div class="input">
+            <i class="far fa-images"></i>
+            <i class="fas fa-sticky-note"></i>
+            <input name="textMessage" id="textMessageFake" onkeyup="if(event.keyCode===13){ChatAdmin()}" type="text"
+                   placeholder="Aa">
+            <i class="fas fa-location-arrow" onclick="ChatAdmin()"></i>
+        </div>
     </div>
-</div>
+</c:if>
+<c:if test="${chatRoom != null}">
+    <div class="chat-input">
+        <div class="input">
+            <i class="far fa-images"></i>
+            <i class="fas fa-sticky-note"></i>
+            <input name="textMessage" id="textMessage" type="text" placeholder="Aa">
+            <i class="fas fa-location-arrow" onclick="sendMessage()"></i>
+        </div>
+    </div>
+</c:if>
+
 
 <div>
 
 </div>
 <script type="text/javascript">
-    var websocket = new WebSocket(`ws://`+ window.location.hostname + `/Chatroom`);
+    function ChatAdmin() {
+        var textMessage = document.getElementById("textMessageFake");
+        websocket.send(textMessage.value + "!!##@@admin!!##@@${myID}");
+        textMessage.value = "";
+        setTimeout(function () {
+            window.location.href = "chatDetail?RoomID=Admin&myID=${myID}";
+        }, 2000)
+    }
+
+    var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');
     websocket.onopen = function (message) {
         processOpen(message);
     };
@@ -121,7 +141,11 @@
         const words = message.data.split('!!##@@');
         var list_mess = document.getElementById("list_mess");
         var main = document.getElementById("main");
-        let id = ${chatRoom.getMyUser().getID()};
+        let id = -1;
+        <c:if test="${listMess != null}">
+        id = ${chatRoom.getMyUser().getID()};
+        </c:if>
+
         if (words[1] != id) {
             list_mess.innerHTML += ' <div class="their_mess"> ' +
                 '<img src="${chatRoom.getTheirUser().getAvatar()}">' +
@@ -160,6 +184,7 @@
         }
     }
 
+    <c:if test="${listMess != null}">
     var textMessage = document.getElementById("textMessage");
 
     textMessage.addEventListener("keyup", function (event) {
@@ -178,6 +203,8 @@
         main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
         document.getElementById("main_frame").scrollTo(0, document.getElementById("main_frame").scrollHeight);
     }
+    </c:if>
+
 
     function ShowTime(id) {
         var box = document.getElementById(id);

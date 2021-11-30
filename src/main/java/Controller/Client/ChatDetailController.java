@@ -24,11 +24,14 @@ public class ChatDetailController extends HttpServlet {
             if(roomIDAdmin != -1){
                 request.setAttribute("listMess" , ChatBO.getInstance().getListMess(String.valueOf(roomIDAdmin)));
                 request.setAttribute("chatRoom" , ChatBO.getInstance().getChatRoomByID(String.valueOf(roomIDAdmin), myID));
+            }else{
+                request.setAttribute("myID" , myID);
             }
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/chat_detail.jsp");
             requestDispatcher.forward(request , response);
         }else{
+            request.setAttribute("admin" , false);
             request.setAttribute("listMess" , ChatBO.getInstance().getListMess(RoomID));
             request.setAttribute("chatRoom" , ChatBO.getInstance().getChatRoomByID(RoomID , myID));
 

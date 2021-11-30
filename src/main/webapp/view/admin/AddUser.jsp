@@ -25,32 +25,34 @@
                 <input name="avatar" id="chooseIMG" class="chooseIMG" type="file" accept="image/*"
                        onchange="loadFile(event)">
             </div>
-            <input id="permission" type="hidden" name="permission" value="0">
+            <input id="Permission" type="hidden" name="Permission" value="0">
             <h3 id="permissionTxt">
                 Người dùng
                 <i style="color: #1877F2" class="fas fa-sync-alt" onclick="ChangePermission()"></i></h3>
         </div>
         <ul>
             <li>
-                <input type="text" placeholder="Tên tài khoản" value="">
-                <input type="text" placeholder="Mật khẩu" value="">
+                <input name="UserName" type="text" placeholder="Tên tài khoản" value="">
+                <i class="fas fa-exclamation-circle" id="user_name"></i>
+                <input name="PassWord" type="password" placeholder="Mật khẩu" value="">
+                <i class="fas fa-exclamation-circle" id="pass_word"></i>
             </li>
             <li><label>Họ tên</label>
-                <input name="name" type="text" maxlength="30" value="" placeholder="Nhập vào tên của bạn...">
+                <input name="Name" type="text" maxlength="30" value="" placeholder="Nhập vào tên của bạn...">
                 <i class="fas fa-exclamation-circle" id="icon_name"></i>
             </li>
             <li><label>Ngày sinh</label>
-                <input name="age" type="date" value="2001-01-01">
+                <input name="Age" type="date" value="2001-01-01">
             </li>
             <li><label>Giới tính</label>
-                <select name="sex" id="sex">
+                <select name="Sex" id="sex">
                     <option value="Nam">Nam</option>
                     <option value="Nữ">Nữ</option>
                     <option value="Khác">Khác</option>
                 </select>
             </li>
             <li><label>Số điện thoại</label>
-                <input name="phone" type="number"
+                <input name="PhoneNumber" type="number"
                        onKeyDown="if(this.value.length==11 && event.keyCode>47 && event.keyCode < 58)return false;"
                        maxlength="11"
                        placeholder="Nhập vào số điện thoại..."
@@ -73,13 +75,13 @@
                 </select>
             </li>
             <li><label></label>
-                <select name="address" id="selectXa">
+                <select name="Address" id="selectXa">
                     <option selected>Xã/Phường</option>
                 </select>
                 <i class="fas fa-exclamation-circle" id="icon_address"></i>
             </li>
             <li><label>Mô tả</label></li>
-            <li><textarea name="status" id="" cols="30" rows="4"></textarea>
+            <li><textarea name="Status" id="" cols="30" rows="4"></textarea>
                 <i class="fas fa-exclamation-circle dacbiet" id="icon_status"></i></li>
             <li>
                 <input class="btnSubmit" name="submitRegister" type="submit" value="Xác nhận đăng ký">
@@ -94,7 +96,7 @@
 
 <script>
     function ChangePermission() {
-        var permission = document.getElementById("permission");
+        var permission = document.getElementById("Permission");
         var permissionTxt = document.getElementById("permissionTxt");
         if (permission.value == "1") {
             permission.value = "0";
@@ -120,6 +122,12 @@
             icon_address.style.display = "block";
         } else if (test == 4) {
             var icon_status = document.getElementById("icon_status");
+            icon_status.style.display = "block";
+        }else if (test == 5) {
+            var icon_status = document.getElementById("user_name");
+            icon_status.style.display = "block";
+        }else if (test == 6) {
+            var icon_status = document.getElementById("pass_word");
             icon_status.style.display = "block";
         }
         </c:forEach>
