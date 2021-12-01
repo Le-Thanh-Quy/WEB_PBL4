@@ -624,7 +624,7 @@ public class Connect {
         try {
             String str = "INSERT INTO chat VALUES('" + chat.getID() +
                     "', '" + chat.getChatRoomID() + "', '" + chat.getUserID() +
-                    "', '" + chat.getMessenger() + "', '" + chat.getTime() + "') ;";
+                    "', '" + chat.getMessenger() + "', '" + chat.getTime() + "' , '" + chat.getType() + "') ;";
             Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
@@ -665,6 +665,7 @@ public class Connect {
                 chat.setUserID(resultSet.getInt("UserID"));
                 chat.setMessenger(resultSet.getString("Messenger"));
                 chat.setTime(resultSet.getString("Time"));
+                chat.setType(resultSet.getInt("Type"));
                 chatList.add(chat);
             }
             resultSet.close();

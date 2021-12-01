@@ -113,6 +113,17 @@ body {
     height: 40px;
     border-radius: 50%;
 }
+#sticker{
+    display: none;
+}
+
+.mess_detail p img,.fake_mess p img{
+    width: 150px!important;
+    vertical-align: middle!important;
+    height: auto!important;
+    border-radius: 0!important;
+    position: relative;
+}
 
 .my_mess {
     display: block;
@@ -293,4 +304,28 @@ body {
     border-radius: 15px;
     background-color: #e1e4e9;
     outline: none;
+}
+
+
+.sticker{
+    display: none;
+    position: fixed;
+    background-color: #cedff5;
+    width: 30%;
+    height: 55%;
+    z-index: 1000;
+    bottom: 10%;
+    left: 6%;
+    border: 2px solid #3e4246;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    overflow: auto;
+}
+.sticker .listSticker{
+    width: 100%;
+}
+.sticker img{
+    cursor: pointer;
+    width: 33%;
 }

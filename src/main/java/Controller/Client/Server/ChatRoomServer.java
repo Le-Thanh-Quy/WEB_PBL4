@@ -37,6 +37,7 @@ public class ChatRoomServer {
         String mess = strings[0];
         String ID = strings[1];
         String IDUser = strings[2];
+        String Type = strings[3];
         userSession.getUserProperties().put("RoomID", ID);
 
         if (ID.equals("admin")) {
@@ -57,13 +58,14 @@ public class ChatRoomServer {
         chat.setMessenger(mess);
         chat.setTime(formatter.format(date));
         chat.setUserID(Integer.parseInt(IDUser));
+        chat.setType(Integer.parseInt(Type));
         int ChatID = ChatBO.getInstance().addChat(chat);
 
         for (Session session : chatRoomUser) {
             if (session.getUserProperties().get("RoomID").toString().equals(ID)) {
                 if (ChatID != -1) {
                     if (ChatBO.getInstance().sendStatus(ID, IDUser)) {
-                        session.getBasicRemote().sendText(mess + "!!##@@" + IDUser + "!!##@@" + GetDateTime() + "!!##@@" + ChatID);
+                        session.getBasicRemote().sendText(mess + "!!##@@" + IDUser + "!!##@@" + GetDateTime() + "!!##@@" + ChatID + "!!##@@" + Type);
                     }
                 }
             }

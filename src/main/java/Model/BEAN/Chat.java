@@ -6,16 +6,28 @@ public class Chat {
     int UserID;
     String Messenger;
     String Time;
+    int type;
 
-    public Chat(int ID, int chatRoomID, int userID, String messenger, String time) {
+
+
+    public Chat() {
+    }
+
+    public Chat(int ID, int chatRoomID, int userID, String messenger, String time, int type) {
         this.ID = ID;
         ChatRoomID = chatRoomID;
         UserID = userID;
         Messenger = messenger;
         Time = time;
+        this.type = type;
     }
 
-    public Chat() {
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public void setID(int ID) {

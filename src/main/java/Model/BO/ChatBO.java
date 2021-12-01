@@ -123,6 +123,7 @@ public class ChatBO {
             chat.setChatRoomID(ID);
             chat.setMessenger("Xin chào!");
             chat.setUserID(my_userID);
+            chat.setType(0);
             chat.setTime(getInstance().GetDateTime());
             if (addChat(chat) != -1) {
                 sendStatus(String.valueOf(ID) ,String.valueOf(my_userID));
@@ -148,6 +149,7 @@ public class ChatBO {
             Chat chat = new Chat();
             chat.setChatRoomID(ID);
             chat.setMessenger(mess);
+            chat.setType(0);
             chat.setUserID(my_userID);
             chat.setTime(getInstance().GetDateTime());
             if (addChat(chat) != -1) {

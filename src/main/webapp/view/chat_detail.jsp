@@ -16,7 +16,7 @@
         <img src="${chatRoom.getTheirUser().getAvatar()}" alt="">
         <div class="header-info">
             <p>${chatRoom.getTheirUser().getName()}</p>
-            <pre>${chatRoom.getTheirUser().getStatus()}</pre>
+            <pre>${chatRoom.getTheirUser().getStatus().trim()}</pre>
         </div>
     </c:if>
     <c:if test="${admin == true}">
@@ -52,27 +52,66 @@
                     <c:if test="${Mess.getUserID() != chatRoom.getMyUser().getID()}">
                         <div class="their_mess">
                             <img src="${chatRoom.getTheirUser().getAvatar()}">
-                            <div class="mess_detail" onmouseover="ShowTime(${Mess.getID()})"
-                                 onmouseleave="OffTime(${Mess.getID()})">
-                                <p>${Mess.getMessenger()}</p>
-                                <div class="their_time" id="${Mess.getID()}">
-                                    <p>${Mess.getTime()}</p>
+
+                            <c:if test="${Mess.getType() == 0}">
+                                <div class="mess_detail" onmouseover="ShowTime(${Mess.getID()})"
+                                     onmouseleave="OffTime(${Mess.getID()})">
+                                    <p>${Mess.getMessenger()}</p>
+                                    <div class="their_time" id="${Mess.getID()}">
+                                        <p>${Mess.getTime()}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
+                            <c:if test="${Mess.getType() == 1}">
+                                <div style="background-color: rgba(255,255,255,0)" class="mess_detail"
+                                     onmouseover="ShowTime(${Mess.getID()})"
+                                     onmouseleave="OffTime(${Mess.getID()})">
+                                    <p>
+                                        <img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker${Mess.getMessenger()}.png"
+                                             alt=""></p>
+                                    <div class="their_time" id="${Mess.getID()}">
+                                        <p>${Mess.getTime()}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+
                         </div>
                     </c:if>
                     <c:if test="${Mess.getUserID() == chatRoom.getMyUser().getID()}">
                         <div class="my_mess">
                             <div class="fake_mess">
-                                <p>${Mess.getMessenger()}</p>
+                                <c:if test="${Mess.getType() == 0}">
+                                    <p>${Mess.getMessenger()}</p>
+                                </c:if>
+                                <c:if test="${Mess.getType() == 1}">
+                                    <p>
+                                        <img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker${Mess.getMessenger()}.png"
+                                             alt=""></p>
+                                </c:if>
                             </div>
-                            <div class="mess_detail" onmouseover="ShowTime(${Mess.getID()})"
-                                 onmouseleave="OffTime(${Mess.getID()})">
-                                <p>${Mess.getMessenger()}</p>
-                                <div class="my_time" id="${Mess.getID()}">
-                                    <p>${Mess.getTime()}</p>
+
+                            <c:if test="${Mess.getType() == 0}">
+                                <div class="mess_detail" onmouseover="ShowTime(${Mess.getID()})"
+                                     onmouseleave="OffTime(${Mess.getID()})">
+                                    <p>${Mess.getMessenger()}</p>
+                                    <div class="my_time" id="${Mess.getID()}">
+                                        <p>${Mess.getTime()}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
+                            <c:if test="${Mess.getType() == 1}">
+                                <div style="background-color: rgba(255,255,255,0)" class="mess_detail"
+                                     onmouseover="ShowTime(${Mess.getID()})"
+                                     onmouseleave="OffTime(${Mess.getID()})">
+                                    <p>
+                                        <img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker${Mess.getMessenger()}.png"
+                                        ></p>
+                                    <div class="my_time" id="${Mess.getID()}">
+                                        <p>${Mess.getTime()}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+
                         </div>
 
                     </c:if>
@@ -99,9 +138,13 @@
     <div class="chat-input">
         <div class="input">
             <i class="far fa-images"></i>
-            <i class="fas fa-sticky-note"></i>
+            <i onclick="StickerOn()" class="fas fa-sticky-note"></i>
             <input name="textMessage" id="textMessage" type="text" placeholder="Aa">
             <i class="fas fa-location-arrow" onclick="sendMessage()"></i>
+        </div>
+    </div>
+    <div class="sticker" id="sticker">
+        <div class="listSticker" id="listSticker">
         </div>
     </div>
 </c:if>
@@ -111,16 +154,26 @@
 
 </div>
 <script type="text/javascript">
+    function StickerOn() {
+        var sticker = document.getElementById("sticker");
+        if (sticker.style.display == "none") {
+            sticker.style.display = "block";
+        } else {
+            sticker.style.display = "none";
+        }
+
+    }
+
     function ChatAdmin() {
         var textMessage = document.getElementById("textMessageFake");
-        websocket.send(textMessage.value + "!!##@@admin!!##@@${myID}");
+        websocket.send(textMessage.value + "!!##@@admin!!##@@${myID}!!##@@0");
         textMessage.value = "";
         setTimeout(function () {
             window.location.href = "chatDetail?RoomID=Admin&myID=${myID}";
         }, 2000)
     }
 
-    var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');
+    var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');//' + window.location.hostname + ' localhost:8080/WebPBL4_war_exploded
     websocket.onopen = function (message) {
         processOpen(message);
     };
@@ -147,26 +200,55 @@
         </c:if>
 
         if (words[1] != id) {
-            list_mess.innerHTML += ' <div class="their_mess"> ' +
-                '<img src="${chatRoom.getTheirUser().getAvatar()}">' +
-                '<div class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')"> <p>' + words[0] + '</p>' +
-                '<div class="their_time" id="' + words[3] + '">' +
-                '<p>' + words[2] + '</p>' +
-                '</div>' +
-                '</div></div>';
+            if (words[4] == 0) {
+                list_mess.innerHTML +=
+                    ' <div class="their_mess"> ' +
+                    '<img src="${chatRoom.getTheirUser().getAvatar()}">' +
+                    '<div class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')"> <p>' + words[0] + '</p>' +
+                    '<div class="their_time" id="' + words[3] + '">' +
+                    '<p>' + words[2] + '</p>' +
+
+                    '</div>' +
+                    '</div></div>';
+            } else if (words[4] == 1) {
+                list_mess.innerHTML +=
+                    ' <div class="their_mess"> ' +
+                    '<img src="${chatRoom.getTheirUser().getAvatar()}">' +
+                    '<div style="background-color: rgba(255,255,255,0)"  class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')"> <p><img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker' + words[0] + '.png" ></p>' +
+                    '<div class="their_time" id="' + words[3] + '">' +
+                    '<p>' + words[2] + '</p>' +
+                    '</div>' +
+                    '</div></div>';
+            }
+
+
             main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
 
         } else {
-            list_mess.innerHTML += '<div class="my_mess">' +
-                '<div class="fake_mess">' +
-                '<p>' + words[0] + '</p>' +
-                '</div>' +
-                '<div class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')">' +
-                '<p>' + words[0] + '</p>' +
-                '<div class="my_time" id="' + words[3] + '">' +
-                '<p>' + words[2] + '</p>' +
-                '</div>' +
-                ' </div></div>';
+            if (words[4] == 0) {
+                list_mess.innerHTML += '<div class="my_mess">' +
+                    '<div class="fake_mess">' +
+                    '<p>' + words[0] + '</p>' +
+                    '</div>' +
+                    '<div class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')">' +
+                    '<p>' + words[0] + '</p>' +
+                    '<div class="my_time" id="' + words[3] + '">' +
+                    '<p>' + words[2] + '</p>' +
+                    '</div>' +
+                    ' </div></div>';
+            } else if (words[4] == 1) {
+                list_mess.innerHTML += '<div class="my_mess">' +
+
+                    '<div class="fake_mess">' +
+                    '<p><img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker' + words[0] + '.png" alt=""></p>' +
+                    '</div>' +
+                    '<div style="background-color: rgba(255,255,255,0)" class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')">' +
+                    '<p><img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker' + words[0] + '.png"></p>' +
+                    '<div class="my_time" id="' + words[3] + '">' +
+                    '<p>' + words[2] + '</p>' +
+                    '</div>' +
+                    ' </div></div>';
+            }
             main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
             document.getElementById("main_frame").scrollTo(0, document.getElementById("main_frame").scrollHeight);
         }
@@ -177,7 +259,7 @@
         var textMessage = document.getElementById("textMessage");
         if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
             if (textMessage.value.trim() != "") {
-                websocket.send(textMessage.value + "!!##@@${chatRoom.getID()}!!##@@${chatRoom.getMyUser().getID()}");
+                websocket.send(textMessage.value + "!!##@@${chatRoom.getID()}!!##@@${chatRoom.getMyUser().getID()}!!##@@0");
                 textMessage.value = "";
             }
 
@@ -194,9 +276,22 @@
         }
     });
 
-    window.onload = ev => {
+    function SendSticker(id) {
         if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
-            websocket.send("1!2!@@12@@!!##@@${chatRoom.getID()}!!##@@1");
+            websocket.send(id + "!!##@@${chatRoom.getID()}!!##@@${chatRoom.getMyUser().getID()}!!##@@1");
+            var sticker = document.getElementById("sticker");
+            sticker.style.display = "none";
+        }
+    }
+
+    window.onload = ev => {
+        document.getElementById("sticker").style.display = "none";
+        var listSticker = document.getElementById("listSticker");
+        for (var i = 1; i < 130; i++) {
+            listSticker.innerHTML += '<img onclick="SendSticker(' + i + ')" src="${pageContext.request.contextPath}/Asset/img/iconS/sticker' + i + '.png">';
+        }
+        if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
+            websocket.send("1!2!@@12@@!!##@@${chatRoom.getID()}!!##@@1!!##@@0");
         }
         var list_mess = document.getElementById("list_mess");
         var main = document.getElementById("main");
