@@ -26,7 +26,7 @@ public class Connect {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://pbltest.cmfxmyflmata.us-east-2.rds.amazonaws.com:3306/pbl4?useUnicode=true&characterEncoding=utf-8", "admin", "adminqth");
-//          con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
+//            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
             System.out.println("Successs");
             Statement statement = con.createStatement();
         } catch (ClassNotFoundException ex) {
@@ -273,6 +273,7 @@ public class Connect {
             return false;
         }
     }
+
     public User GetUser(String user_name, int ID) {
         User user = new User();
         try {
@@ -1009,7 +1010,7 @@ public class Connect {
 
     public boolean changePassWord(String userName, String passWord, String newPassWord) {
         try {
-            String str = "UPDATE account SET PassWord = '"+newPassWord+"'  WHERE  UserName = '" + userName + "' and PassWord = '" + passWord + "';";
+            String str = "UPDATE account SET PassWord = '" + newPassWord + "'  WHERE  UserName = '" + userName + "' and PassWord = '" + passWord + "';";
             Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
