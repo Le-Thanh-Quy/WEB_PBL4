@@ -15,14 +15,14 @@
 <form>
     <table>
         <tr>
-            <th>STT</th>
+            <th>ID</th>
             <th>Người báo cáo</th>
             <th>Thời gian</th>
             <th>Trạng thái</th>
             <th>Action</th>
         </tr>
         <c:forEach items="${listReport}" var="item">
-            <tr>
+            <tr class="tag${listReport.indexOf(item)%2}">
                 <td>${item.getID()}</td>
                 <td>${item.getUserReport().getName()}</td>
                 <td>${item.getTime()}</td>

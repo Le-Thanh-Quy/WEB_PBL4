@@ -21,14 +21,14 @@
             const myObj = JSON.parse(this.responseText);
             var html = '<form action="DelUser?del=true" method="post"><table>';
             html += '<tr><td></td> <td></td> <td></td> <td></td> <td></td><td></td><td><input type="submit" value="Delete"/></td></tr>';
-            html += '<tr><th>ID</th><th>Tên</th>' +
+            html += '<tr><th>ID</th><th>Họ Tên</th>' +
                 '<th>Ngày sinh</th>' +
                 '<th>Giới tính</th>' +
                 '<th>Số điện thoại</th>' +
                 '<th>Phân quyền</th>' +
                 '<th>Chọn</th> </tr>';
             for (const x of myObj) {
-                html += "<tr><td>" + x.ID + "</td>" +
+                html += " <tr class='tag" + myObj.indexOf(x) % 2 + "'><td>" + x.ID + "</td>" +
                     "<td>" + x.Name + "</td>" +
                     "<td>" + x.Age + "</td>" +
                     "<td>" + x.Sex + "</td> " +
@@ -50,10 +50,12 @@
 </script>
 
 <body>
-<input onkeyup="loadDataUser()" placeholder="Nhập vào id,tên,giới tính,số điện thoại..." type="search" name="searchBox"
+<input class="search" onkeyup="loadDataUser()" placeholder="Tìm kiếm người dùng" type="search" name="searchBox"
        id="searchBox" onfocus="
 document.getElementById('permission').selectedIndex = 0;
-">
+this.placeholder = 'Nhập vào id,tên,giới tính,số điện thoại...';
+" onblur="this.placeholder = 'Tìm kiếm người dùng';">
+<i class="fas fa-search"></i>
 <br>
 <label for="permission">Chọn phân quyền người dùng:</label>
 <select id="permission" onchange="loadDataUser()" onfocus="function Rs1() {
@@ -74,11 +76,11 @@ Rs1()">
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><input type="submit" value="Delete"/></td>
+                <td><input type="submit" value="Xóa"/></td>
             </tr>
             <tr>
                 <th>ID</th>
-                <th>Tên</th>
+                <th>Họ Tên</th>
                 <th>Ngày sinh</th>
                 <th>Giới tính</th>
                 <th>Số điện thoại</th>
@@ -86,7 +88,7 @@ Rs1()">
                 <th>Chọn</th>
             </tr>
             <c:forEach items="${listUser}" var="user">
-                <tr>
+                <tr class="tag${listUser.indexOf(user)%2}">
                     <td>${user.getID()}</td>
                     <td>${user.getName()}</td>
                     <td>${user.getAge()}</td>

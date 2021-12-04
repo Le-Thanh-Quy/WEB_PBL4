@@ -436,7 +436,7 @@ public class ConnectAdmin {
     public ArrayList<Report> getAllReport() {
         ArrayList<Report> list = new ArrayList<Report>();
         try {
-            String sql = "SELECT * FROM report";
+            String sql = "SELECT * FROM report ORDER BY Status ASC";
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {

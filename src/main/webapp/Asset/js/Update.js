@@ -1,4 +1,3 @@
-
 function loadFind() {
     var type = document.getElementById("type");
     const xhttp = new XMLHttpRequest();
@@ -7,22 +6,21 @@ function loadFind() {
     if (type.value == 'Province') {
         xhttp.onload = function () {
             const myObj = JSON.parse(this.responseText);
-            var html = '<form action="DeleteProvince" method="post"><table><td></td><td></td> <td></td><td></td> <td></td><td><input type="submit" value="Delete"></td> <td></td>';
-            html += '<tr><th>matp</th>' +
-                '<th>name</th>' +
-                '<th>type</th>' +
-                '<th>slug</th>' +
-                '<th>Click to update Province</th> ' +
-                '<th>Click to delete Province</th> ' +
-                '<th>Click to add/up/del District</th> </tr>';
+            var html = '<form action="DeleteProvince" method="post"><table><td></td><td></td><td></td> <td></td><td><input style="opacity: 0;" id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
+            html += '<tr><th>ID</th>' +
+                '<th>Tên Tỉnh/Thành Phố</th>' +
+                '<th>Kiểu</th>' +
+                '<th>Chập nhật thông tin</th> ' +
+                '<th>Chọn</th> ' +
+                '<th>Danh sách Quận/Huyện</th> </tr>';
             for (const x of myObj) {
-                html += '<tr><td>' + x.matp + '</td>' +
+                html += ' <tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.matp + '</td>' +
                     '<td>' + x.name + '</td>' +
                     '<td>' + x.type + '</td>' +
-                    '<td>' + x.slug + '</td> ' +
-                    '<td><a href="UpdateProvince?IDProvince='+x.matp+'">Update</a></td> ' +
-                    '<td><input type="checkbox" name="cb" value="' + x.matp + '"/></td> ' +
-                    '<td><button id="IDProv" type="button" onclick="loadDistrict(\'' + x.matp + '\')">Go</button></td> </tr>';
+                    '<td><a href="UpdateProvince?IDProvince=' + x.matp + '"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
+                    '<td><input onchange="Chosse(this)" id="cb" type="checkbox" name="cb" value="' + x.matp + '"/></td> ' +
+                    '<td><button id="IDProv" type="button" onclick="loadDistrict(\'' + x.matp + '\')"><i\n' +
+                    '                                class="fas fa-eye"></i> Chi tiết</button></td> </tr>';
             }
             html += '</table></form>';
             table.innerHTML = html;
@@ -32,23 +30,22 @@ function loadFind() {
     } else if (type.value == 'District') {
         xhttp.onload = function () {
             const myObj = JSON.parse(this.responseText);
-            var html = '<form action="DeleteDistrict" method="post"><table><td></td><td></td> <td></td><td></td> <td><input type="hidden" name="IDProvince" value="'+IDDistrict+'"></td><td><input type="submit" value="Delete"></td> <td></td>';
-            html += '<tr><th>maqh</th>' +
-                '<th>name</th>' +
-                '<th>type</th>' +
-                '<th>matp</th>' +
-                '<th>Click to update District</th> ' +
-                '<th>Click to delete District</th> ' +
-                '<th>Click to add/up/del Commune</th> </tr>';
+            var html = '<form action="DeleteDistrict" method="post"><table><td  class="back"><a href="getProv"><i class="fas fa-angle-double-left"></i></a></td><td></td> <td></td> <td><input type="hidden" name="IDProvince" value="' + IDDistrict + '"></td><td><input  id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
+            html += '<tr><th>ID</th>' +
+                '<th>Tên Quận/Huyện</th>' +
+                '<th>Kiểu</th>' +
+                '<th>Cập nhật thông tin</th> ' +
+                '<th>Chọn</th> ' +
+                '<th>Danh sách Xã/Phường</th> </tr>';
 
             for (const x of myObj) {
-                html += '<tr><td>' + x.maqh + '</td>' +
+                html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.maqh + '</td>' +
                     '<td>' + x.name + '</td>' +
                     '<td>' + x.type + '</td>' +
-                    '<td>' + x.matp + '</td> ' +
-                    '<td><a href="UpdateDistrict?IDDistrict='+x.maqh+'">Update</a></td> ' +
+                    '<td><a href="UpdateDistrict?IDDistrict=' + x.maqh + '"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                     '<td><input type="checkbox" name="cb" value="' + x.maqh + '"/></td> ' +
-                    '<td><button type="button" id="IDDistrict" onclick="loadCommune(\'' + x.maqh + '\')">Go</button></td></tr>';
+                    '<td><button type="button" id="IDDistrict" onclick="loadCommune(\'' + x.maqh + '\')"><i\n' +
+                    '                                class="fas fa-eye"></i> Chi tiết</button></td></tr>';
             }
             html += '</table></form>';
             table.innerHTML = html;
@@ -56,23 +53,21 @@ function loadFind() {
         var IDDistrict = document.getElementById("idDistrict").value;
         xhttp.open("GET", "findDistrict?searchBox=" + key.value + "&IDDistrict=" + IDDistrict);
         xhttp.send();
-    }else if(type.value == 'Commune'){
+    } else if (type.value == 'Commune') {
         xhttp.onload = function () {
             const myObj = JSON.parse(this.responseText);
 
-            var html = '<form action="DeleteCommune" method="post"><table><td></td><td></td> <td></td><td></td> <td><input type="hidden" name="IDDistrict" value="'+IDCommune+'"></td><td><input type="submit" value="Delete"></td> <td></td>';
-            html += '<tr><th>xaid</th>' +
-                '<th>name</th>' +
-                '<th>type</th>' +
-                '<th>maqh</th>' +
-                '<th>Click to update Commune</th> ' +
-                '<th>Click to delete Commune</th> ';
+            var html = '<form action="DeleteCommune" method="post"><table><td class="back"><a onclick="loadDistrict(`' + document.getElementById("idDistrict").value + '`)"><i class="fas fa-angle-double-left"></i></a></td><td></td><td></td> <td><input type="hidden" name="IDDistrict" value="' + IDCommune + '"></td><td><input   id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
+            html += '<tr><th>ID</th>' +
+                '<th>Tên Xã/Phường</th>' +
+                '<th>Kiểu</th>' +
+                '<th>Cập nhật thông tin</th> ' +
+                '<th>Chọn</th> ';
             for (const x of myObj) {
-                html += '<tr><td>' + x.xaid + '</td>' +
+                html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.xaid + '</td>' +
                     '<td>' + x.name + '</td>' +
                     '<td>' + x.type + '</td>' +
-                    '<td>' + x.maqh + '</td> ' +
-                    '<td><a href=UpdateCommune?IDCommune='+x.xaid+'>Update</a></td>  ' +
+                    '<td><a href=UpdateCommune?IDCommune=' + x.xaid + '><i style="color: #1877F2" class="fas fa-edit"></i></a></td>  ' +
                     '<td><input type="checkbox" name="cb" value="' + x.xaid + '"/></td> ';
             }
             html += '</table></form>';
@@ -92,24 +87,23 @@ function loadDistrict(IDProv) {
     var table = document.getElementById("table");
     xhttp.onload = function () {
         const myObj = JSON.parse(this.responseText);
-        document.getElementById("Add").innerHTML = '<a href="AddDistrict?IDProvince='+IDProv+'">Add District</a>';
-        var html = '<form action="DeleteDistrict" method="post"><table><td></td><td></td> <td></td><td></td> <td><input type="hidden" name="IDProvince" value="'+IDProv+'"></td><td><input type="submit" value="Delete"></td> <td></td>';
-        html += '<tr><th>maqh</th>' +
-            '<th>name</th>' +
-            '<th>type</th>' +
-            '<th>matp</th>' +
-            '<th>Click to update District</th> ' +
-            '<th>Click to delete District</th> ' +
-            '<th>Click to add/up/del Commune</th> </tr>';
+        document.getElementById("Add").innerHTML = '<a href="AddDistrict?IDProvince=' + IDProv + '"><i class="fas fa-plus-square"></i>  Thêm Quận/Huyện</a>';
+        var html = '<form action="DeleteDistrict" method="post"><table><td  class="back"><a href="getProv"><i class="fas fa-angle-double-left"></i></a></td><td></td><td></td> <td><input type="hidden" name="IDProvince" value="' + IDProv + '"></td><td><input   id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
+        html += '<tr><th>ID</th>' +
+            '<th>Tên Quận/Huyện</th>' +
+            '<th>Kiểu</th>' +
+            '<th>Cập nhật thông tin</th> ' +
+            '<th>Chọn</th> ' +
+            '<th>Danh sách Xã/Phường</th> </tr>';
 
         for (const x of myObj) {
-            html += '<tr><td>' + x.maqh + '</td>' +
+            html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.maqh + '</td>' +
                 '<td>' + x.name + '</td>' +
                 '<td>' + x.type + '</td>' +
-                '<td>' + x.matp + '</td> ' +
-                '<td><a href="UpdateDistrict?IDDistrict='+x.maqh+'">Update</a></td> ' +
+                '<td><a href="UpdateDistrict?IDDistrict=' + x.maqh + '"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                 '<td><input type="checkbox" name="cb" value="' + x.maqh + '"/></td> ' +
-                '<td><button  type="button" id="IDDistrict" onclick="loadCommune(\'' + x.maqh + '\')">Go</button></td></tr>';
+                '<td><button  type="button" id="IDDistrict" onclick="loadCommune(\'' + x.maqh + '\')"><i\n' +
+                '                                class="fas fa-eye"></i> Chi tiết</button></td></tr>';
         }
         html += '</table></form>';
         table.innerHTML = html;
@@ -125,20 +119,18 @@ function loadCommune(IDDistrict) {
     var table = document.getElementById("table");
     xhttp.onload = function () {
         const myObj = JSON.parse(this.responseText);
-        document.getElementById("Add").innerHTML = '<a href="AddCommune?IDDistrict='+IDDistrict+'">Add Commune</a>';
-        var html = '<form action="DeleteCommune" method="post"><table><td></td><td></td> <td></td><td></td> <td><input type="hidden" name="IDDistrict" value="'+IDDistrict+'"></td><td><input type="submit" value="Delete"></td> <td></td>';
-        html += '<tr><th>xaid</th>' +
-            '<th>name</th>' +
-            '<th>type</th>' +
-            '<th>maqh</th>' +
-            '<th>Click to update Commune</th> ' +
-            '<th>Click to delete Commune</th> ';
+        document.getElementById("Add").innerHTML = '<a href="AddCommune?IDDistrict=' + IDDistrict + '"><i class="fas fa-plus-square"></i>  Thêm Xã/Phường</a>';
+        var html = '<form action="DeleteCommune" method="post"><table><td class="back"><a onclick="loadDistrict(`' + document.getElementById("idDistrict").value + '`)"><i class="fas fa-angle-double-left"></i></a></td><td></td><td></td> <td><input type="hidden" name="IDDistrict" value="' + IDDistrict + '"></td><td><input   id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
+        html += '<tr><th>ID</th>' +
+            '<th>Tên Xã/Phường</th>' +
+            '<th>Kiểu</th>' +
+            '<th>Cập nhật thông tin</th> ' +
+            '<th>Chọn</th> ';
         for (const x of myObj) {
-            html += '<tr><td>' + x.xaid + '</td>' +
+            html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.xaid + '</td>' +
                 '<td>' + x.name + '</td>' +
                 '<td>' + x.type + '</td>' +
-                '<td>' + x.maqh + '</td> ' +
-                '<td><a href=UpdateCommune?IDCommune='+x.xaid+'>Update</a></td> ' +
+                '<td><a href=UpdateCommune?IDCommune=' + x.xaid + '><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                 '<td><input type="checkbox" name="cb" value="' + x.xaid + '"/></td> ';
         }
         html += '</table></form>';

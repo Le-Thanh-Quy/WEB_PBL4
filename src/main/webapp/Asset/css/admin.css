@@ -17,7 +17,32 @@ body {
     -webkit-user-select: none;
     -ms-user-select: none;
     background-color: #343a40;
-    
+    -webkit-animation-name: animateMenu;
+    -webkit-animation-duration: 0.5s;
+    animation-name: animateMenu;
+    animation-duration: 0.5s
+}
+
+@-webkit-keyframes animateMenu {
+    from {
+        opacity: 0;
+        width: 6%;
+    }
+    to {
+        opacity: 1;
+        width: 16%;
+    }
+}
+
+@keyframes animateMenu {
+    from {
+        opacity: 0;
+        width: 6%;
+    }
+    to {
+        opacity: 1;
+        width: 16%;
+    }
 }
 
 .menu a {

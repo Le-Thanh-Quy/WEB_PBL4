@@ -12,8 +12,12 @@
 </head>
 <body>
 <form action="ViewPost" method="post">
-    <input type="text" name="postSearch" placeholder="Nhập vào mã người dùng, mã bài đăng...">
-    <input type="submit" value="Tìm kiếm">
+
+    <input class="search" type="text" name="postSearch" placeholder="Tìm kiếm lịch trình"
+           onfocus="this.placeholder = 'Nhập vào mã người dùng, mã bài đăng...';"
+           onblur="this.placeholder = 'Tìm kiếm lịch trình';" >
+    <i class="fas fa-search"></i>
+    <input class="searchBtn" type="submit" value="Tìm kiếm">
 </form>
 
 <table>
@@ -27,7 +31,7 @@
         <th>Chi tiết</th>
     </tr>
     <c:forEach items="${listPost}" var="item">
-        <tr>
+        <tr class="tag${listPost.indexOf(item)%2}">
             <td>${item.getID()}</td>
             <td>${item.getUser().getName()}</td>
             <td>${item.getStartCommune()}, ${item.getStartDistrict()}, ${item.getStartProvince()}</td>

@@ -29,79 +29,79 @@ public class HomeController extends HttpServlet {
 //            requestDispatcherss.forward(request, response);
 //            return;
 //        }
+        if (request.getSession().getAttribute("admin") != null) {
+            request.getSession().setAttribute("admin", "admin");
+            RequestDispatcher requestDispatcherss = request.getRequestDispatcher("admin_home");
+            requestDispatcherss.forward(request, response);
+        }
 
-
-        HttpSession session =  request.getSession();
+        HttpSession session = request.getSession();
         String Mess = (String) session.getAttribute("Mess");
         session.removeAttribute("Mess");
-        if(!"null".equals(Mess)){
-            request.setAttribute("Mess" , Mess);
+        if (!"null".equals(Mess)) {
+            request.setAttribute("Mess", Mess);
         }
-        String checkTypeLogin  = (String) session.getAttribute("checkTypeLogin");
+        String checkTypeLogin = (String) session.getAttribute("checkTypeLogin");
         String checkMessLogin = (String) session.getAttribute("checkMessLogin");
 
-        if("newPost".equals(checkTypeLogin)){
-            request.setAttribute("checkNewPost" , "block");
+        if ("newPost".equals(checkTypeLogin)) {
+            request.setAttribute("checkNewPost", "block");
+        } else {
+            request.setAttribute("checkNewPost", "none");
         }
-        else{
-            request.setAttribute("checkNewPost" , "none");
-        }
-
-
 
 
         session.removeAttribute("checkTypeLogin");
 
         boolean login = false;
         String user_name = "";
-        if(session.getAttribute("logged") != null){
+        if (session.getAttribute("logged") != null) {
             login = (boolean) session.getAttribute("logged");
             user_name = session.getAttribute("user").toString();
         }
 
-        if("chat".equals(checkTypeLogin)){
+        if ("chat".equals(checkTypeLogin)) {
             User user = new AuthBO().GetUser(user_name);
-            if(!checkMessLogin.equals(String.valueOf(user.getID()))){
-                request.setAttribute("myID" , user.getID());
-                if(!checkMessLogin.equals("null")){
-                    request.setAttribute("theirID" , checkMessLogin);
+            if (!checkMessLogin.equals(String.valueOf(user.getID()))) {
+                request.setAttribute("myID", user.getID());
+                if (!checkMessLogin.equals("null")) {
+                    request.setAttribute("theirID", checkMessLogin);
                 }
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("chat");
                 requestDispatcher.forward(request, response);
                 return;
-            }else{
-                request.setAttribute("Mess" , "Không thể tạo tin nhắn với chính mình!");
+            } else {
+                request.setAttribute("Mess", "Không thể tạo tin nhắn với chính mình!");
             }
         }
 
-        if("comment".equals(checkTypeLogin)){
-            request.setAttribute("postCommentID" , checkMessLogin);
+        if ("comment".equals(checkTypeLogin)) {
+            request.setAttribute("postCommentID", checkMessLogin);
         }
-        if("report".equals(checkTypeLogin)){
+        if ("report".equals(checkTypeLogin)) {
             User user = new AuthBO().GetUser(user_name);
-            if(checkMessLogin.equals(String.valueOf(user.getID()))){
-                request.setAttribute("Mess" , "Không thể báo cáo chính mình!");
-            }else{
-                request.setAttribute("reportID" , checkMessLogin);
+            if (checkMessLogin.equals(String.valueOf(user.getID()))) {
+                request.setAttribute("Mess", "Không thể báo cáo chính mình!");
+            } else {
+                request.setAttribute("reportID", checkMessLogin);
             }
         }
 
 
-
-        if(login){
+        if (login) {
             User user = new AuthBO().GetUser(user_name);
-            request.setAttribute("user" , user_name);
-            request.setAttribute("logged" , true);
-            request.setAttribute("user_info" , user);
+            request.setAttribute("user", user_name);
+            request.setAttribute("logged", true);
+            request.setAttribute("user_info", user);
 
-        }else{
-            request.setAttribute("Mess" , Mess);
-            request.setAttribute("user" , "Đăng Nhập|Đăng Ký");
-            request.setAttribute("logged" , false);
+        } else {
+            request.setAttribute("Mess", Mess);
+            request.setAttribute("user", "Đăng Nhập|Đăng Ký");
+            request.setAttribute("logged", false);
         }
-        request.setAttribute("PostType" , "Lịch trình mới nhất");
-        request.setAttribute("ListPost" , PostBO.getInstance().getPostList(-1));
-        request.setAttribute("Tinhs" , AddressBO.getInstance().getTinh());
+        request.setAttribute("PostType", "Lịch trình mới nhất");
+        request.setAttribute("ListPost", PostBO.getInstance().getPostList(-1));
+        request.setAttribute("Tinhs", AddressBO.getInstance().getTinh());
         RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
         rd.forward(request, response);
 
@@ -110,61 +110,60 @@ public class HomeController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding ("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String search_Start = request.getParameter("search_Start");
         String search_End = request.getParameter("search_End");
         String Time = request.getParameter("Time");
         String Date = request.getParameter("Date");
 
-        if("".equals(search_Start) && "".equals(search_End) &&
-                "Thời gian khởi hành".equals(Time) && "Ngày khởi hành".equals(Date)){
-            doGet(request , response);
-        }else{
-            HttpSession session =  request.getSession();
+        if ("".equals(search_Start) && "".equals(search_End) &&
+                "Thời gian khởi hành".equals(Time) && "Ngày khởi hành".equals(Date)) {
+            doGet(request, response);
+        } else {
+            HttpSession session = request.getSession();
             String Mess = (String) session.getAttribute("Mess");
             session.removeAttribute("Mess");
-            if(!"null".equals(Mess)){
-                request.setAttribute("Mess" , Mess);
+            if (!"null".equals(Mess)) {
+                request.setAttribute("Mess", Mess);
             }
             String checkNewPost = "";
             checkNewPost = (String) session.getAttribute("checkNewPost");
 
 
-            if("oke".equals(checkNewPost)){
-                request.setAttribute("checkNewPost" , "block");
-            }
-            else {
-                request.setAttribute("checkNewPost" , "none");
+            if ("oke".equals(checkNewPost)) {
+                request.setAttribute("checkNewPost", "block");
+            } else {
+                request.setAttribute("checkNewPost", "none");
             }
 
             session.removeAttribute("checkNewPost");
 
             boolean login = false;
             String user_name = "";
-            if(session.getAttribute("logged") != null){
+            if (session.getAttribute("logged") != null) {
                 login = (boolean) session.getAttribute("logged");
                 user_name = session.getAttribute("user").toString();
             }
 
-            if(login){
+            if (login) {
                 User user = new AuthBO().GetUser(user_name);
-                request.setAttribute("user" , user_name);
-                request.setAttribute("logged" , true);
-                request.setAttribute("user_info" , user);
+                request.setAttribute("user", user_name);
+                request.setAttribute("logged", true);
+                request.setAttribute("user_info", user);
 
-            }else{
-                request.setAttribute("Mess" , Mess);
-                request.setAttribute("user" , "Đăng Nhập|Đăng Ký");
-                request.setAttribute("logged" , false);
+            } else {
+                request.setAttribute("Mess", Mess);
+                request.setAttribute("user", "Đăng Nhập|Đăng Ký");
+                request.setAttribute("logged", false);
             }
-            request.setAttribute("search_Start" , search_Start);
-            request.setAttribute("search_End" , search_End);
-            request.setAttribute("Time" , Time);
-            request.setAttribute("Date" , Date);
+            request.setAttribute("search_Start", search_Start);
+            request.setAttribute("search_End", search_End);
+            request.setAttribute("Time", Time);
+            request.setAttribute("Date", Date);
 
-            request.setAttribute("PostType" , "Kết quả tìm kiếm");
-            request.setAttribute("ListPost" , PostBO.getInstance().SearchPost(-1 , search_Start , search_End , Time , Date));
-            request.setAttribute("Tinhs" , AddressBO.getInstance().getTinh());
+            request.setAttribute("PostType", "Kết quả tìm kiếm");
+            request.setAttribute("ListPost", PostBO.getInstance().SearchPost(-1, search_Start, search_End, Time, Date));
+            request.setAttribute("Tinhs", AddressBO.getInstance().getTinh());
             RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
             rd.forward(request, response);
         }

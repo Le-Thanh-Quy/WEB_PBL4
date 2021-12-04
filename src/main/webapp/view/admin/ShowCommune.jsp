@@ -21,7 +21,7 @@
         <th>matp</th>
     </tr>
     <c:forEach items="${ListCommune}" var="i">
-        <tr>
+        <tr class="tag${ListCommune.indexOf(i)%2}">
             <td>${i.getXaid()}</td>
             <td>${i.getName()}</td>
             <td>${i.getType()}</td>
