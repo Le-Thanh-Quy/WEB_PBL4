@@ -17,20 +17,25 @@ public class DeleteCommune extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameterValues("cb")==null){
-            req.setAttribute("ListCommune", AddressBO.getInstance().getAllCommune(req.getParameter("IDDistrict")));
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/ShowCommune.jsp");
-            requestDispatcher.forward(req,resp);
+            req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
+            req.setAttribute("checkCommune" , req.getParameter("IDDistrict"));
+            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
+            requestDispatcher.forward(req, resp);
             return;
         }
         List<String> listID = Arrays.asList(req.getParameterValues("cb"));
         for (String id:listID){
-            System.out.println(id);
             if(!AddressBO.getInstance().DeleteCommune(id)){
+                req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
+                req.setAttribute("checkCommune" , req.getParameter("IDDistrict"));
+                RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
+                requestDispatcher.forward(req, resp);
                 return;
             }
         }
-        req.setAttribute("ListCommune", AddressBO.getInstance().getAllCommune(req.getParameter("IDDistrict")));
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/ShowCommune.jsp");
-        requestDispatcher.forward(req,resp);
+        req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
+        req.setAttribute("checkCommune" , req.getParameter("IDDistrict"));
+        RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
+        requestDispatcher.forward(req, resp);
     }
 }

@@ -9,14 +9,31 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/updateAddress.css">
 </head>
 <body>
+<h3>Cập nhật Xã/Phường</h3>
 <form action="${pageContext.request.contextPath}/UpdateCommune" method="post">
-    <input type="text" name="xaid" placeholder="xaid" value="${Commune.xaid}" readonly="readonly"><br><br>
-    <input type="text" name="name" placeholder="name" value="${Commune.name}"><br><br>
-    <input type="text" name="type" placeholder="type" value="${Commune.type}"><br><br>
-    <input type="text" name="maqh" placeholder="maqh" value="${Commune.maqh}" readonly="readonly"><br><br>
-    <input type="submit" value="Update">
+    <ul>
+        <li>
+            <label>Mã XP</label>
+            <input type="text" name="xaid" placeholder="Mã XP" value="${Commune.xaid}" readonly="readonly">
+        </li>
+        <li>
+            <label>Tên Xã/Phường</label>
+            <input type="text" name="name" placeholder="Tên Xã/Phường" value="${Commune.name}">
+        </li>
+        <li>
+            <label>Kiểu</label>
+            <input type="text" name="type" placeholder="Kiểu" value="${Commune.type}">
+        </li>
+        <li>
+            <label>Mã QH</label>
+            <input type="text" name="maqh" placeholder="Mã QH" value="${Commune.maqh}" readonly="readonly">
+        </li>
+
+    </ul>
+    <input type="submit" value="Cập nhật">
 </form>
 </body>
 </html>

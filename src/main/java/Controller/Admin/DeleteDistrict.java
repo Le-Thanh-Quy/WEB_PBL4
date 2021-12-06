@@ -17,8 +17,9 @@ public class DeleteDistrict extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameterValues("cb")==null){
-            req.setAttribute("ListDistrict", AddressBO.getInstance().getAllDistrict(req.getParameter("IDProvince")));
-            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/ShowDistrict.jsp");
+            req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
+            req.setAttribute("checkDistrict" , req.getParameter("IDProvince"));
+            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
             requestDispatcher.forward(req, resp);
             return;
         }
@@ -26,14 +27,16 @@ public class DeleteDistrict extends HttpServlet {
         List<String> lisID = Arrays.asList(req.getParameterValues("cb"));
         for(String id:lisID){
             if(!AddressBO.getInstance().DeleteDistrict(id)){
-                req.setAttribute("ListDistrict", AddressBO.getInstance().getAllDistrict(req.getParameter("IDProvince")));
-                RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/ShowDistrict.jsp");
+                req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
+                req.setAttribute("checkDistrict" , req.getParameter("IDProvince"));
+                RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
                 requestDispatcher.forward(req, resp);
                 return;
             }
         }
-        req.setAttribute("ListDistrict", AddressBO.getInstance().getAllDistrict(req.getParameter("IDProvince")));
-        RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/ShowDistrict.jsp");
+        req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
+        req.setAttribute("checkDistrict" , req.getParameter("IDProvince"));
+        RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

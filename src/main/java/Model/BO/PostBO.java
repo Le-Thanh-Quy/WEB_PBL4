@@ -316,4 +316,13 @@ public class PostBO {
         }
     }
 
+    public List<Request> getRequestWithPost(int id) {
+        List<Request> requests = new ArrayList<>();
+        for (Request i : ConnectAdmin.getInstance().getRequestWithPost(id)) {
+            i.setDatetime(FormatDateTime(i.getDatetime()));
+            requests.add(i);
+        }
+
+        return requests;
+    }
 }

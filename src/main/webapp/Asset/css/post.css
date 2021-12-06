@@ -1,3 +1,4 @@
+
 .framePost {
     margin-top: 100px;
 }
@@ -17,7 +18,8 @@
     border-radius: 20px;
     overflow: auto;
 }
-.post .delete{
+
+.post .delete {
     position: absolute;
     z-index: 99;
     right: 0.5%;
@@ -28,7 +30,8 @@
     border-radius: 50%;
     cursor: pointer;
 }
-.post .delete:hover{
+
+.post .delete:hover {
     color: #f35050 !important;
     background-color: rgb(179, 192, 194);
 }
@@ -57,7 +60,7 @@
 .post-main h1 {
     display: inline-block;
     width: auto;
-    margin-top: 10px!important;
+    margin-top: 10px !important;
     margin: 0px;
     color: rgb(170, 109, 16);
     font-weight: 800;
@@ -65,7 +68,7 @@
 }
 
 .post-main h5 {
-    margin-top: 10px!important;
+    margin-top: 10px !important;
     margin: 0px;
     color: rgb(134, 133, 133);
     font-weight: 600;
@@ -98,14 +101,17 @@
 .start-info {
     position: absolute;
 }
+
 .time-info {
     position: absolute;
     left: 40%;
 }
-.time-info p,h3{
+
+.time-info p, h3 {
     position: static;
 }
-.time-info p{
+
+.time-info p {
     margin: 0px;
 }
 
@@ -134,23 +140,41 @@
     text-decoration: none;
 }
 
-.fa-star::before{
+.fa-star::before {
     color: rgb(124, 124, 123);
 }
 
-.postDetail{
+.back {
+    position: absolute;
+    top: 1%;
+    left: 0.5%;
+    cursor: pointer;
+    font-size: 25px;
+
+
+}
+
+.fa-chevron-circle-left {
+    color: #1972e7;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.postDetail {
     display: flex;
     position: relative;
     background-color: rgba(255, 255, 255, 0.71);
-    margin: 6% auto;
+    margin: 1% auto;
     overflow: auto;
     border-radius: 15px;
 }
-.postDetail a{
+
+.postDetail a {
     text-decoration: none;
     color: rgb(170, 109, 16);
 }
-.postDetail .postImg{
+
+.postDetail .postImg {
     width: 500px;
     height: 380px;
     display: block;
@@ -158,7 +182,8 @@
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
 }
-.postDetail .postButton input{
+
+.postDetail .postButton input {
     padding: 1%;
     width: 20%;
     position: absolute;
@@ -171,9 +196,90 @@
     font-size: 18px;
     border-radius: 7px;
 }
-.postDetail .postButton input:hover{
+
+.postDetail .postButton input:hover {
     background-color: #576a8b;
 }
-body{
+
+body {
     background-size: cover;
+}
+
+
+.listRequest h1 {
+    color: #e3d7d7;
+    text-align: center;
+}
+
+.null {
+    text-align: center;
+}
+
+.null h2 {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.null img {
+    margin-top: 0;
+    width: 12%;
+}
+
+
+.request .userInfo{
+    position: relative;
+    display: flex;
+    color: rgb(170, 109, 16);
+}
+
+.request .userInfo  .content{
+    word-wrap: break-word;
+    display: block;
+    max-width: 80%;
+}
+.request .userInfo  .content h2{
+    margin-top: 2%;
+    margin-bottom: 1%;
+
+}
+.request .userInfo  .content h2 a {
+    color: rgb(170, 109, 16);
+    text-decoration: none!important;
+}
+.request .userInfo  .content h4{
+    margin-left: 2%;
+    margin-top: 0;
+    color: #464646;
+}
+.request .userInfo  .content h3{
+    margin-left: -8%;
+    margin-top: 25px;
+    color: #44464f;
+}
+.request .userInfo  .content h3 span{
+    color: black;
+}
+.request .userInfo .status{
+    position: absolute;
+    right: 2%;
+    color: #494949;
+    top: 3%;
+}
+.request .userInfo .status p{
+    margin: 0;
+}
+.request img{
+    width: 55px;
+    height: 55px;
+    margin: 1%;
+    border-radius: 50%;
+}
+
+.request {
+    width: 45%;
+    margin: 1% auto;
+    min-height: 25%;
+    background-color: #cbcdd5;
+    border-radius: 10px;
 }

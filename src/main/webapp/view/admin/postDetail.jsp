@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ADMIN
@@ -14,6 +15,7 @@
 <body style="background-image: url('${pageContext.request.contextPath}/Asset/img/banner-bg.jpg')">
 <form action="postDetail" method="post">
     <div class="postDetail">
+        <a onclick="window.history.back()" class="back"><i class="fas fa-chevron-circle-left"></i></a>
         <img class="postImg" src="${Post.getImage()}" alt="">
         <div class="post-main">
             <h1><a href="ViewUserForAdmin?userID=${Post.getUser().getID()}">${Post.getUser().getName()}</a></h1>
@@ -51,5 +53,42 @@
         </div>
     </div>
 </form>
+<div class="listRequest">
+    <h1>Danh sách yêu cầu</h1>
+    <c:if test="${ListRequest == []}">
+        <div class="null">
+            <img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker34.png" alt="">
+            <h2>Chưa có yêu cầu nào!</h2>
+        </div>
+    </c:if>
+
+    <c:forEach items="${ListRequest}" var="request">
+        <div class="request" style="margin-bottom: 1%">
+            <div class="userInfo">
+                <img src="${request.getSender().getAvatar()}">
+                <div class="content">
+                    <h2><a href="ViewUserForAdmin?userID=${request.getSender().getID()}">${request.getSender().getName()}</a></h2>
+                    <h4>${request.getDatetime()}</h4>
+                    <h3><span>Nội dung: </span>${request.getContent()}</h3>
+                </div>
+                <div class="status">
+                    <c:if test="${request.getStatus() == 0}">
+                        <p><i class="fas fa-clock"></i> Đang đợi phản hồi</p>
+                    </c:if>
+                    <c:if test="${request.getStatus() == 1}">
+                        <p><i class="fas fa-check" style="color: #14b718"></i> Đã được chấp nhận</p>
+                    </c:if>
+                    <c:if test="${request.getStatus() == 2}">
+                        <p><i class="fas fa-times" style="color: #b91414"></i> Đã bị từ chối</p>
+                    </c:if>
+                </div>
+            </div>
+
+
+        </div>
+    </c:forEach>
+
+
+</div>
 </body>
 </html>

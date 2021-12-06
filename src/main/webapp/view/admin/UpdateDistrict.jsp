@@ -9,14 +9,31 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/updateAddress.css">
 </head>
 <body>
+<h3>Cập nhật Quận/Huyện</h3>
 <form action="${pageContext.request.contextPath}/UpdateDistrict" method="post">
-    <input type="text" name="maqh" placeholder="maqh" value="${District.maqh}" readonly="readonly"><br><br>
-    <input type="text" name="name" placeholder="name" value="${District.name}"><br><br>
-    <input type="text" name="type" placeholder="type" value="${District.type}"><br><br>
-    <input type="text" name="matp" placeholder="matp" value="${District.matp}" readonly="readonly"><br><br>
-    <input type="submit" value="Update">
+    <ul>
+        <li>
+            <label>Mã QH</label>
+            <input type="text" name="maqh" placeholder="Mã QH" value="${District.maqh}" readonly="readonly">
+        </li>
+        <li>
+            <label>Tên Quận/Huyện</label>
+            <input type="text" name="name" placeholder="Tên Quận/Huyện" value="${District.name}">
+        </li>
+        <li>
+            <label>Kiểu</label>
+            <input type="text" name="type" placeholder="Kiểu" value="${District.type}">
+        </li>
+        <li>
+            <label>Mã TP</label>
+            <input type="text" name="matp" placeholder="Mã TP" value="${District.matp}" readonly="readonly">
+        </li>
+
+    </ul>
+    <input type="submit" value="Cập nhật">
 </form>
 </body>
 </html>

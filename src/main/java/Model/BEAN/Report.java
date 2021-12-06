@@ -4,6 +4,7 @@ public class Report {
     int ID;
     int UserReportID;
     int UserViolateID;
+    int PostID;
     String Content;
     String Time;
     boolean Status;
@@ -11,16 +12,27 @@ public class Report {
     User UserViolate;
     User UserReport;
 
-    public Report(int ID, int userReportID, int userViolateID, String content, String time, boolean status, String feedback, User userViolate, User userReport) {
+
+
+    public Report(int ID, int userReportID, int userViolateID, int postID, String content, String time, boolean status, String feedback, User userViolate, User userReport) {
         this.ID = ID;
         UserReportID = userReportID;
         UserViolateID = userViolateID;
+        PostID = postID;
         Content = content;
         Time = time;
         Status = status;
         Feedback = feedback;
         UserViolate = userViolate;
         UserReport = userReport;
+    }
+
+    public int getPostID() {
+        return PostID;
+    }
+
+    public void setPostID(int postID) {
+        PostID = postID;
     }
 
     public User getUserViolate() {

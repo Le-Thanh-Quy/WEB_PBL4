@@ -10,13 +10,26 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/updateAddress.css">
 </head>
 <body>
+<h3>Thêm mới Quận/Huyện</h3>
 <form action="${pageContext.request.contextPath}/AddDistrict" method="post">
-    <input type="text" name="name" placeholder="name"><br><br>
-    <input type="text" name="type" placeholder="type"><br><br>
-    <input type="text" name="IDProvince" value="${IDProvince}" readonly="readonly"><br><br>
-    <input type="submit" value="Add district">
+    <ul>
+        <li>
+            <label>Tên Quận/Huyện</label>
+            <input type="text" name="name" placeholder="Tên Quận/Huyện">
+        </li>
+        <li>
+            <label>Kiểu</label>
+            <input type="text" name="type" placeholder="Kiểu">
+        </li>
+        <li>
+            <label>Mã TP</label>
+            <input type="text" name="IDProvince" value="${IDProvince}" readonly="readonly">
+        </li>
+    </ul>
+    <input type="submit" value="Thêm mới">
 </form>
 </body>
 </html>

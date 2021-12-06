@@ -409,6 +409,7 @@ public class ConnectAdmin {
     public boolean UpdateCommune(String xaid, String name, String type, String maqh) {
         try {
             String str = "UPDATE xaphuong SET xaid = '" + xaid + "', name = '" + name + "', type = '" + type + "', maqh = '" + maqh + "' WHERE (xaid = '" + xaid + "');";
+            System.out.println(str);
             Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();
@@ -448,6 +449,7 @@ public class ConnectAdmin {
                 report.setTime(resultSet.getString("Time"));
                 report.setStatus(resultSet.getBoolean("Status"));
                 report.setFeedback(resultSet.getString("Feedback"));
+                report.setPostID(resultSet.getInt("PostID"));
                 list.add(report);
             }
             resultSet.close();
@@ -473,6 +475,7 @@ public class ConnectAdmin {
                 report.setTime(resultSet.getString("Time"));
                 report.setStatus(resultSet.getBoolean("Status"));
                 report.setFeedback(resultSet.getString("Feedback"));
+                report.setPostID(resultSet.getInt("PostID"));
             }
             resultSet.close();
             statement.close();
@@ -521,7 +524,6 @@ public class ConnectAdmin {
     }
 
 
-
     public boolean noiReport() {
         try {
             String str = "SELECT * from report WHERE  Status = '0';";
@@ -536,5 +538,32 @@ public class ConnectAdmin {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<Request> getRequestWithPost(int id) {
+        List<Request> requests = new ArrayList<Request>();
+        try {
+            String str = "SELECT * from request WHERE PostID = '" + id + "' order by ID DESC";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(str);
+            while (resultSet.next()) {
+                Request request = new Request();
+                request.setID(resultSet.getInt("ID"));
+                request.setSenderID(resultSet.getInt("SenderID"));
+                request.setReceiverID(resultSet.getInt("ReceiverID"));
+                request.setPostID(resultSet.getInt("PostID"));
+                request.setContent(resultSet.getString("Content"));
+                request.setStatus(resultSet.getInt("Status"));
+                request.setDatetime(resultSet.getString("DateTime"));
+                request.setSender(Connect.getInstance().GetUser("-1", request.getSenderID()));
+                requests.add(request);
+            }
+            resultSet.close();
+            statement.close();
+            return requests;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return requests;
+        }
     }
 }

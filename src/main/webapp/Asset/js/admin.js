@@ -38,3 +38,4 @@ function HideMenu() {
         main.style.width = "100%";
     }
 }
+

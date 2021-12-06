@@ -36,7 +36,7 @@
             <i style="opacity: 0" class="fas fa-sync-alt" onclick="ReloadChatRoom('${myID}')" id="reloadRoom"></i>
         </div>
         <div class="search">
-            <input id="searchRoomChat" type="text" placeholder="Tìm kiếm tin nhắn" value="" onkeydown="SearchRoomChat()">
+            <input id="searchRoomChat" type="text" placeholder="Tìm kiếm tin nhắn" value="" onkeyup="SearchRoomChat()">
             <i class="fas fa-search" ></i>
         </div>
         <div class="recent_messages" id="recent_messages">

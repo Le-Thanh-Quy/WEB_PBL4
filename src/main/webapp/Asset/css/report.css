@@ -37,3 +37,66 @@ form input{
 form input:hover{
     background-color: #576a8b !important;
 }
+
+
+
+.title{
+    display: flex;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+.title img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 2%;
+    margin-right: 3%;
+}
+.title h1 a{
+    color: #c96904;
+}
+.title .left{
+    display: flex;
+    width: 45%;
+}
+.fa-arrow-right{
+    width: 10%;
+    margin-top: 2%;
+    font-size: 40px;
+}
+.title .right{
+    display: flex;
+    width: 45%;
+}
+.fa-arrow-alt-circle-left{
+    font-size: 25px;
+}
+.reportDetail{
+    display: flex;
+}
+.reportDetail .left{
+    width: 50%;
+}
+.reportDetail .left p{
+    min-height: 30%;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 18px;
+}
+.reportDetail .left span{
+    font-size: 20px;
+    font-weight: 600;
+    color: #464646;
+}
+.reportDetail .right{
+    width: 50%;
+}
+.reportDetail .right textarea{
+    width: 90%;
+    font-size: 18px;
+}
+.submitBtn{
+    width: 20%;
+    font-size: 20px;
+    padding: 1%;
+}

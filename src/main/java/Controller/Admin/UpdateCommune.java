@@ -26,17 +26,26 @@ public class UpdateCommune extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        String xaid=req.getParameter("xaid");
-        String name=req.getParameter("name");
-        String type=req.getParameter("type");
-        String maqh=req.getParameter("maqh");
+        String xaid = req.getParameter("xaid");
+        String name = req.getParameter("name");
+        String type = req.getParameter("type");
+        String maqh = req.getParameter("maqh");
 
-        if(!AddressBO.getInstance().UpdateCommune(xaid, name, type, maqh)){
+        if ("".equals(name.trim()) || "".equals(type.trim()) || "".equals(maqh.trim()) || "".equals(xaid.trim())) {
+            req.setAttribute("Mess", "Không được để trống các mục!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
             return;
         }
 
-        req.setAttribute("ListCommune", AddressBO.getInstance().getAllCommune(maqh));
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/ShowCommune.jsp");
-        requestDispatcher.forward(req, resp);
+        if (!AddressBO.getInstance().UpdateCommune(xaid, name, type, maqh)) {
+            req.setAttribute("Mess", "Cập nhật không thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+        } else {
+            req.setAttribute("Mess", "Cập nhật thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+        }
     }
 }

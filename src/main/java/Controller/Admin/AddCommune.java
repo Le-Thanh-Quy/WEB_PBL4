@@ -18,28 +18,32 @@ public class AddCommune extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         req.setAttribute("IDDistrict", req.getParameter("IDDistrict"));
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/AddCommune.jsp");
-        requestDispatcher.forward(req,resp);
+        requestDispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("name");
-        String type=req.getParameter("type");
-        String maqh=req.getParameter("IDDistrict");
+        String type = req.getParameter("type");
+        String maqh = req.getParameter("IDDistrict");
 
+        if ("".equals(name.trim()) || "".equals(type.trim()) || "".equals(maqh.trim())) {
+            req.setAttribute("Mess", "Không được để trống các mục!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+            return;
+        }
         String maid = AddressBO.getInstance().getIDCommune();
 
         XaPhuong xaPhuong = new XaPhuong(maid, name, type, maqh);
-        if(!AddressBO.getInstance().addCommune(xaPhuong)){
-            req.setCharacterEncoding("UTF-8");
-            req.setAttribute("IDDistrict", maqh);
-            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/AddCommune.jsp");
+        if (!AddressBO.getInstance().addCommune(xaPhuong)) {
+            req.setAttribute("Mess", "Thêm mới không thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
             requestDispatcher.forward(req, resp);
-        }else{
-            req.setAttribute("ListCommune", AddressBO.getInstance().getAllCommune(maqh));
-            System.out.println(AddressBO.getInstance().getAllCommune(maqh).size());
-            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/ShowCommune.jsp");
+        } else {
+            req.setAttribute("Mess", "Thêm mới thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
             requestDispatcher.forward(req, resp);
         }
     }

@@ -9,14 +9,30 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/updateAddress.css">
 </head>
 <body>
+<h3>Thêm mới Tỉnh/Thành Phố</h3>
 <form action="${pageContext.request.contextPath}/AddProvince" method="post">
-    <input type="text" name="matp" placeholder="matp" value="${IDProvince}" readonly="readonly"><br><br>
-    <input type="text" name="name" placeholder="name"><br><br>
-    <input type="text" name="type" placeholder="type"><br><br>
-    <input type="text" name="slug" placeholder="slug"><br><br>
-    <input type="submit" value="Add province">
+    <ul>
+        <li>
+            <label>Mã TP</label>
+            <input type="text" name="matp" placeholder="Mã TP" value="${IDProvince}" readonly="readonly">
+        </li>
+        <li>
+            <label>Tên Thỉnh/Thành Phố</label>
+            <input type="text" name="name" placeholder="Tên Tỉnh/Thành Phố">
+        </li>
+        <li>
+            <label>Kiểu</label>
+            <input type="text" name="type" placeholder="Kiểu">
+        </li>
+        <li>
+            <label>Slug</label>
+            <input type="text" name="slug" placeholder="slug">
+        </li>
+    </ul>
+    <input type="submit" value="Thêm mới">
 </form>
 </body>
 </html>

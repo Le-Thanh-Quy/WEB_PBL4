@@ -17,7 +17,7 @@ function loadFind() {
                 html += ' <tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.matp + '</td>' +
                     '<td>' + x.name + '</td>' +
                     '<td>' + x.type + '</td>' +
-                    '<td><a href="UpdateProvince?IDProvince=' + x.matp + '"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
+                    '<td><a onclick="OpenModalForProvince(`' + x.matp + '`)"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                     '<td><input onchange="Chosse(this)" id="cb" type="checkbox" name="cb" value="' + x.matp + '"/></td> ' +
                     '<td><button id="IDProv" type="button" onclick="loadDistrict(\'' + x.matp + '\')"><i\n' +
                     '                                class="fas fa-eye"></i> Chi tiết</button></td> </tr>';
@@ -42,7 +42,7 @@ function loadFind() {
                 html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.maqh + '</td>' +
                     '<td>' + x.name + '</td>' +
                     '<td>' + x.type + '</td>' +
-                    '<td><a href="UpdateDistrict?IDDistrict=' + x.maqh + '"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
+                    '<td><a onclick="OpenModalForDistrict(`' + x.maqh + '`)" ><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                     '<td><input type="checkbox" name="cb" value="' + x.maqh + '"/></td> ' +
                     '<td><button type="button" id="IDDistrict" onclick="loadCommune(\'' + x.maqh + '\')"><i\n' +
                     '                                class="fas fa-eye"></i> Chi tiết</button></td></tr>';
@@ -67,7 +67,7 @@ function loadFind() {
                 html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.xaid + '</td>' +
                     '<td>' + x.name + '</td>' +
                     '<td>' + x.type + '</td>' +
-                    '<td><a href=UpdateCommune?IDCommune=' + x.xaid + '><i style="color: #1877F2" class="fas fa-edit"></i></a></td>  ' +
+                    '<td><a onclick="OpenModalForCommune(`' + x.xaid + '`)"><i style="color: #1877F2" class="fas fa-edit"></i></a></td>  ' +
                     '<td><input type="checkbox" name="cb" value="' + x.xaid + '"/></td> ';
             }
             html += '</table></form>';
@@ -81,13 +81,14 @@ function loadFind() {
 }
 
 function loadDistrict(IDProv) {
+    document.getElementById("check").value = "H";
     document.getElementById("type").value = "District";
     document.getElementById("idDistrict").value = IDProv;
     const xhttp = new XMLHttpRequest();
     var table = document.getElementById("table");
     xhttp.onload = function () {
         const myObj = JSON.parse(this.responseText);
-        document.getElementById("Add").innerHTML = '<a href="AddDistrict?IDProvince=' + IDProv + '"><i class="fas fa-plus-square"></i>  Thêm Quận/Huyện</a>';
+        document.getElementById("Add").innerHTML = '<a onclick="OpenModal(`AddDistrict?IDProvince=' + IDProv + '`)"><i class="fas fa-plus-square"></i>  Thêm Quận/Huyện</a>';
         var html = '<form action="DeleteDistrict" method="post"><table><td  class="back"><a href="getProv"><i class="fas fa-angle-double-left"></i></a></td><td></td><td></td> <td><input type="hidden" name="IDProvince" value="' + IDProv + '"></td><td><input   id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
         html += '<tr><th>ID</th>' +
             '<th>Tên Quận/Huyện</th>' +
@@ -100,7 +101,7 @@ function loadDistrict(IDProv) {
             html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.maqh + '</td>' +
                 '<td>' + x.name + '</td>' +
                 '<td>' + x.type + '</td>' +
-                '<td><a href="UpdateDistrict?IDDistrict=' + x.maqh + '"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
+                '<td><a onclick="OpenModalForDistrict(`' + x.maqh + '`)"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                 '<td><input type="checkbox" name="cb" value="' + x.maqh + '"/></td> ' +
                 '<td><button  type="button" id="IDDistrict" onclick="loadCommune(\'' + x.maqh + '\')"><i\n' +
                 '                                class="fas fa-eye"></i> Chi tiết</button></td></tr>';
@@ -113,13 +114,14 @@ function loadDistrict(IDProv) {
 }
 
 function loadCommune(IDDistrict) {
+    document.getElementById("check").value = "X";
     document.getElementById("type").value = "Commune";
     document.getElementById("idCommune").value = IDDistrict;
     const xhttp = new XMLHttpRequest();
     var table = document.getElementById("table");
     xhttp.onload = function () {
         const myObj = JSON.parse(this.responseText);
-        document.getElementById("Add").innerHTML = '<a href="AddCommune?IDDistrict=' + IDDistrict + '"><i class="fas fa-plus-square"></i>  Thêm Xã/Phường</a>';
+        document.getElementById("Add").innerHTML = '<a onclick="OpenModal(`AddCommune?IDDistrict=' + IDDistrict + '`)"><i class="fas fa-plus-square"></i>  Thêm Xã/Phường</a>';
         var html = '<form action="DeleteCommune" method="post"><table><td class="back"><a onclick="loadDistrict(`' + document.getElementById("idDistrict").value + '`)"><i class="fas fa-angle-double-left"></i></a></td><td></td><td></td> <td><input type="hidden" name="IDDistrict" value="' + IDDistrict + '"></td><td><input   id="deleteBtn" type="submit" value="Xóa" ></td> <td></td>';
         html += '<tr><th>ID</th>' +
             '<th>Tên Xã/Phường</th>' +
@@ -130,7 +132,7 @@ function loadCommune(IDDistrict) {
             html += '<tr class="tag' + myObj.indexOf(x) % 2 + '"><td>' + x.xaid + '</td>' +
                 '<td>' + x.name + '</td>' +
                 '<td>' + x.type + '</td>' +
-                '<td><a href=UpdateCommune?IDCommune=' + x.xaid + '><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
+                '<td><a onclick="OpenModalForCommune(`' + x.xaid + '`)"><i style="color: #1877F2" class="fas fa-edit"></i></a></td> ' +
                 '<td><input type="checkbox" name="cb" value="' + x.xaid + '"/></td> ';
         }
         html += '</table></form>';
@@ -138,4 +140,54 @@ function loadCommune(IDDistrict) {
     }
     xhttp.open("GET", "getCommune?IDDistrict=" + IDDistrict);
     xhttp.send();
+}
+
+
+window.onclick = function (event) {
+    var myModal = document.getElementById('myModal-address');
+    if (event.target == myModal) {
+        var check = document.getElementById("check");
+        if (check.value == 'T') {
+            window.location.reload();
+        } else if (check.value == 'H') {
+            loadDistrict(document.getElementById("idDistrict").value);
+        } else if (check.value == 'X') {
+            loadCommune(document.getElementById("idCommune").value);
+        }
+        myModal.style.display = "none";
+    }
+}
+
+function OpenModal(src) {
+    document.getElementById("AddressFrame").src = src;
+    document.getElementById('myModal-address').style.display = 'block';
+}
+
+function CloseModal() {
+
+    var check = document.getElementById("check");
+    if (check.value == 'T') {
+        window.location.reload();
+    } else if (check.value == 'H') {
+        loadDistrict(document.getElementById("idDistrict").value);
+    } else if (check.value == 'X') {
+        loadCommune(document.getElementById("idCommune").value);
+    }
+    document.getElementById('myModal-address').style.display = 'none';
+}
+
+function OpenModalForProvince(id) {
+    document.getElementById("AddressFrame").src = 'UpdateProvince?IDProvince=' + id;
+    document.getElementById('myModal-address').style.display = 'block';
+
+}
+
+function OpenModalForDistrict(id) {
+    document.getElementById("AddressFrame").src = 'UpdateDistrict?IDDistrict=' + id;
+    document.getElementById('myModal-address').style.display = 'block';
+}
+
+function OpenModalForCommune(id) {
+    document.getElementById("AddressFrame").src = 'UpdateCommune?IDCommune=' + id;
+    document.getElementById('myModal-address').style.display = 'block';
 }

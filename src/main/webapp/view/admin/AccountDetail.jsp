@@ -15,7 +15,7 @@
 <body>
 
 <div class="modal">
-    <a href="ViewUserForAdmin"><i class="fas fa-arrow-left"></i></a>
+    <a onclick="window.history.back();"><i class="fas fa-arrow-left"></i></a>
     <form action="${pageContext.request.contextPath}/ViewUserForAdmin" method="post" enctype="multipart/form-data">
         <input type="hidden" name="user_txt" value="${User.getAccountID()}">
         <input type="hidden" name="userID" value="${User.getID()}">

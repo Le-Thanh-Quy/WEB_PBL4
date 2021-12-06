@@ -31,15 +31,25 @@ public class UpdateProvince extends HttpServlet {
         String type = req.getParameter("type");
         String slug = req.getParameter("slug");
 
-        if(!AddressBO.getInstance().UpdateProvince(matp, name, type, slug)){
-            req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
-            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
+        if ("".equals(name.trim()) || "".equals(type.trim()) || "".equals(slug.trim()) || "".equals(matp.trim())) {
+            req.setAttribute("Mess", "Không được để trống các mục!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
             requestDispatcher.forward(req, resp);
             return;
         }
-        req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
-        RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
-        requestDispatcher.forward(req, resp);
+
+        if (!AddressBO.getInstance().UpdateProvince(matp, name, type, slug)) {
+            req.setAttribute("Mess", "Cập nhật không thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+
+        } else {
+
+            req.setAttribute("Mess", "Cập nhật thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+        }
+
 
     }
 }

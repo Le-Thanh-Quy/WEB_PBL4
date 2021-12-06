@@ -60,9 +60,9 @@
                 <a id="addressTag" onclick="setTitle('<a href=\'\'>Trang chủ</a> > Quản lý địa chỉ')" href="getProv" target="frame" >Quản lý địa chỉ</a>
 
             </li>
-            <li onclick="document.getElementById('notificationTag').click()"><i class="fas fa-exclamation-triangle"></i>
-                <a id="notificationTag" onclick="setTitle('<a href=\'\'>Trang chủ</a> > Đăng thông báo')" >Đăng thông báo</a>
-            </li>
+<%--            <li onclick="document.getElementById('notificationTag').click()"><i class="fas fa-exclamation-triangle"></i>--%>
+<%--                <a id="notificationTag" onclick="setTitle('<a href=\'\'>Trang chủ</a> > Đăng thông báo')" >Đăng thông báo</a>--%>
+<%--            </li>--%>
         </ul>
     </div>
 
@@ -78,7 +78,7 @@
         <p id="title"><a href=''>Trang chủ</a></p>
         <a onclick="setTitle('<a href=\'\'>Trang chủ</a> > Liên hệ')" href="${pageContext.request.contextPath}/chat?myID=0" target="frame"><i class="far fa-comments"></i></a>
     </div>
-    <iframe  name="frame" frameborder="0">
+    <iframe src="${pageContext.request.contextPath}/view/admin/imageHome.jsp" name="frame" frameborder="0">
     </iframe>
 </div>
 </body>

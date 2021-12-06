@@ -29,6 +29,7 @@ public class PostDetail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("postID");
         request.setAttribute("Post" , PostBO.getInstance().getPost(Integer.parseInt(id)));
+        request.setAttribute("ListRequest" , PostBO.getInstance().getRequestWithPost(Integer.parseInt(id)));
         RequestDispatcher requestDispatcherss = request.getRequestDispatcher("/view/admin/postDetail.jsp");
         requestDispatcherss.forward(request, response);
     }

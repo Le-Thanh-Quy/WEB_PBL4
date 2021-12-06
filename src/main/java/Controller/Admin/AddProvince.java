@@ -15,8 +15,8 @@ import java.io.IOException;
 public class AddProvince extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("IDProvince",AddressBO.getInstance().getIDProvince());
-        RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/AddProvince.jsp");
+        req.setAttribute("IDProvince", AddressBO.getInstance().getIDProvince());
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/AddProvince.jsp");
         requestDispatcher.forward(req, resp);
     }
 
@@ -24,19 +24,26 @@ public class AddProvince extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("name");
-        String type=req.getParameter("type");
-        String slug=req.getParameter("slug");
+        String type = req.getParameter("type");
+        String slug = req.getParameter("slug");
 
+
+        if ("".equals(name.trim()) || "".equals(type.trim()) || "".equals(slug.trim())) {
+            req.setAttribute("Mess", "Không được để trống các mục!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+            return;
+        }
         String matp = AddressBO.getInstance().getIDProvince();
 
         Tinh tinh = new Tinh(matp, name, type, slug);
-        if(!AddressBO.getInstance().addProvince(tinh)){
-            req.setAttribute("IDProvince",AddressBO.getInstance().getIDProvince());
-            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/AddProvince.jsp");
+        if (!AddressBO.getInstance().addProvince(tinh)) {
+            req.setAttribute("Mess", "Thêm mới không thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
             requestDispatcher.forward(req, resp);
-        }else{
-            req.setAttribute("listProv", AddressBO.getInstance().getAllProv());
-            RequestDispatcher requestDispatcher =  req.getRequestDispatcher("view/admin/UIUpdateAddress.jsp");
+        } else {
+            req.setAttribute("Mess", "Thêm mới thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
             requestDispatcher.forward(req, resp);
         }
     }

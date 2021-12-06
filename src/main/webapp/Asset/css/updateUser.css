@@ -30,6 +30,7 @@ body {
     left: 1%;
     font-size: 35px;
     color: black;
+    cursor: pointer;
 }
 
 .modal ul {

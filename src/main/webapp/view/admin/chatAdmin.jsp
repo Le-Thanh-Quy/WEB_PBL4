@@ -20,7 +20,7 @@
         </div>
         <div class="search">
             <input id="searchRoomChat" type="text" placeholder="Tìm kiếm tin nhắn" value=""
-                   onkeydown="SearchRoomChat()">
+                   onkeyup="SearchRoomChat()">
             <i class="fas fa-search"></i>
         </div>
         <div class="recent_messages" id="recent_messages">

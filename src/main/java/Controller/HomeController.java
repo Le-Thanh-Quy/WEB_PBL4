@@ -29,11 +29,7 @@ public class HomeController extends HttpServlet {
 //            requestDispatcherss.forward(request, response);
 //            return;
 //        }
-        if (request.getSession().getAttribute("admin") != null) {
-            request.getSession().setAttribute("admin", "admin");
-            RequestDispatcher requestDispatcherss = request.getRequestDispatcher("admin_home");
-            requestDispatcherss.forward(request, response);
-        }
+
 
         HttpSession session = request.getSession();
         String Mess = (String) session.getAttribute("Mess");

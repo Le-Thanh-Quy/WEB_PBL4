@@ -1,0 +1,38 @@
+ul{
+    list-style: none;
+    display: block;
+    width: 90%;
+    margin: 10% auto;
+}
+
+li{
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 4%;
+}
+li label{
+    width: 41%;
+}
+li input{
+    width: 50%;
+    padding: 1%;
+    border-radius: 5px;
+}
+input[type="submit"]{
+    width: 35%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+    border-radius: 10px;
+    border: none;
+    background-color: #8d99af;
+    color: white;
+    cursor: pointer;
+}
+input[type="submit"]:hover{
+    background-color: #576a8b;
+}

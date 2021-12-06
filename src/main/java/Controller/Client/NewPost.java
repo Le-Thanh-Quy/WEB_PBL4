@@ -51,7 +51,7 @@ public class NewPost extends HttpServlet {
             String nameIMG = userID + start_newPost + end_newPost + time_newPost + date_newPost;
             post.setImage(UploadImage.getInstance().UpLoadImage(buffer , "1R7tDcyA3VsrhC96aIe26BqZxPO_fq65w" , nameIMG));
         } catch (Exception e) {
-            post.setImage("https://drive.google.com/uc?export=view&id=1gSUXHvd-7VPnSFSb0JPJjVCuh8JwKy0m");
+            post.setImage("https://drive.google.com/uc?export=view&id=1D6_ppd3c4eTf20RRSFy51mPF6t6UAZh7");
         }
 
 

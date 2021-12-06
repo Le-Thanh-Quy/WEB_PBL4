@@ -26,17 +26,26 @@ public class UpdateDistrict extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        String maqh=req.getParameter("maqh");
-        String name=req.getParameter("name");
-        String type=req.getParameter("type");
-        String matp=req.getParameter("matp");
+        String maqh = req.getParameter("maqh");
+        String name = req.getParameter("name");
+        String type = req.getParameter("type");
+        String matp = req.getParameter("matp");
 
-        if(!AddressBO.getInstance().UpdateDistrict(maqh, name, type, matp)){
+        if ("".equals(name.trim()) || "".equals(type.trim()) || "".equals(maqh.trim()) || "".equals(matp.trim())) {
+            req.setAttribute("Mess", "Không được để trống các mục!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
             return;
         }
 
-        req.setAttribute("ListDistrict", AddressBO.getInstance().getAllDistrict(matp));
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/ShowDistrict.jsp");
-        requestDispatcher.forward(req, resp);
+        if (!AddressBO.getInstance().UpdateDistrict(maqh, name, type, matp)) {
+            req.setAttribute("Mess", "Cập nhật không thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+        } else {
+            req.setAttribute("Mess", "Cập nhật thành công!");
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/admin/notification.jsp");
+            requestDispatcher.forward(req, resp);
+        }
     }
 }
