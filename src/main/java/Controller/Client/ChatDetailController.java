@@ -1,6 +1,8 @@
 package Controller.Client;
 
 
+import Model.BEAN.Chat;
+import Model.BEAN.ChatRoom;
 import Model.BO.ChatBO;
 
 import Model.BO.UploadImage;
@@ -14,9 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.websocket.Session;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet("/chatDetail")
 @MultipartConfig

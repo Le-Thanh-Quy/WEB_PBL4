@@ -16,7 +16,7 @@ import java.util.*;
 
 @ServerEndpoint(value = "/Chatroom")
 public class ChatRoomServer {
-    static Set<Session> chatRoomUser = Collections.synchronizedSet(new HashSet<Session>());
+    public static Set<Session> chatRoomUser = Collections.synchronizedSet(new HashSet<Session>());
 
 
     @OnOpen

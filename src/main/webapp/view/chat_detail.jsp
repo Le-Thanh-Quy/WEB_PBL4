@@ -179,7 +179,7 @@
 </c:if>
 
 <form class="formImg" id="formImg" action="${pageContext.request.contextPath}/chatDetail" method="post" enctype="multipart/form-data" target="sendIMG">
-    <input name="img" id="id" type="file" accept="image/*" onchange="uploadImg(event)">
+    <input onclick="this.value = '';" name="img" id="id" type="file" accept="image/*" onchange="uploadImg(event)">
     <input type="hidden" name="RoomID" value="${RoomID}">
     <input type="hidden" name="myID" value="${myID}">
 </form>
@@ -209,6 +209,32 @@
 
 <script type="text/javascript">
 
+
+    var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');//' + window.location.hostname + ' localhost:8080/WebPBL4_war_exploded
+    websocket.onopen = function (message) {
+        processOpen(message);
+    };
+    websocket.onmessage = function (message) {
+        processMessage(message);
+    };
+    websocket.onclose = function (message) {
+        processClose(message);
+    };
+
+    function processOpen(message) {
+    }
+
+    function processClose(message) {
+    }
+    function ShowTime(id) {
+        var box = document.getElementById(id);
+        box.style.display = "block";
+    }
+
+    function OffTime(id) {
+        var box = document.getElementById(id);
+        box.style.display = "none";
+    }
     function openViewIMG(id) {
         document.getElementById('viewIMG').style.display = 'block';
         document.getElementById('img_view').src = id;
@@ -238,7 +264,6 @@
 
     function closeUpIMG() {
         document.getElementById('uploadImg').style.display = 'none';
-        document.getElementById("id").value = "";
         document.getElementById('out_img').src = "";
     }
 
@@ -270,22 +295,7 @@
         }, 4000)
     }
 
-    var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');//' + window.location.hostname + ' localhost:8080/WebPBL4_war_exploded
-    websocket.onopen = function (message) {
-        processOpen(message);
-    };
-    websocket.onmessage = function (message) {
-        processMessage(message);
-    };
-    websocket.onclose = function (message) {
-        processClose(message);
-    };
 
-    function processOpen(message) {
-    }
-
-    function processClose(message) {
-    }
 
     function processMessage(message) {
         const words = message.data.split('!!##@@');
@@ -429,16 +439,6 @@
     }
     </c:if>
 
-
-    function ShowTime(id) {
-        var box = document.getElementById(id);
-        box.style.display = "block";
-    }
-
-    function OffTime(id) {
-        var box = document.getElementById(id);
-        box.style.display = "none";
-    }
 </script>
 
 </body>

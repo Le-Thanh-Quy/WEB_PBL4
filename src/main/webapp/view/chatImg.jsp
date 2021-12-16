@@ -11,16 +11,6 @@
 
 <body>
 <script type="text/javascript">
-    var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');//' + window.location.hostname + ' localhost:8080/WebPBL4_war_exploded
-    websocket.onopen = function (message) {
-        processOpen(message);
-    };
-    websocket.onmessage = function (message) {
-        processMessage(message);
-    };
-    websocket.onclose = function (message) {
-        processClose(message);
-    };
 
     function processOpen(message) {
     }
@@ -32,10 +22,20 @@
     }
 
     window.onload = ev => {
-        console.log("a");
-        if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
-            websocket.send("${imgID}" + "!!##@@${chatRoom.getID()}!!##@@${chatRoom.getMyUser().getID()}!!##@@2");
-        }
+        var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');//' + window.location.hostname + ' localhost:8080/WebPBL4_war_exploded
+        websocket.onopen = function (message) {
+            processOpen(message);
+            if (typeof websocket != 'undefined' && websocket.readyState == WebSocket.OPEN) {
+                console.log("a");
+                websocket.send("${imgID}" + "!!##@@${chatRoom.getID()}!!##@@${chatRoom.getMyUser().getID()}!!##@@2");
+            }
+        };
+        websocket.onmessage = function (message) {
+            processMessage(message);
+        };
+        websocket.onclose = function (message) {
+            processClose(message);
+        };
     }
 </script>
 
