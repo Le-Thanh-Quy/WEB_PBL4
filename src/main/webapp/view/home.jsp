@@ -255,12 +255,12 @@
                             <a
                                     <c:if test="${user_info.getID() != Post.getUser().getID()}">
                                         <c:if test="${logged == true}">
-                                            href="${pageContext.request.contextPath}/report?myID=${user_info.getID()}&theirID=${Post.getUser().getID()}"
+                                            href="${pageContext.request.contextPath}/report?myID=${user_info.getID()}&theirID=${Post.getUser().getID()}&postID=${Post.getID()}"
                                             onclick="OpenReport()"
                                             target="reportFrame"
                                         </c:if>
                                         <c:if test="${logged == false}">
-                                            onclick="OpenLogin('report' , ${Post.getUser().getID()})"
+                                            onclick="OpenLogin('report' , ${Post.getUser().getID()}); postID = ${Post.getID()};"
                                         </c:if>
                                     </c:if>
                             ><i class="fas fa-exclamation-triangle"></i> Báo Cáo</a>
@@ -353,6 +353,7 @@
                 <span class="focus-border"><i></i></span>
                 <input id="checkMessLogin" type="hidden" name="checkMessLogin" value="null">
                 <input id="checkTypeLogin" type="hidden" name="checkTypeLogin" value="null">
+                <input id="postIDReport" type="hidden" name="postIDReport" value="null">
                 <i class="fas fa-eye" id="hide_show" onclick="HideShow()"></i>
             </form>
             <button onclick="checkLogin()">Đăng Nhập</button>

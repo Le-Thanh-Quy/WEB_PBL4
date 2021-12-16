@@ -18,9 +18,11 @@ public class ReportController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String myID = request.getParameter("myID");
         String theirID = request.getParameter("theirID");
+        String postID = request.getParameter("postID");
 
         request.setAttribute("theirUser" , CommentBO.getInstance().getUserByID(Integer.parseInt(theirID)));
         request.setAttribute("myID" , myID);
+        request.setAttribute("postID" , postID);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/report.jsp");
         requestDispatcher.forward(request , response);
 
@@ -33,7 +35,9 @@ public class ReportController extends HttpServlet {
         String myID = request.getParameter("myID");
         String theirID = request.getParameter("theirID");
 
-        if(AuthBO.getInstance().addReport(myID , theirID , content)){
+        String postID = request.getParameter("postID");
+
+        if(AuthBO.getInstance().addReport(myID , theirID , content , postID)){
             response.setContentType("text/html");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().print("<br><br><br><h2>Chúng tôi đã nhận được báo cáo của bạn, chúng tôi sẽ sớm phản hồi.</h2><h2>Cảm ơn bạn đã báo cáo!</h2>");

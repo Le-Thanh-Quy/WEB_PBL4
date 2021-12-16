@@ -74,6 +74,18 @@
                                     </div>
                                 </div>
                             </c:if>
+                            <c:if test="${Mess.getType() == 2}">
+                                <div style="background-color: rgba(255,255,255,0)" class="mess_detail"
+                                     onmouseover="ShowTime(${Mess.getID()})"
+                                     onmouseleave="OffTime(${Mess.getID()})">
+                                    <p>
+                                        <img onclick="openViewIMG('${Mess.getMessenger()}')" class="chatIMG" src="${Mess.getMessenger()}"
+                                             alt=""></p>
+                                    <div class="their_time" id="${Mess.getID()}">
+                                        <p>${Mess.getTime()}</p>
+                                    </div>
+                                </div>
+                            </c:if>
 
                         </div>
                     </c:if>
@@ -86,6 +98,11 @@
                                 <c:if test="${Mess.getType() == 1}">
                                     <p>
                                         <img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker${Mess.getMessenger()}.png"
+                                             alt=""></p>
+                                </c:if>
+                                <c:if test="${Mess.getType() == 2}">
+                                    <p>
+                                        <img class="chatIMG" src="${Mess.getMessenger()}"
                                              alt=""></p>
                                 </c:if>
                             </div>
@@ -105,6 +122,18 @@
                                      onmouseleave="OffTime(${Mess.getID()})">
                                     <p>
                                         <img src="${pageContext.request.contextPath}/Asset/img/iconS/sticker${Mess.getMessenger()}.png"
+                                        ></p>
+                                    <div class="my_time" id="${Mess.getID()}">
+                                        <p>${Mess.getTime()}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${Mess.getType() == 2}">
+                                <div style="background-color: rgba(255,255,255,0)" class="mess_detail"
+                                     onmouseover="ShowTime(${Mess.getID()})"
+                                     onmouseleave="OffTime(${Mess.getID()})">
+                                    <p>
+                                        <img onclick="openViewIMG('${Mess.getMessenger()}')" class="chatIMG" src="${Mess.getMessenger()}"
                                         ></p>
                                     <div class="my_time" id="${Mess.getID()}">
                                         <p>${Mess.getTime()}</p>
@@ -137,7 +166,7 @@
 <c:if test="${chatRoom != null}">
     <div class="chat-input">
         <div class="input">
-            <i class="far fa-images"></i>
+            <i onclick="document.getElementById('id').click();" class="far fa-images"></i>
             <i onclick="StickerOn()" class="fas fa-sticky-note"></i>
             <input name="textMessage" id="textMessage" type="text" placeholder="Aa">
             <i class="fas fa-location-arrow" onclick="sendMessage()"></i>
@@ -149,11 +178,79 @@
     </div>
 </c:if>
 
+<form class="formImg" id="formImg" action="${pageContext.request.contextPath}/chatDetail" method="post" enctype="multipart/form-data" target="sendIMG">
+    <input name="img" id="id" type="file" accept="image/*" onchange="uploadImg(event)">
+    <input type="hidden" name="RoomID" value="${RoomID}">
+    <input type="hidden" name="myID" value="${myID}">
+</form>
 
-<div>
-
+<iframe src="" frameborder="0" name="sendIMG"></iframe>
+<div class="modal" id="uploadImg">
+    <div class="modal-content">
+        <span class="close" onclick="closeUpIMG()">&times;</span>
+        <img id="out_img" src="" alt="">
+        <button onclick="submitIMG();">Gửi</button>
+        <div class="formLoader" id="formLoader">
+            <ul class="formLoading">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
 </div>
+
+<div class="modal" id="viewIMG">
+    <div class="modal-content">
+        <span class="close" onclick="closeViewIMG()">&times;</span>
+        <img id="img_view" src="" alt="">
+    </div>
+</div>
+
 <script type="text/javascript">
+
+    function openViewIMG(id) {
+        document.getElementById('viewIMG').style.display = 'block';
+        document.getElementById('img_view').src = id;
+    }
+    function closeViewIMG() {
+        document.getElementById('viewIMG').style.display = 'none';
+        document.getElementById('img_view').src = "";
+    }
+    function submitIMG() {
+        document.getElementById('formImg').submit();
+        var formLoader =  document.getElementById("formLoader");
+        formLoader.style.display = "block";
+        setTimeout(function () {
+            formLoader.style.display = "none";
+            closeUpIMG();
+        } , 2000);
+    }
+    window.onclick = function (event) {
+        var myModal = document.getElementById('uploadImg');
+        var myModal1 = document.getElementById('viewIMG');
+        if (event.target == myModal) {
+            closeUpIMG();
+        }else if (event.target == myModal1) {
+            closeViewIMG();
+        }
+    };
+
+    function closeUpIMG() {
+        document.getElementById('uploadImg').style.display = 'none';
+        document.getElementById("id").value = "";
+        document.getElementById('out_img').src = "";
+    }
+
+    function uploadImg(event) {
+        document.getElementById("uploadImg").style.display = "block";
+        var output = document.getElementById('out_img');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src);
+        }
+    }
+
     function StickerOn() {
         var sticker = document.getElementById("sticker");
         if (sticker.style.display == "none") {
@@ -170,7 +267,7 @@
         textMessage.value = "";
         setTimeout(function () {
             window.location.href = "chatDetail?RoomID=Admin&myID=${myID}";
-        }, 2000)
+        }, 4000)
     }
 
     var websocket = new WebSocket('ws://' + window.location.hostname + '/Chatroom');//' + window.location.hostname + ' localhost:8080/WebPBL4_war_exploded
@@ -219,10 +316,24 @@
                     '<p>' + words[2] + '</p>' +
                     '</div>' +
                     '</div></div>';
+            }else if (words[4] == 2) {
+                list_mess.innerHTML +=
+                    ' <div class="their_mess"> ' +
+                    '<img src="${chatRoom.getTheirUser().getAvatar()}">' +
+                    '<div style="background-color: rgba(255,255,255,0)"  class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')"> <p><img onclick="openViewIMG(`'+ words[0] +'`)" class="chatIMG" src="' + words[0] + '" ></p>' +
+                    '<div class="their_time" id="' + words[3] + '">' +
+                    '<p>' + words[2] + '</p>' +
+                    '</div>' +
+                    '</div></div>';
             }
 
 
             main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
+            if(words[4] == 2){
+                setTimeout(function () {
+                    main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
+                }, 3000);
+            }
 
         } else {
             if (words[4] == 0) {
@@ -248,9 +359,27 @@
                     '<p>' + words[2] + '</p>' +
                     '</div>' +
                     ' </div></div>';
+            } else if (words[4] == 2) {
+                list_mess.innerHTML += '<div class="my_mess">' +
+
+                    '<div class="fake_mess">' +
+                    '<p><img class="chatIMG" src="' + words[0] + '" alt=""></p>' +
+                    '</div>' +
+                    '<div style="background-color: rgba(255,255,255,0)" class="mess_detail" onmouseover="ShowTime(' + words[3] + ')" onmouseleave="OffTime(' + words[3] + ')">' +
+                    '<p><img onclick="openViewIMG(`'+ words[0] +'`)" class="chatIMG" src="' + words[0] + '" ></p>' +
+                    '<div class="my_time" id="' + words[3] + '">' +
+                    '<p>' + words[2] + '</p>' +
+                    '</div>' +
+                    ' </div></div>';
             }
             main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
             document.getElementById("main_frame").scrollTo(0, document.getElementById("main_frame").scrollHeight);
+            if(words[4] == 2){
+                setTimeout(function () {
+                    main.setAttribute("style", "height:" + list_mess.getBoundingClientRect().height);
+                    document.getElementById("main_frame").scrollTo(0, document.getElementById("main_frame").scrollHeight);
+                }, 3000);
+            }
         }
 
     }

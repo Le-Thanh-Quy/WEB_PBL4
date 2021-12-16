@@ -20,6 +20,7 @@ public class LoginController extends HttpServlet {
         String pass_txt = request.getParameter("pass_txt");
         String checkTypeLogin = request.getParameter("checkTypeLogin");
         String checkMessLogin = request.getParameter("checkMessLogin");
+        String postIDReport = request.getParameter("postIDReport");
 
         int check = AuthBO.getInstance().checkLogin(user_txt, pass_txt);
 
@@ -34,6 +35,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("logged", true);
             session.setAttribute("checkTypeLogin", checkTypeLogin);
             session.setAttribute("checkMessLogin" , checkMessLogin);
+            session.setAttribute("postID" , postIDReport);
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         } else {

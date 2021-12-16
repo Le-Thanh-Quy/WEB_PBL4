@@ -38,15 +38,16 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><input style="opacity: 0;" id="deleteBtn" type="submit" value="Xóa"></td>
             <td></td>
+            <td><input style="opacity: 0;" id="deleteBtn" type="submit" value="Xóa"></td>
+
             <tr>
                 <th>ID</th>
                 <th>Tên Tỉnh/Thành Phố</th>
                 <th>Kiểu</th>
                 <th>Cập nhật thông tin</th>
-                <th>Chọn</th>
                 <th>Danh sách Quận/Huyện</th>
+                <th>Chọn</th>
             </tr>
             <c:forEach items="${listProv}" var="prov">
                 <tr class="tag${listProv.indexOf(prov)%2}">
@@ -58,13 +59,14 @@
                                 style="color: #1877F2"
                                 class="fas fa-edit"></i></a>
                     </td>
-                    <td><input onchange="Chosse(this)" id="cb" type="checkbox" name="cb" value="${prov.getMatp()}"/>
-                    </td>
                     <td>
                         <button id="IDProv" type="button" onclick="loadDistrict('${prov.getMatp()}')"><i
                                 class="fas fa-eye"></i> Chi tiết
                         </button>
                     </td>
+                    <td><input onchange="Chosse(this)" id="cb" type="checkbox" name="cb" value="${prov.getMatp()}"/>
+                    </td>
+
                 </tr>
             </c:forEach>
         </table>

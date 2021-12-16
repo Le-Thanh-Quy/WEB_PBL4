@@ -1,3 +1,4 @@
+let postID;
 function UserBlur() {
     var user_txt = document.getElementById("user_txt");
     if (user_txt.value == "") {
@@ -100,6 +101,7 @@ function HideShowR() {
 }
 let checkPage;
 let messPage;
+
 function OpenLogin(check , mess) {
 
     checkPage = check;
@@ -167,6 +169,9 @@ function checkLogin(check) {
                 if(checkPage == "report"){
                     if(messPage != null){
                         document.getElementById("checkMessLogin").value = messPage;
+                    }
+                    if(postID != null){
+                        document.getElementById("postIDReport").value = postID;
                     }
                     document.getElementById("checkTypeLogin").value = "report";
                 }

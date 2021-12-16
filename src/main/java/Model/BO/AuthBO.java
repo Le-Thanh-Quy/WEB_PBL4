@@ -126,14 +126,14 @@ public class AuthBO {
     }
 
 
-    public boolean addReport(String myID, String theirID, String content) {
+    public boolean addReport(String myID, String theirID, String content , String postID) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         int ID = Connect.getInstance().getReportID();
         if(ID == -1){
             return false;
         }
-        return  Connect.getInstance().addReport(ID , myID , theirID , content , formatter.format(date));
+        return  Connect.getInstance().addReport(ID , myID , theirID , content , formatter.format(date) , postID);
     }
 
     public String FormatDateTime(String date) {

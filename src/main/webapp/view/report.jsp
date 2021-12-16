@@ -16,6 +16,7 @@
     <textarea name="content" id="" cols="52" rows="6" placeholder="Nội dung..." ></textarea>
     <input type="hidden" name="myID" value="${myID}">
     <input type="hidden" name="theirID" value="${theirUser.getID()}">
+    <input type="hidden" name="postID" value="${postID}">
     <input type="submit" value="Báo cáo">
 </form>
 </body>

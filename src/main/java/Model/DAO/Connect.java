@@ -25,8 +25,8 @@ public class Connect {
     public Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://pbltest.cmfxmyflmata.us-east-2.rds.amazonaws.com:3306/pbl4?useUnicode=true&characterEncoding=utf-8", "admin", "adminqth");
-//            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
+//          con = DriverManager.getConnection("jdbc:mysql://pbltest.cmfxmyflmata.us-east-2.rds.amazonaws.com:3306/pbl4?useUnicode=true&characterEncoding=utf-8", "admin", "adminqth");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/pbl4", "root", "1111");
             System.out.println("Successs");
             Statement statement = con.createStatement();
         } catch (ClassNotFoundException ex) {
@@ -857,9 +857,9 @@ public class Connect {
         }
     }
 
-    public boolean addReport(int id, String myID, String theirID, String content, String format) {
+    public boolean addReport(int id, String myID, String theirID, String content, String format , String postID) {
         try {
-            String str = "INSERT INTO report VALUES ('" + id + "', '" + myID + "', '" + theirID + "', '" + content + "', '" + format + "', '0', '');";
+            String str = "INSERT INTO report VALUES ('" + id + "', '" + myID + "', '" + theirID + "', '" + content + "', '" + format + "', '0', '' , '"+postID+"');";
             Statement statement = con.createStatement();
             statement.executeUpdate(str);
             statement.close();

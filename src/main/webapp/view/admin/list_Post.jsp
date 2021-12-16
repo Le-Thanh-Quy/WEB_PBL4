@@ -16,8 +16,8 @@
     <input class="search" type="text" name="postSearch" placeholder="Tìm kiếm lịch trình"
            onfocus="this.placeholder = 'Nhập vào mã người dùng, mã bài đăng...';"
            onblur="this.placeholder = 'Tìm kiếm lịch trình';" >
-    <i class="fas fa-search"></i>
-    <input class="searchBtn" type="submit" value="Tìm kiếm">
+    <i class="fas fa-search" onclick="document.getElementById('searchPost').click();" style="cursor: pointer;"></i>
+    <input id="searchPost" type="submit" style="opacity: 0;" value="">
 </form>
 
 <table>

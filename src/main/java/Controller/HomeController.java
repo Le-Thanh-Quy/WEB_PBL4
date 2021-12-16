@@ -79,7 +79,9 @@ public class HomeController extends HttpServlet {
             if (checkMessLogin.equals(String.valueOf(user.getID()))) {
                 request.setAttribute("Mess", "Không thể báo cáo chính mình!");
             } else {
+                String postID = (String)request.getSession().getAttribute("postID");
                 request.setAttribute("reportID", checkMessLogin);
+                request.setAttribute("postID" , postID);
             }
         }
 
