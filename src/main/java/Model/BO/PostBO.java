@@ -5,6 +5,8 @@ import Model.DAO.Connect;
 import Model.DAO.ConnectAdmin;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -99,7 +101,7 @@ public class PostBO {
     }
 
     public boolean AddNewPost(Post post) {
-        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         String datetime = "";
         datetime = now.getYear() + "-" + now.getMonthValue() +
                 "-" + now.getDayOfMonth() + " " + now.getHour() +

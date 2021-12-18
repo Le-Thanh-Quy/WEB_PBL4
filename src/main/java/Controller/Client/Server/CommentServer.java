@@ -44,7 +44,7 @@ public class CommentServer {
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
 
         Comment comment = new Comment();
         comment.setPostID(Integer.parseInt(ID));
@@ -64,7 +64,7 @@ public class CommentServer {
 
     public String GetDateTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
         return formatter.format(date);
     }
 

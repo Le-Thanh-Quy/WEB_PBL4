@@ -41,7 +41,7 @@ public class RequestController extends HttpServlet {
         requestPost.setReceiverID(Integer.parseInt(receiverID));
         requestPost.setStatus(0);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
         requestPost.setDatetime(formatter.format(date));
 
         if (PostBO.getInstance().newRequest(requestPost)) {

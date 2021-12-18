@@ -128,7 +128,7 @@ public class AuthBO {
 
     public boolean addReport(String myID, String theirID, String content , String postID) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
         int ID = Connect.getInstance().getReportID();
         if(ID == -1){
             return false;

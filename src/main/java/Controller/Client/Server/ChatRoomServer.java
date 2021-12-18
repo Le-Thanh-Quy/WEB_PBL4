@@ -51,7 +51,7 @@ public class ChatRoomServer {
         }
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
 
         Chat chat = new Chat();
         chat.setChatRoomID(Integer.parseInt(ID));
@@ -74,7 +74,7 @@ public class ChatRoomServer {
 
     public String GetDateTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy 'lúc' HH:mm");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
         return formatter.format(date);
     }
 

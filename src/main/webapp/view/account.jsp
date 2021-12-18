@@ -81,7 +81,9 @@
         </div>
     </div>
     <div class="frameInfo-2">
-        <h1>${user.getName()}</h1>
+        <h1 style="position: relative">${user.getName()}<c:if test="${myAccount.getID() != user.getID()}"> <a style=" margin-left: 1%; position: absolute; top: 0"
+                    href="chat?myID=${myAccount.getID()}&theirID=${user.getID()}"
+        ><i class="far fa-comment"></i></a></c:if></h1>
         <h3>${user.getStatus()}</h3>
         <div class="task-Info">
             <p class="active-info" id="post-info" onclick="ChangePage(1)">Bài Viết</p>

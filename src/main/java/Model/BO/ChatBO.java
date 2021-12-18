@@ -71,7 +71,7 @@ public class ChatBO {
 
     public String GetDateTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date date = new Date(System.currentTimeMillis());
+        Date date = new Date(System.currentTimeMillis() + 25200000);
         return formatter.format(date);
     }
 
