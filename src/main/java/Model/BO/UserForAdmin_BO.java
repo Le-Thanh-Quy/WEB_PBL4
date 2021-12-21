@@ -3,6 +3,7 @@ package Model.BO;
 import Model.BEAN.User;
 import Model.DAO.Connect;
 import Model.DAO.ConnectAdmin;
+import org.apache.commons.codec.digest.DigestUtils;
 
 
 import java.util.ArrayList;
@@ -46,7 +47,8 @@ public class UserForAdmin_BO {
     }
 
     public boolean AddAccount(String userName, String passWord, String permission) {
-        return ConnectAdmin.getInstance().AddAccount(userName, passWord, permission);
+        String md5Hex = DigestUtils.md5Hex(passWord).toUpperCase();
+        return ConnectAdmin.getInstance().AddAccount(userName, md5Hex, permission);
     }
 
     public int getIDUser() {

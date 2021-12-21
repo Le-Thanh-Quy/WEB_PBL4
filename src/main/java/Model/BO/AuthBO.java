@@ -5,6 +5,7 @@ import Model.BEAN.Interact;
 import Model.BEAN.Report;
 import Model.BEAN.User;
 import Model.DAO.Connect;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,11 +25,13 @@ public class AuthBO {
 
     public int checkSignUp(String Username) {
 
+
         return Connect.getInstance().checkSignUp(Username);
     }
 
     public int checkLogin(String Username, String Password) {
-        return Connect.getInstance().checkLogin(Username, Password);
+        String md5Hex = DigestUtils.md5Hex(Password).toUpperCase();
+        return Connect.getInstance().checkLogin(Username, md5Hex);
     }
 
     public boolean AddUser(User user) {
@@ -57,7 +60,6 @@ public class AuthBO {
 
 
     public Assess GetAssess(int ID) {
-
         return Connect.getInstance().GetAssess(ID);
     }
 
@@ -67,7 +69,8 @@ public class AuthBO {
     }
 
     public boolean Register(String Username, String PassWord) {
-        return Connect.getInstance().Register(Username, PassWord);
+        String md5Hex = DigestUtils.md5Hex(PassWord).toUpperCase();
+        return Connect.getInstance().Register(Username, md5Hex);
     }
 
     public boolean Assess(String rank, String myID, String theirID) {
@@ -157,10 +160,12 @@ public class AuthBO {
     }
 
     public boolean changePassWord(String userName, String passWord, String newPassWord) {
-        if(Connect.getInstance().checkLogin(userName , passWord) == -1){
+        String md5Hex = DigestUtils.md5Hex(passWord).toUpperCase();
+        String md5Hex_new = DigestUtils.md5Hex(newPassWord).toUpperCase();
+        if(Connect.getInstance().checkLogin(userName , md5Hex) == -1){
             return false;
         }else{
-            return Connect.getInstance().changePassWord(userName , passWord , newPassWord);
+            return Connect.getInstance().changePassWord(userName , md5Hex , md5Hex_new);
         }
     }
 }
